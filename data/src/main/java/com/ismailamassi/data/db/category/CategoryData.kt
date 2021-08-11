@@ -7,7 +7,7 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 
 @Entity(tableName = DatabaseTablesNames.CATEGORY_TABLE)
 data class CategoryData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "avatar") val avatar: String,

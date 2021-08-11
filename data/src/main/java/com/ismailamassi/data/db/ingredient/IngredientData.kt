@@ -7,7 +7,7 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 
 @Entity(tableName = DatabaseTablesNames.INGREDIENT_TABLE)
 data class IngredientData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "qty") val qty: String,

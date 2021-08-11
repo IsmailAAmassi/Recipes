@@ -1,3 +1,27 @@
 package com.ismailamassi.domain.model.favourite
 
-data class FavouriteDto(var recipeId:Long)
+import android.os.Parcel
+import android.os.Parcelable
+
+data class FavouriteDto(var recipeId:Long): Parcelable {
+    constructor(parcel: Parcel) : this(recipeId = parcel.readLong())
+
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(recipeId)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<FavouriteDto> {
+        override fun createFromParcel(parcel: Parcel): FavouriteDto {
+            return FavouriteDto(parcel)
+        }
+
+        override fun newArray(size: Int): Array<FavouriteDto?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

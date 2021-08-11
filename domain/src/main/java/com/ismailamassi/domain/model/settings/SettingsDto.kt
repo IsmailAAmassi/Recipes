@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 data class SettingsDto(
     var id: Long?,
-    var currentUserId: String?,
+    var currentUserId: Long?,
+    var currentUserToken: String?,
     var theme: Int?,
     var language: String?,
     var isFirstTime: Boolean?,
@@ -13,17 +14,17 @@ data class SettingsDto(
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),
-        currentUserId = parcel.readString(),
+        currentUserId = parcel.readLong(),
+        currentUserToken = parcel.readString(),
         theme = parcel.readInt(),
         language = parcel.readString(),
         isFirstTime = parcel.readByte() != 0.toByte(),
         isLogin = parcel.readByte() != 0.toByte(),
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
-        parcel.writeString(currentUserId)
+        parcel.writeLong(currentUserId!!)
         parcel.writeValue(theme)
         parcel.writeString(language)
     }

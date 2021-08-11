@@ -2,13 +2,12 @@ package com.ismailamassi.data.repository
 
 import com.ismailamassi.data.db.settings.SettingsDao
 import com.ismailamassi.data.db.settings.SettingsData
-import com.ismailamassi.data.mapper.toSettingsData
-import com.ismailamassi.data.mapper.toSettingsDto
+import com.ismailamassi.data.mapper.toData
+import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.domain.model.settings.SettingsDto
 import com.ismailamassi.domain.repository.SettingsRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -23,12 +22,13 @@ class SettingsRepositoryImpl @Inject constructor(
             try {
                 val setting = settingsDao.get(0L)
                 if (setting != null) {
-                    emit(setting.toSettingsDto())
+                    emit(setting.toDto())
                 } else {
                     settingsDao.insert(
                         SettingsData(
                             id = 0L,
-                            currentUserId = "",
+                            currentUserId = 0L,
+                            currentUserToken = "",
                             theme = 0,
                             language = "",
                             isFirstTime = true,
@@ -37,7 +37,7 @@ class SettingsRepositoryImpl @Inject constructor(
                     )
                     val insertedSetting = settingsDao.get(0L)
                     if (insertedSetting != null) {
-                        emit(insertedSetting.toSettingsDto())
+                        emit(insertedSetting.toDto())
                     }
                 }
             } catch (e: Exception) {
@@ -48,14 +48,35 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun update(settingsDto: SettingsDto): Flow<DataState<SettingsDto>> =
         flow {
             emit(DataState.Loading)
-            delay(1500)
-            println("update settingsDto$settingsDto")
             try {
-                settingsDao.update(settingsDto.toSettingsData())
+                settingsDao.update(settingsDto.toData())
                 emit(DataState.Success(settingsDto))
             } catch (e: Exception) {
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
 
+    override suspend fun updateCurrentUserId(currentUserId: Long): Flow<DataState<SettingsDto>> =
+        flow {
+            emit(DataState.Loading)
+            try {
+                getCurrentSettings().collect {settings->
+                    settingsDao.update(settings.apply { this.currentUserId = currentUserId }.toData())
+                }
+            } catch (e: Exception) {
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun updateCurrentUserId(currentUserToken: String): Flow<DataState<SettingsDto>> =
+        flow {
+            emit(DataState.Loading)
+            try {
+                getCurrentSettings().collect {settings->
+                    settingsDao.update(settings.apply { this.currentUserToken = currentUserToken }.toData())
+                }
+            } catch (e: Exception) {
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
 }

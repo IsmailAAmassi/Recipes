@@ -7,14 +7,17 @@ import com.ismailamassi.data.mapper.toDtoList
 import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.repository.StepRepository
 import com.ismailamassi.domain.utils.DataState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class StepRepositoryImpl @Inject constructor(
     private val stepDao: StepDao
 ) : StepRepository {
-    override suspend fun create(stepDto: StepDto): Flow<DataState<Long>> = flow {
+    override suspend fun create(stepDto: StepDto): Flow<DataState<Long>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -23,9 +26,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun update(stepDto: StepDto): Flow<DataState<Int>> = flow {
+    override suspend fun update(stepDto: StepDto): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -34,9 +38,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun delete(stepId: Long): Flow<DataState<Int>> = flow {
+    override suspend fun delete(stepId: Long): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -45,9 +50,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun get(id: Long): Flow<DataState<StepDto>> = flow {
+    override suspend fun get(id: Long): Flow<DataState<StepDto>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = stepDao.get(id)
@@ -60,9 +66,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun createList(stepsList: List<StepDto>): Flow<DataState<Int>> = flow {
+    override suspend fun createList(stepsList: List<StepDto>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -71,9 +78,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun updateList(stepsList: List<StepDto>): Flow<DataState<Int>> = flow {
+    override suspend fun updateList(stepsList: List<StepDto>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -82,9 +90,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteList(stepsIds: List<Long>): Flow<DataState<Int>> = flow {
+    override suspend fun deleteList(stepsIds: List<Long>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -93,9 +102,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getList(stepsIds: List<Long>): Flow<DataState<List<StepDto>>> = flow {
+    override suspend fun getList(stepsIds: List<Long>): Flow<DataState<List<StepDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = stepDao.get(stepsIds)
@@ -108,9 +118,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAll(): Flow<DataState<List<StepDto>>> = flow {
+    override suspend fun getAll(): Flow<DataState<List<StepDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = stepDao.get()
@@ -123,9 +134,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteAll(): Flow<DataState<Int>> = flow {
+    override suspend fun deleteAll(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -134,9 +146,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getCount(): Flow<DataState<Int>> = flow {
+    override suspend fun getCount(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = stepDao.count()
@@ -145,9 +158,10 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun search(query: String): Flow<DataState<List<StepDto>>> = flow {
+    override suspend fun search(query: String): Flow<DataState<List<StepDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = stepDao.search(query)
@@ -160,5 +174,5 @@ class StepRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }

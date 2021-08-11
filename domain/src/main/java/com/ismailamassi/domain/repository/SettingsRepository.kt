@@ -10,4 +10,7 @@ interface SettingsRepository {
 
     suspend fun update(settingsDto: SettingsDto): Flow<DataState<SettingsDto>>
 
+    suspend fun updateCurrentUserId(currentUserId: Long): Flow<DataState<SettingsDto>>
+    suspend fun updateCurrentUserId(currentUserToken: String): Flow<DataState<SettingsDto>>
+
 }

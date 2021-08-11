@@ -7,7 +7,7 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 
 @Entity(tableName = DatabaseTablesNames.RECIPE_TABLE)
 data class RecipeData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "publisher_id") val publisherId: String,

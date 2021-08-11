@@ -7,15 +7,18 @@ import com.ismailamassi.data.mapper.toDtoList
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.repository.IngredientRepository
 import com.ismailamassi.domain.utils.DataState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class IngredientRepositoryImpl @Inject constructor(
     private val ingredientDao: IngredientDao
 ) : IngredientRepository {
 
-    override suspend fun create(ingredientDto: IngredientDto): Flow<DataState<Long>> = flow {
+    override suspend fun create(ingredientDto: IngredientDto): Flow<DataState<Long>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -24,9 +27,10 @@ class IngredientRepositoryImpl @Inject constructor(
             emit(DataState.Error(e))
         }
 
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun update(ingredientDto: IngredientDto): Flow<DataState<Int>> = flow {
+    override suspend fun update(ingredientDto: IngredientDto): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -34,9 +38,10 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun delete(ingredientId: Long): Flow<DataState<Int>> = flow {
+    override suspend fun delete(ingredientId: Long): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -44,9 +49,10 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun get(id: Long): Flow<DataState<IngredientDto>> = flow {
+    override suspend fun get(id: Long): Flow<DataState<IngredientDto>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = ingredientDao.get(id)
@@ -59,7 +65,7 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun createList(ingredientsList: List<IngredientDto>): Flow<DataState<Int>> =
         flow {
@@ -70,7 +76,7 @@ class IngredientRepositoryImpl @Inject constructor(
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
     override suspend fun updateList(ingredientsList: List<IngredientDto>): Flow<DataState<Int>> =
         flow {
@@ -81,9 +87,10 @@ class IngredientRepositoryImpl @Inject constructor(
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteList(ingredientsIds: List<Long>): Flow<DataState<Int>> = flow {
+    override suspend fun deleteList(ingredientsIds: List<Long>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -91,7 +98,7 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun getList(ingredientsIds: List<Long>): Flow<DataState<List<IngredientDto>>> =
         flow {
@@ -107,9 +114,10 @@ class IngredientRepositoryImpl @Inject constructor(
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAll(): Flow<DataState<List<IngredientDto>>> = flow {
+    override suspend fun getAll(): Flow<DataState<List<IngredientDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = ingredientDao.get()
@@ -122,9 +130,10 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteAll(): Flow<DataState<Int>> = flow {
+    override suspend fun deleteAll(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -132,9 +141,10 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getCount(): Flow<DataState<Int>> = flow {
+    override suspend fun getCount(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = ingredientDao.count()
@@ -142,9 +152,10 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun search(query: String): Flow<DataState<List<IngredientDto>>> = flow {
+    override suspend fun search(query: String): Flow<DataState<List<IngredientDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = ingredientDao.search(query)
@@ -157,7 +168,7 @@ class IngredientRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
 
 }

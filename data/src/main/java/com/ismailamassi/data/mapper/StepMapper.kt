@@ -6,7 +6,7 @@ import com.ismailamassi.domain.model.recipe.StepDto
 fun StepDto.toData() = StepData(
     id = id,
     order = order,
-    description = description,
+    description = description?:"",
     recipeId = recipeId,
 )
 

@@ -5,9 +5,9 @@ import com.ismailamassi.domain.model.recipe.IngredientDto
 
 fun IngredientDto.toData() = IngredientData(
     id = id,
-    name = name,
-    qty = qty,
-    unit = unit,
+    name = name?:"",
+    qty = qty?:"",
+    unit = unit?:"",
     recipeId = recipeId,
 )
 

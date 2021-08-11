@@ -6,15 +6,18 @@ import com.ismailamassi.data.mapper.toData
 import com.ismailamassi.domain.model.favourite.FavouriteDto
 import com.ismailamassi.domain.repository.FavouriteRepository
 import com.ismailamassi.domain.utils.DataState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class FavouriteRepositoryImpl @Inject constructor(
     private val favouriteDao: FavouriteDao
 ) : FavouriteRepository {
 
-    override suspend fun create(favouriteDto: FavouriteDto): Flow<DataState<Long>> = flow {
+    override suspend fun create(favouriteDto: FavouriteDto): Flow<DataState<Long>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = favouriteDao.insert(favouriteDto.toData())
@@ -27,9 +30,10 @@ class FavouriteRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun delete(favouriteDto: FavouriteDto): Flow<DataState<Int>> = flow {
+    override suspend fun delete(favouriteDto: FavouriteDto): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = favouriteDao.delete(favouriteDto.recipeId)
@@ -42,5 +46,5 @@ class FavouriteRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }

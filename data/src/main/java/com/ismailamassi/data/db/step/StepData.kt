@@ -7,7 +7,7 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 
 @Entity(tableName = DatabaseTablesNames.STEP_TABLE)
 data class StepData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "order") val order: Int,
     @ColumnInfo(name = "description") val description: String,

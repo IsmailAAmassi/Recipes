@@ -7,7 +7,7 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 
 @Entity(tableName = DatabaseTablesNames.TIP_TABLE)
 data class TipData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "label") val label: String,
 )

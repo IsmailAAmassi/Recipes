@@ -9,7 +9,8 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 data class SettingsData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
-    @ColumnInfo(name = "current_user_id") val currentUserId: String,
+    @ColumnInfo(name = "current_user_id") val currentUserId: Long,
+    @ColumnInfo(name = "current_user_token") val currentUserToken: String,
     @ColumnInfo(name = "theme") val theme: Int,
     @ColumnInfo(name = "language") val language: String,
     @ColumnInfo(name = "is_first_time") val isFirstTime: Boolean,

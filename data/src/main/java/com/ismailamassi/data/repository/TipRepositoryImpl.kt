@@ -7,15 +7,18 @@ import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.repository.TipRepository
 import com.ismailamassi.domain.utils.DataState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class TipRepositoryImpl @Inject constructor(
     private val tipDao: TipDao
 ) : TipRepository {
 
-    override suspend fun create(tipDto: TipDto): Flow<DataState<Long>> = flow {
+    override suspend fun create(tipDto: TipDto): Flow<DataState<Long>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -23,9 +26,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun update(tipDto: TipDto): Flow<DataState<Int>> = flow {
+    override suspend fun update(tipDto: TipDto): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -33,9 +37,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun delete(tipId: Long): Flow<DataState<Int>> = flow {
+    override suspend fun delete(tipId: Long): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -43,9 +48,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun get(id: Long): Flow<DataState<TipDto>> = flow {
+    override suspend fun get(id: Long): Flow<DataState<TipDto>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.get(id)
@@ -58,9 +64,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun createList(tipsList: List<TipDto>): Flow<DataState<Int>> = flow {
+    override suspend fun createList(tipsList: List<TipDto>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -68,9 +75,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun updateList(tipsList: List<TipDto>): Flow<DataState<Int>> = flow {
+    override suspend fun updateList(tipsList: List<TipDto>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -78,9 +86,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteList(tipsIds: List<Long>): Flow<DataState<Int>> = flow {
+    override suspend fun deleteList(tipsIds: List<Long>): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -88,9 +97,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getList(tipsIds: List<Long>): Flow<DataState<List<TipDto>>> = flow {
+    override suspend fun getList(tipsIds: List<Long>): Flow<DataState<List<TipDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.get(tipsIds)
@@ -103,9 +113,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAll(): Flow<DataState<List<TipDto>>> = flow {
+    override suspend fun getAll(): Flow<DataState<List<TipDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.get()
@@ -118,9 +129,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteAll(): Flow<DataState<Int>> = flow {
+    override suspend fun deleteAll(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -128,9 +140,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getCount(): Flow<DataState<Int>> = flow {
+    override suspend fun getCount(): Flow<DataState<Int>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.count()
@@ -139,9 +152,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun search(query: String): Flow<DataState<List<TipDto>>> = flow {
+    override suspend fun search(query: String): Flow<DataState<List<TipDto>>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.search(query)
@@ -154,9 +168,10 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getRandomTip(): Flow<DataState<TipDto>> = flow {
+    override suspend fun getRandomTip(): Flow<DataState<TipDto>> =
+        flow {
         try {
             emit(DataState.Loading)
             val result = tipDao.getRandom()
@@ -169,5 +184,5 @@ class TipRepositoryImpl @Inject constructor(
             e.printStackTrace()
             emit(DataState.Error(e))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }

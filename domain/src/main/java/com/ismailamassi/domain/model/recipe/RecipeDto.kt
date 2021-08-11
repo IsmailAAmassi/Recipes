@@ -2,36 +2,45 @@ package com.ismailamassi.domain.model.recipe
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 data class RecipeDto(
-    var id: Long,
-    var title: String?,
-    var publisherId: String?,
-    var featuredImage: String?,
-    var videoURL: String?,
-    var likeCount: Int,
-    var categoryId: Long,
-    var ingredients: List<IngredientDto>,
-    var steps: List<StepDto>,
+    @SerializedName("id")var id: Long,
+    @SerializedName("title")var title: String?,
+    @SerializedName("publisherId")var publisherId: String?,
+    @SerializedName("featuredImage")var featuredImage: String?,
+    @SerializedName("videoURL")var videoURL: String?,
+    @SerializedName("likeCount")var likeCount: Int,
+    @SerializedName("categoryId")var categoryId: Long,
+    var ingredients: List<IngredientDto>?,
+    var steps: List<StepDto>?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readLong(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readLong(),
-        TODO("ingredients"),
-        TODO("steps")
+        id = parcel.readLong(),
+        title = parcel.readString(),
+        publisherId = parcel.readString(),
+        featuredImage = parcel.readString(),
+        videoURL = parcel.readString(),
+        likeCount = parcel.readInt(),
+        categoryId = parcel.readLong(),
+        ingredients = parcel.createTypedArrayList(IngredientDto)?.toList() ?: listOf(),
+        steps = parcel.createTypedArrayList(StepDto)?.toList() ?: listOf()
     )
 
-    override fun describeContents(): Int {
-        TODO("Not yet implemented")
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeString(title)
+        parcel.writeString(publisherId)
+        parcel.writeString(featuredImage)
+        parcel.writeString(videoURL)
+        parcel.writeInt(likeCount)
+        parcel.writeLong(categoryId)
+        parcel.writeTypedList(ingredients)
+        parcel.writeTypedList(steps)
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("Not yet implemented")
+    override fun describeContents(): Int {
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<RecipeDto> {
@@ -43,4 +52,5 @@ data class RecipeDto(
             return arrayOfNulls(size)
         }
     }
+
 }

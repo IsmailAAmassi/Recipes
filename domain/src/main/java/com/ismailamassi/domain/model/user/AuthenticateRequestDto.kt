@@ -5,20 +5,16 @@ import android.os.Parcelable
 
 data class AuthenticateRequestDto(
     var password: String? = "",
-    var rememberMe: Boolean? = false,
-    var username: String? = "",
+    var email: String? = "",
 ) : Parcelable {
-
     constructor(parcel: Parcel) : this(
         password = parcel.readString(),
-        rememberMe = parcel.readByte() != 0.toByte(),
-        username = parcel.readString(),
+        email = parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(password)
-        parcel.writeByte(if (rememberMe!!) 1 else 0)
-        parcel.writeString(username)
+        parcel.writeString(email)
     }
 
     override fun describeContents(): Int {
@@ -34,4 +30,5 @@ data class AuthenticateRequestDto(
             return arrayOfNulls(size)
         }
     }
+
 }

@@ -5,8 +5,8 @@ import com.ismailamassi.domain.model.category.CategoryDto
 
 fun CategoryDto.toData() = CategoryData(
     id = id,
-    title = title,
-    avatar = avatar
+    title = title?:"",
+    avatar = avatar?:""
 )
 
 fun CategoryData.toDto(recipesCount: Int) = CategoryDto(
