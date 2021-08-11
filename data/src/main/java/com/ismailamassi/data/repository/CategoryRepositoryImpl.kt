@@ -1,9 +1,13 @@
 package com.ismailamassi.data.repository
 
+import com.ismailamassi.data.api.ApiErrorName
+import com.ismailamassi.data.api.category.CategoryApi
 import com.ismailamassi.data.db.DatabaseErrorName
 import com.ismailamassi.data.db.category.CategoryDao
 import com.ismailamassi.data.db.recipe.RecipeDao
+import com.ismailamassi.data.mapper.toData
 import com.ismailamassi.data.mapper.toDto
+import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.repository.CategoryRepository
@@ -16,36 +20,59 @@ import javax.inject.Inject
 
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao,
+    private val categoryApi: CategoryApi,
     private val recipeDao: RecipeDao
 ) : CategoryRepository {
 
-    override suspend fun create(categoryDto: CategoryDto): Flow<DataState<Long>> =
+    override suspend fun create(categoryDto: CategoryDto): Flow<DataState<CategoryDto>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                val apiResult = categoryApi.create("", categoryDto)
+                val dbResult = categoryDao.insert(categoryDto.toData())
+                if (dbResult != DatabaseErrorName.INSERT_ERROR_CODE) {
+                    emit(DataState.Success(apiResult))
+                } else {
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun update(categoryDto: CategoryDto): Flow<DataState<Int>> =
+    override suspend fun update(categoryDto: CategoryDto): Flow<DataState<CategoryDto>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                val apiResult = categoryApi.update("", categoryDto)
+                val dbResult = categoryDao.update(categoryDto.toData())
+                if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
+                    emit(DataState.Success(apiResult))
+                } else {
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_UPDATE)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun delete(categoryId: Long): Flow<DataState<Int>> =
+    override suspend fun delete(categoryId: Long): Flow<DataState<CategoryDto>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                val apiResult = categoryApi.delete("", categoryId)
+                val dbResult = categoryDao.delete(categoryId)
+                if (apiResult != null) {
+                    if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
+                        emit(DataState.Success(apiResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.ERROR_DELETE)))
+                    }
+                } else {
+                    emit(DataState.Error(Exception(ApiErrorName.ERROR_DELETE)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
@@ -69,33 +96,87 @@ class CategoryRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun createList(categoriesList: List<CategoryDto>): Flow<DataState<Int>> =
+    override suspend fun createList(
+        categoriesList: List<CategoryDto>,
+        isUserDoAction: Boolean
+    ): Flow<DataState<List<Long>>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                // IF USER DO ACTION SEND TO SERVER
+                val apiStatus = if (isUserDoAction) {
+                    val apiResult = categoryApi.createList("", categoriesList)
+                    categoriesList.size == apiResult.size
+                } else true
+
+                if (apiStatus) {
+                    val dbResult = categoryDao.insert(categoriesList.toListData())
+                    if (dbResult.size == categoriesList.size) {
+                        emit(DataState.Success(dbResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_INSERT)))
+                    }
+                }else{
+                    emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun updateList(categoriesList: List<CategoryDto>): Flow<DataState<Int>> =
+    override suspend fun updateList(
+        categoriesList: List<CategoryDto>,
+        isUserDoAction: Boolean
+    ): Flow<DataState<Int>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                // IF USER DO ACTION SEND TO SERVER
+                val apiStatus = if (isUserDoAction) {
+                    val apiResult = categoryApi.updateList("", categoriesList)
+                    categoriesList.size == apiResult.size
+                } else true
+
+                if (apiStatus) {
+                    val dbResult = categoryDao.update(categoriesList.toListData())
+                    if (dbResult == categoriesList.size) {
+                        emit(DataState.Success(dbResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_UPDATE)))
+                    }
+                }else{
+                    emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_UPDATE)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteList(categoriesIds: List<Long>): Flow<DataState<Int>> =
+    override suspend fun deleteList(
+        categoriesIds: List<Long>,
+        isUserDoAction: Boolean
+    ): Flow<DataState<Int>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                // IF USER DO ACTION SEND TO SERVER
+                val apiStatus = if (isUserDoAction) {
+                    val apiResult = categoryApi.deleteList("", categoriesIds)
+                    categoriesIds.size == apiResult.size
+                } else true
+
+                if (apiStatus) {
+                    val dbResult = categoryDao.delete(categoriesIds)
+                    if (dbResult == categoriesIds.size) {
+                        emit(DataState.Success(dbResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                    }
+                }else{
+                    emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
@@ -140,11 +221,27 @@ class CategoryRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun deleteAll(): Flow<DataState<Int>> =
+    override suspend fun deleteAll(isUserDoAction: Boolean): Flow<DataState<Int>> =
         flow {
             try {
                 emit(DataState.Loading)
-                // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
+                // IF USER DO ACTION SEND TO SERVER
+                val apiStatus = if (isUserDoAction) {
+                    val apiResult = categoryApi.deleteAll("")
+                    apiResult.isNotEmpty()
+                } else true
+
+                if (apiStatus) {
+                    val dbResult = categoryDao.drop()
+                    val remaining = categoryDao.count()
+                    if (remaining == 0) {
+                        emit(DataState.Success(dbResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                    }
+                }else{
+                    emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))

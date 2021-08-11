@@ -40,7 +40,7 @@ class UserRepositoryImpl @Inject constructor(
                         emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
                     }
                 } else {
-                    emit(DataState.Error(Exception("")))
+                    emit(DataState.Error(Exception("Login Failed")))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -26,8 +26,8 @@ fun RecipeData.toDto(
     videoURL = videoURL,
     likeCount = likeCount,
     categoryId = categoryId,
-    ingredients = ingredients.toDtoList(),
-    steps = steps.toDtoList(),
+    ingredients = ingredients.toListDto(),
+    steps = steps.toListDto(),
 )
 
 fun List<RecipeDto>.toListDate() = this.map { it.toData() }

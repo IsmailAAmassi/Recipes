@@ -21,8 +21,8 @@ interface IngredientApi {
     @DELETE("${INGREDIENT_TABLE}/{id}")
     suspend fun delete(
         @Header("Authorization") token: String,
-        @Path("id") id: String
-    ): IngredientDto
+        @Path("id") id: Long
+    ): IngredientDto?
 
     @GET("${INGREDIENT_TABLE}/{id}")
     suspend fun get(
@@ -33,23 +33,29 @@ interface IngredientApi {
     @POST("${INGREDIENT_TABLE}/list")
     suspend fun createList(
         @Header("Authorization") token: String,
-        @Body goalList: List<IngredientDto>,
+        @Body ingredientsList: List<IngredientDto>,
     ): List<IngredientDto>
 
     @PUT("${INGREDIENT_TABLE}/list")
     suspend fun updateList(
         @Header("Authorization") token: String,
-        @Body goalList: List<IngredientDto>,
+        @Body ingredientsList: List<IngredientDto>,
     ): List<IngredientDto>
 
     @DELETE("${INGREDIENT_TABLE}/list")
     suspend fun deleteList(
         @Header("Authorization") token: String,
-        @Body goalList: List<IngredientDto>,
+        @Body ingredientsList: List<Long>,
     ): List<IngredientDto>
 
     @GET(INGREDIENT_TABLE)
     suspend fun getAll(
         @Header("Authorization") token: String,
     ): List<IngredientDto>
+
+    @DELETE(INGREDIENT_TABLE)
+    suspend fun deleteAll(
+        @Header("Authorization") token: String,
+    ): List<IngredientDto>
+
 }

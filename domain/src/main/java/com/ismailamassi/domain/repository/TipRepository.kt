@@ -1,31 +1,43 @@
 package com.ismailamassi.domain.repository
 
+import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface TipRepository {
-    suspend fun create(tipDto: TipDto): Flow<DataState<Long>>
+    suspend fun create(tipDto: TipDto): Flow<DataState<TipDto>>
 
-    suspend fun update(tipDto: TipDto): Flow<DataState<Int>>
+    suspend fun update(tipDto: TipDto): Flow<DataState<TipDto>>
 
-    suspend fun delete(tipId: Long): Flow<DataState<Int>>
+    suspend fun delete(tipId: Long): Flow<DataState<TipDto>>
 
     suspend fun get(id: Long): Flow<DataState<TipDto>>
 
 
-    suspend fun createList(tipsList: List<TipDto>): Flow<DataState<Int>>
+    suspend fun createList(
+        tipsList: List<TipDto>,
+        isUserDoAction: Boolean = false
+    ): Flow<DataState<List<Long>>>
 
-    suspend fun updateList(tipsList: List<TipDto>): Flow<DataState<Int>>
+    suspend fun updateList(
+        tipsList: List<TipDto>,
+        isUserDoAction: Boolean = false
+    ): Flow<DataState<Int>>
 
-    suspend fun deleteList(tipsIds: List<Long>): Flow<DataState<Int>>
+    suspend fun deleteList(
+        tipsIds: List<Long>,
+        isUserDoAction: Boolean = false
+    ): Flow<DataState<Int>>
 
     suspend fun getList(tipsIds: List<Long>): Flow<DataState<List<TipDto>>>
 
 
     suspend fun getAll(): Flow<DataState<List<TipDto>>>
 
-    suspend fun deleteAll(): Flow<DataState<Int>>
+    suspend fun deleteAll(
+        isUserDoAction: Boolean = false
+    ): Flow<DataState<Int>>
 
     suspend fun getCount(): Flow<DataState<Int>>
 

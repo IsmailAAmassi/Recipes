@@ -19,5 +19,5 @@ fun IngredientData.toDto() = IngredientDto(
     recipeId = recipeId,
 )
 
-fun List<IngredientDto>.toDataList() = this.map { it.toData()}
-fun List<IngredientData>.toDtoList() = this.map { it.toDto() }
+fun List<IngredientDto>.toListData() = this.map { it.toData()}
+fun List<IngredientData>.toListDto() = this.map { it.toDto() }

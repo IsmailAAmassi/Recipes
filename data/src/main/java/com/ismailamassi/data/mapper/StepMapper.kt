@@ -17,5 +17,5 @@ fun StepData.toDto() = StepDto(
     recipeId = recipeId,
 )
 
-fun List<StepDto>.toDataList() = this.map { it.toData() }
-fun List<StepData>.toDtoList() = this.map { it.toDto() }
+fun List<StepDto>.toListData() = this.map { it.toData() }
+fun List<StepData>.toListDto() = this.map { it.toDto() }
