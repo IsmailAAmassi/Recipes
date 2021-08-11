@@ -81,7 +81,7 @@ class CategoryRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun deleteList(categoriesIds: List<String>): Flow<DataState<Int>> = flow {
+    override suspend fun deleteList(categoriesIds: List<Long>): Flow<DataState<Int>> = flow {
         try {
             emit(DataState.Loading)
             // TODO: 8/11/2021 SEND TO SERVER IF USER DO ACTION ELSE SYNC TABLE
@@ -91,7 +91,7 @@ class CategoryRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getList(categoriesIds: List<String>): Flow<DataState<List<CategoryDto>>> =
+    override suspend fun getList(categoriesIds: List<Long>): Flow<DataState<List<CategoryDto>>> =
         flow {
             try {
                 emit(DataState.Loading)

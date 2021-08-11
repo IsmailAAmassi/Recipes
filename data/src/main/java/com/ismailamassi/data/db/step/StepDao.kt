@@ -15,10 +15,10 @@ interface StepDao {
     suspend fun insert(stepData: StepData): Long
 
     @Update
-    suspend fun update(stepData: StepData)
+    suspend fun update(stepData: StepData): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.STEP_TABLE} WHERE id =:id")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.STEP_TABLE} WHERE id =:id")
     suspend fun get(id: Long): StepData
@@ -28,16 +28,16 @@ interface StepDao {
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(stepsData: List<StepData>)
+    suspend fun insert(stepsData: List<StepData>): List<Long>
 
     @Update
-    suspend fun update(stepsData: List<StepData>)
+    suspend fun update(stepsData: List<StepData>): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.STEP_TABLE} WHERE id IN (:stepsIds)")
-    suspend fun delete(stepsIds: List<String>)
+    suspend fun delete(stepsIds: List<Long>): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.STEP_TABLE} WHERE id IN (:stepsIds)")
-    suspend fun get(stepsIds: List<String>): List<StepData>
+    suspend fun get(stepsIds: List<Long>): List<StepData>
 
     /**
      * functions for table
@@ -47,7 +47,7 @@ interface StepDao {
     suspend fun get(): List<StepData>
 
     @Query("DELETE FROM ${DatabaseTablesNames.STEP_TABLE}")
-    suspend fun drop()
+    suspend fun drop(): Int
 
     @Query("SELECT COUNT(*) FROM ${DatabaseTablesNames.STEP_TABLE}")
     suspend fun count(): Int

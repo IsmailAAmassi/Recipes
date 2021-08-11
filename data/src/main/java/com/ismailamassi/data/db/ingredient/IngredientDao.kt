@@ -14,10 +14,10 @@ interface IngredientDao {
     suspend fun insert(ingredientData: IngredientData): Long
 
     @Update
-    suspend fun update(ingredientData: IngredientData)
+    suspend fun update(ingredientData: IngredientData): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE id =:id")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE id =:id")
     suspend fun get(id: Long): IngredientData
@@ -27,16 +27,16 @@ interface IngredientDao {
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(ingredientsData: List<IngredientData>)
+    suspend fun insert(ingredientsData: List<IngredientData>): List<Long>
 
     @Update
-    suspend fun update(ingredientsData: List<IngredientData>)
+    suspend fun update(ingredientsData: List<IngredientData>): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE id IN (:ingredientsIds)")
-    suspend fun delete(ingredientsIds: List<String>)
+    suspend fun delete(ingredientsIds: List<Long>): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE id IN (:ingredientsIds)")
-    suspend fun get(ingredientsIds: List<String>): List<IngredientData>
+    suspend fun get(ingredientsIds: List<Long>): List<IngredientData>
 
     /**
      * functions for table
@@ -46,7 +46,7 @@ interface IngredientDao {
     suspend fun get(): List<IngredientData>
 
     @Query("DELETE FROM ${DatabaseTablesNames.INGREDIENT_TABLE}")
-    suspend fun drop()
+    suspend fun drop(): Int
 
     @Query("SELECT COUNT(*) FROM ${DatabaseTablesNames.INGREDIENT_TABLE}")
     suspend fun count(): Int

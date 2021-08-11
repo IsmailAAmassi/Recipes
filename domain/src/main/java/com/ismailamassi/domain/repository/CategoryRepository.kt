@@ -19,9 +19,9 @@ interface CategoryRepository {
 
     suspend fun updateList(categoriesList: List<CategoryDto>): Flow<DataState<Int>>
 
-    suspend fun deleteList(categoriesIds: List<String>): Flow<DataState<Int>>
+    suspend fun deleteList(categoriesIds: List<Long>): Flow<DataState<Int>>
 
-    suspend fun getList(categoriesIds: List<String>): Flow<DataState<List<CategoryDto>>>
+    suspend fun getList(categoriesIds: List<Long>): Flow<DataState<List<CategoryDto>>>
 
 
     suspend fun getAll(): Flow<DataState<List<CategoryDto>>>

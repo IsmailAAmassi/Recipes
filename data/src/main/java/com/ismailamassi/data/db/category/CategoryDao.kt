@@ -17,7 +17,7 @@ interface CategoryDao {
     suspend fun update(categoryData: CategoryData): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.CATEGORY_TABLE} WHERE id =:id")
-    suspend fun delete(id: Int): Int
+    suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.CATEGORY_TABLE} WHERE id =:id")
     suspend fun get(id: Long): CategoryData
@@ -33,10 +33,10 @@ interface CategoryDao {
     suspend fun update(categoriesData: List<CategoryData>): Int
 
     @Query("DELETE FROM ${DatabaseTablesNames.CATEGORY_TABLE} WHERE id IN (:categoriesIds)")
-    suspend fun delete(categoriesIds: List<String>): Int
+    suspend fun delete(categoriesIds: List<Long>): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.CATEGORY_TABLE} WHERE id IN (:categoriesIds)")
-    suspend fun get(categoriesIds: List<String>): List<CategoryData>
+    suspend fun get(categoriesIds: List<Long>): List<CategoryData>
 
     /**
      * functions for table
