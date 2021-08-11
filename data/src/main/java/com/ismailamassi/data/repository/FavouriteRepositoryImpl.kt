@@ -1,5 +1,6 @@
 package com.ismailamassi.data.repository
 
+import com.ismailamassi.data.db.DatabaseErrorName
 import com.ismailamassi.data.db.favourite.FavouriteDao
 import com.ismailamassi.data.mapper.toData
 import com.ismailamassi.domain.model.favourite.FavouriteDto
@@ -17,6 +18,11 @@ class FavouriteRepositoryImpl @Inject constructor(
         try {
             emit(DataState.Loading)
             val result = favouriteDao.insert(favouriteDto.toData())
+            if (result != DatabaseErrorName.INSERT_ERROR_CODE) {
+                emit(DataState.Success(result))
+            } else {
+                emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             emit(DataState.Error(e))
@@ -27,6 +33,11 @@ class FavouriteRepositoryImpl @Inject constructor(
         try {
             emit(DataState.Loading)
             val result = favouriteDao.delete(favouriteDto.recipeId)
+            if (result != DatabaseErrorName.DELETE_ERROR_CODE) {
+                emit(DataState.Success(result))
+            } else {
+                emit(DataState.Error(Exception(DatabaseErrorName.ERROR_DELETE)))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             emit(DataState.Error(e))

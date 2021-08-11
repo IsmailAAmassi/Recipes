@@ -20,7 +20,7 @@ interface TipDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.TIP_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): TipData
+    suspend fun get(id: Long): TipData?
 
     /**
      * functions for list
@@ -58,5 +58,5 @@ interface TipDao {
      * custom queries
      */
     @Query("SELECT * FROM ${DatabaseTablesNames.TIP_TABLE} WHERE id IN (SELECT id FROM ${DatabaseTablesNames.TIP_TABLE} ORDER BY RANDOM() LIMIT 1)")
-    suspend fun getRandom(): TipData
+    suspend fun getRandom(): TipData?
 }

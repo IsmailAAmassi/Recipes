@@ -20,7 +20,7 @@ interface RecipeDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.RECIPE_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): RecipeData
+    suspend fun get(id: Long): RecipeData?
 
     /**
      * functions for list

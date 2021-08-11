@@ -21,7 +21,7 @@ interface StepDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.STEP_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): StepData
+    suspend fun get(id: Long): StepData?
 
     /**
      * functions for list

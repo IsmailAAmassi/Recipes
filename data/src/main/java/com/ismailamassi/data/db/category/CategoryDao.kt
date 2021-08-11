@@ -20,7 +20,7 @@ interface CategoryDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.CATEGORY_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): CategoryData
+    suspend fun get(id: Long): CategoryData?
 
     /**
      * functions for list

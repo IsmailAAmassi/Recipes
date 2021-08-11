@@ -20,7 +20,7 @@ interface IngredientDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): IngredientData
+    suspend fun get(id: Long): IngredientData?
 
     /**
      * functions for list
@@ -61,7 +61,4 @@ interface IngredientDao {
     @Query("SELECT * FROM ${DatabaseTablesNames.INGREDIENT_TABLE} WHERE recipe_id =:recipeId")
     suspend fun getForRecipe(recipeId: Long): List<IngredientData>
 
-
-    @Query("SELECT COUNT(*) FROM ${DatabaseTablesNames.INGREDIENT_TABLE}")
-    suspend fun count2(): Int
 }

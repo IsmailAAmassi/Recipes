@@ -21,7 +21,7 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun getCurrentSettings(): Flow<SettingsDto> =
         flow {
             try {
-                val setting: SettingsData = settingsDao.get(0L)
+                val setting = settingsDao.get(0L)
                 if (setting != null) {
                     emit(setting.toSettingsDto())
                 } else {

@@ -9,4 +9,5 @@ interface FavouriteRepository {
     suspend fun create(favouriteDto: FavouriteDto): Flow<DataState<Long>>
 
     suspend fun delete(favouriteDto: FavouriteDto): Flow<DataState<Int>>
+
 }

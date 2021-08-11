@@ -21,7 +21,7 @@ interface FavouriteDao {
     suspend fun delete(id: Long): Int
 
     @Query("SELECT * FROM ${DatabaseTablesNames.FAVOURITE_TABLE} WHERE recipe_id =:id")
-    suspend fun get(id: Long): FavouriteData
+    suspend fun get(id: Long): FavouriteData?
 
     /**
      * functions for list

@@ -1,5 +1,6 @@
 package com.ismailamassi.data.repository
 
+import com.ismailamassi.data.db.DatabaseErrorName
 import com.ismailamassi.data.db.category.CategoryDao
 import com.ismailamassi.data.db.recipe.RecipeDao
 import com.ismailamassi.data.mapper.toDto
@@ -51,8 +52,12 @@ class CategoryRepositoryImpl @Inject constructor(
         try {
             emit(DataState.Loading)
             val category = categoryDao.get(id)
-            val recipesCount = recipeDao.countForCategory(id)
-            emit(DataState.Success(category.toDto(recipesCount)))
+            if (category != DatabaseErrorName.GET_ERROR) {
+                val recipesCount = recipeDao.countForCategory(id)
+                emit(DataState.Success(category.toDto(recipesCount)))
+            } else {
+                emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET)))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             emit(DataState.Error(e))
@@ -96,10 +101,14 @@ class CategoryRepositoryImpl @Inject constructor(
             try {
                 emit(DataState.Loading)
                 val categories = categoryDao.get(categoriesIds)
-                val recipesCounts = categories.map {
-                    recipeDao.countForCategory(it.id)
+                if (categories.isNotEmpty()) {
+                    val recipesCounts = categories.map {
+                        recipeDao.countForCategory(it.id)
+                    }
+                    emit(DataState.Success(categories.toListDto(recipesCounts)))
+                } else {
+                    emit(DataState.Empty)
                 }
-                emit(DataState.Success(categories.toListDto(recipesCounts)))
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))
@@ -110,10 +119,14 @@ class CategoryRepositoryImpl @Inject constructor(
         try {
             emit(DataState.Loading)
             val categories = categoryDao.get()
-            val recipesCounts = categories.map {
-                recipeDao.countForCategory(it.id)
+            if (categories.isNotEmpty()) {
+                val recipesCounts = categories.map {
+                    recipeDao.countForCategory(it.id)
+                }
+                emit(DataState.Success(categories.toListDto(recipesCounts)))
+            } else {
+                emit(DataState.Empty)
             }
-            emit(DataState.Success(categories.toListDto(recipesCounts)))
         } catch (e: Exception) {
             e.printStackTrace()
             emit(DataState.Error(e))
@@ -145,10 +158,14 @@ class CategoryRepositoryImpl @Inject constructor(
         try {
             emit(DataState.Loading)
             val categories = categoryDao.get()
-            val recipesCounts = categories.map {
-                recipeDao.countForCategory(it.id)
+            if (categories.isNotEmpty()) {
+                val recipesCounts = categories.map {
+                    recipeDao.countForCategory(it.id)
+                }
+                emit(DataState.Success(categories.toListDto(recipesCounts)))
+            }else{
+                emit(DataState.Empty)
             }
-            emit(DataState.Success(categories.toListDto(recipesCounts)))
         } catch (e: Exception) {
             e.printStackTrace()
             emit(DataState.Error(e))

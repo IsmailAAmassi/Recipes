@@ -15,7 +15,10 @@ fun RecipeDto.toData() = RecipeData(
     categoryId = categoryId,
 )
 
-fun RecipeData.toDto(ingredients: List<IngredientData>, steps: List<StepData>) = RecipeDto(
+fun RecipeData.toDto(
+    ingredients: List<IngredientData> = listOf(),
+    steps: List<StepData> = listOf()
+) = RecipeDto(
     id = id,
     title = title,
     publisherId = publisherId,
@@ -26,3 +29,8 @@ fun RecipeData.toDto(ingredients: List<IngredientData>, steps: List<StepData>) =
     ingredients = ingredients.toDtoList(),
     steps = steps.toDtoList(),
 )
+
+fun List<RecipeDto>.toListDate() = this.map { it.toData() }
+fun List<RecipeData>.toListDto() = this.map { it.toDto() }
+
+

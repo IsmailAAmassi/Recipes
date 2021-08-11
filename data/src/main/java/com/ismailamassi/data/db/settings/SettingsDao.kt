@@ -16,7 +16,7 @@ interface SettingsDao {
     suspend fun delete(settingsData: SettingsData)
 
     @Query("SELECT * FROM ${DatabaseTablesNames.SETTINGS_TABLE} WHERE id =:id")
-    suspend fun get(id: Long): SettingsData
+    suspend fun get(id: Long): SettingsData?
 
     @Query("SELECT COUNT(*) FROM ${DatabaseTablesNames.SETTINGS_TABLE}")
     suspend fun getCount(): Int
