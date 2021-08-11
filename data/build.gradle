@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdk rootProject.ext.androidCompileSdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation dataDependencies.kotlinxCoroutinesCore
+    implementation dataDependencies.androidCoreKtx
+    implementation dataDependencies.appcompat
+    implementation dataDependencies.material
+
+
+    implementation dataDependencies.lifecycleExtensions
+    implementation dataDependencies.reactivestreams
+
+    implementation dataDependencies.rxjava2
+
+    implementation dataDependencies.timber
+
+    implementation dataDependencies.roomKtx
+    implementation dataDependencies.roomRuntime
+    implementation dataDependencies.roomRxJava2
+    kapt dataDependencies.roomCompiler
+
+    implementation dataDependencies.preferenceKtx
+
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.converterGson
+    implementation dataDependencies.adapterRxjava2
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+
+    implementation dataDependencies.hiltDagger
+    kapt dataDependencies.hiltDaggerCompiler
+
+    kapt dataDependencies.kotlinxMetadata
+
+    // -Test
+    testImplementation appTestDependencies.junit
+    androidTestImplementation appTestDependencies.supportJunit
+    androidTestImplementation appTestDependencies.espresso
+
+    implementation project(':domain')
+}

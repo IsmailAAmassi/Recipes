@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Recipes</string>
+
+
+    <string name="AD_MOB_TEST_UNIT_ID">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="AD_MOB_APP">ca-app-pub-1437217445375821~8581058090</string>
+    <string name="AD_MOB_UNIT_ID">ca-app-pub-1437217445375821/6116059747</string>
+</resources>

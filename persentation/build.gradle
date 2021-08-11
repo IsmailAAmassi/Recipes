@@ -1,0 +1,123 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    compileSdk rootProject.ext.androidCompileSdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        viewBinding true
+//        compose true
+    }
+    composeOptions {
+//        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion '1.5.10'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation presentationDependencies.kotlinxCoroutinesCore
+    implementation presentationDependencies.androidCoreKtx
+    implementation presentationDependencies.appcompat
+    implementation presentationDependencies.material
+    implementation presentationDependencies.constraintlayout
+    implementation presentationDependencies.livedataKtx
+    implementation presentationDependencies.viewmodelKtx
+    implementation presentationDependencies.navigationFragmentKtx
+    implementation presentationDependencies.navigationUIKtx
+    implementation presentationDependencies.cardview
+    implementation presentationDependencies.preferenceKtx
+    implementation presentationDependencies.recyclerview
+    implementation presentationDependencies.activityKtx
+    implementation presentationDependencies.fragmentKtx
+
+    implementation presentationDependencies.timber
+
+
+/*    implementation presentationDependencies.uiTooling
+    implementation presentationDependencies.composeUi
+    implementation presentationDependencies.composeFoundation
+    implementation presentationDependencies.composeRuntimeLivedata
+    implementation presentationDependencies.composeRuntimeRxjava
+    implementation presentationDependencies.composeMaterial
+    implementation presentationDependencies.composeMaterialIconsCore
+    implementation presentationDependencies.composeMaterialIconsExtended
+
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02'
+    implementation 'androidx.activity:activity-compose:1.3.0'*/
+
+    implementation presentationDependencies.lifecycleExtensions
+    implementation presentationDependencies.reactivestreams
+    implementation presentationDependencies.lifecycleViewmodel
+
+    implementation presentationDependencies.rxjava2
+    implementation presentationDependencies.rxAndroid
+
+    implementation presentationDependencies.gson
+
+    implementation presentationDependencies.coil
+//    implementation presentationDependencies.coilCompose
+
+
+    implementation 'com.google.android.gms:play-services-ads:20.2.0'
+
+
+    implementation presentationDependencies.firebaseStorage
+    implementation presentationDependencies.firebaseFirestore
+    implementation presentationDependencies.firebaseMessaging
+    implementation presentationDependencies.firebaseAuth
+
+
+    implementation presentationDependencies.hiltDagger
+    kapt presentationDependencies.hiltDaggerCompiler
+    kapt presentationDependencies.hiltCompiler
+    kapt presentationDependencies.kotlinxMetadata
+
+    // -Test
+    testImplementation presentationTestDependencies.junit
+    androidTestImplementation presentationTestDependencies.supportJunit
+    androidTestImplementation presentationTestDependencies.espresso
+
+    implementation project(':domain')
+}

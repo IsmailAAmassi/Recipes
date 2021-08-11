@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184522004806",
+    "project_id": "recipes-2869a",
+    "storage_bucket": "recipes-2869a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184522004806:android:d2782ea8db5747edfb6d47",
+        "android_client_info": {
+          "package_name": "com.ismailamassi.recipesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184522004806-hc5hmcekiue1rt716vcvk99c3u68en0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Xec1GTGnlin7on4h1vzNOEVtvVeuhrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184522004806-hc5hmcekiue1rt716vcvk99c3u68en0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
