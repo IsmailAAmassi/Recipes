@@ -4,7 +4,10 @@ import com.ismailamassi.data.api.ApiErrorName
 import com.ismailamassi.data.api.ingredient.IngredientApi
 import com.ismailamassi.data.db.DatabaseErrorName
 import com.ismailamassi.data.db.ingredient.IngredientDao
-import com.ismailamassi.data.mapper.*
+import com.ismailamassi.data.mapper.toData
+import com.ismailamassi.data.mapper.toDto
+import com.ismailamassi.data.mapper.toListData
+import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.repository.IngredientRepository
 import com.ismailamassi.domain.utils.DataState
@@ -244,6 +247,7 @@ class IngredientRepositoryImpl @Inject constructor(
             try {
                 emit(DataState.Loading)
                 val result = ingredientDao.count()
+                emit(DataState.Success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(DataState.Error(e))

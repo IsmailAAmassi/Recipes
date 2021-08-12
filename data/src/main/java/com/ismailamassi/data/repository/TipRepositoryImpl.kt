@@ -8,11 +8,11 @@ import com.ismailamassi.data.mapper.toData
 import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
-import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.repository.TipRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -275,6 +275,7 @@ class TipRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
+                delay(1000)
                 val result = tipDao.getRandom()
                 if (result != DatabaseErrorName.GET_ERROR) {
                     emit(DataState.Success(result.toDto()))

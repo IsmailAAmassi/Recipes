@@ -1,44 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/nav_splashFragment">
 
     <fragment
-        android:id="@+id/splashFragment"
+        android:id="@+id/nav_splashFragment"
         android:name="com.ismailamassi.presentation.ui.splash.SplashFragment"
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/nav_loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_splashFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
+            app:destination="@id/nav_onBoardingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/nav_homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/nav_homeFragment"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
     <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.ismailamassi.presentation.ui.sign_in.SignInFragment"
-        android:label="SignInFragment">
+        android:id="@+id/nav_loginFragment"
+        android:name="com.ismailamassi.presentation.ui.login.LoginFragment"
+        android:label="Login Fragment">
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/nav_homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/onBoardingFragment"
+        android:id="@+id/nav_onBoardingFragment"
         android:name="com.ismailamassi.presentation.ui.on_boarding.OnBoardingFragment"
         android:label="OnBoardingFragment">
         <action
             android:id="@+id/action_onBoardingFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/nav_loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.ismailamassi.presentation.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:id="@+id/nav_homeFragment"
+        android:name="com.ismailamassi.presentation.ui.categories_list.CategoriesListFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_nav_homeFragment_to_nav_recipesListFragment"
+            app:destination="@id/nav_recipesListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_nav_homeFragment"
+        app:destination="@id/nav_homeFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_settingsFragment"
+        android:name="com.ismailamassi.presentation.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+    <action
+        android:id="@+id/action_global_nav_settingsFragment"
+        app:destination="@id/nav_settingsFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_addEditCategoryFragment"
+        android:name="com.ismailamassi.presentation.ui.add_edit_category.AddEditCategoryFragment"
+        android:label="AddEditCategoryFragment" />
+    <action
+        android:id="@+id/action_global_nav_addEditCategoryFragment"
+        app:destination="@id/nav_addEditCategoryFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_addEditRecipeFragment"
+        android:name="com.ismailamassi.presentation.ui.add_edit_recipe.AddEditRecipeFragment"
+        android:label="AddEditRecipeFragment" />
+    <action
+        android:id="@+id/action_global_nav_addEditRecipeFragment"
+        app:destination="@id/nav_addEditRecipeFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_addEditTipFragment"
+        android:name="com.ismailamassi.presentation.ui.add_edit_tip.AddEditTipFragment"
+        android:label="AddEditTipFragment" />
+    <action
+        android:id="@+id/action_global_nav_addEditTipFragment"
+        app:destination="@id/nav_addEditTipFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_aboutFragment"
+        android:name="com.ismailamassi.presentation.ui.about.AboutFragment"
+        android:label="AboutFragment" />
+    <action
+        android:id="@+id/action_global_nav_aboutFragment"
+        app:destination="@id/nav_aboutFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/nav_tipsListFragment"
+        android:name="com.ismailamassi.presentation.ui.tips_list.TipsListFragment"
+        android:label="TipsListFragment" />
+
+    <action
+        android:id="@+id/action_global_nav_tipsListFragment"
+        app:destination="@id/nav_tipsListFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/nav_recipesListFragment"
+        android:name="com.ismailamassi.presentation.ui.recipes_list.RecipesListFragment"
+        android:label="RecipesListFragment">
+        <action
+            android:id="@+id/action_nav_recipesListFragment_to_nav_recipeInfoFragment"
+            app:destination="@id/nav_recipeInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_recipeInfoFragment"
+        android:name="com.ismailamassi.presentation.ui.recipe_info.RecipeInfoFragment"
+        android:label="RecipeInfoFragment" />
+
 
 </navigation>

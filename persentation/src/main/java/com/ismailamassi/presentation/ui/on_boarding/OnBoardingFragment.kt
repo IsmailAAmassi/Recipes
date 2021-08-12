@@ -11,32 +11,26 @@ import com.ismailamassi.presentation.databinding.FragmentOnBoardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OnBoardingFragment : BaseFragment() {
+class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(),View.OnClickListener {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOnBoardingBinding
+        get() = FragmentOnBoardingBinding::inflate
 
     private val viewModel: OnBoardingViewModel by viewModels()
 
     private var boardingBinding: FragmentOnBoardingBinding? = null
 
     override fun setup() {
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
         (requireActivity() as MainActivity).hideStatusBar()
-        boardingBinding = FragmentOnBoardingBinding.inflate(inflater,container,false)
-        return boardingBinding?.apply {
-
-        }?.root
+        (requireActivity() as MainActivity).supportActionBar?.hide()
     }
-
 
     private fun onClickSkipOnBoarding() {
         viewModel.onTriggerEvent(OnBoardingEvent.SkipOnBoarding)
-        throw NullPointerException("Test Error")
+    }
+
+    override fun onClick(v: View?) {
+
     }
 
 }

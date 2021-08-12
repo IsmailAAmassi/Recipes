@@ -1,8 +1,6 @@
 package com.ismailamassi.domain.repository
 
-import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.model.recipe.RecipeDto
-import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow
 

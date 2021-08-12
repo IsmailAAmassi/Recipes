@@ -1,6 +1,5 @@
 package com.ismailamassi.domain.repository
 
-import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow

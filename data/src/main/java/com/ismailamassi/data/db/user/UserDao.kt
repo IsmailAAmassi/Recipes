@@ -1,6 +1,5 @@
 package com.ismailamassi.data.db.user
 
-import android.provider.ContactsContract
 import androidx.room.*
 import com.ismailamassi.data.db.DatabaseTablesNames
 

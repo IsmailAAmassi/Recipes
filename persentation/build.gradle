@@ -110,6 +110,7 @@ dependencies {
 
 
     implementation presentationDependencies.hiltDagger
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt presentationDependencies.hiltDaggerCompiler
     kapt presentationDependencies.hiltCompiler
     kapt presentationDependencies.kotlinxMetadata

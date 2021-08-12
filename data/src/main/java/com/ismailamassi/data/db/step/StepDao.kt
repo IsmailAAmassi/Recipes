@@ -2,7 +2,6 @@ package com.ismailamassi.data.db.step
 
 import androidx.room.*
 import com.ismailamassi.data.db.DatabaseTablesNames
-import com.ismailamassi.data.db.ingredient.IngredientData
 
 @Dao
 interface StepDao {

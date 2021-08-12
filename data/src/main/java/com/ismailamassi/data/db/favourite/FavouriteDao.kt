@@ -2,7 +2,6 @@ package com.ismailamassi.data.db.favourite
 
 import androidx.room.*
 import com.ismailamassi.data.db.DatabaseTablesNames
-import com.ismailamassi.data.db.category.CategoryData
 
 @Dao
 interface FavouriteDao {

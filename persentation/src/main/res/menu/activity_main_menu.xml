@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group
+        android:id="@+id/mg_main"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_homeFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_tipsListFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/tips" />
+        <item
+            android:id="@+id/nav_settingsFragment"
+            android:icon="@drawable/ic_baseline_settings_applications_24"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_aboutFragment"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/nav_addEditCategoryFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/add_new_category"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_addEditRecipeFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/add_new_recipe"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_addEditTipFragment"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/add_new_tip"
+            android:visible="false" />
+    </group>
+
+
+    <group
+        android:id="@+id/mg_more"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/mi_share_app"
+            android:checkable="false"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share_app" />
+        <item
+            android:id="@+id/nav_loginFragment"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/login" />
+        <item
+            android:id="@+id/nav_splashFragment"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/logout"
+            android:visible="false" />
+    </group>
+
+</menu>

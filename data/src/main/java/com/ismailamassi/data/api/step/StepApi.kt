@@ -1,7 +1,6 @@
 package com.ismailamassi.data.api.step
 
 import com.ismailamassi.data.api.ApiTablesNames.STEP_TABLE
-import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.model.recipe.StepDto
 import retrofit2.http.*
 

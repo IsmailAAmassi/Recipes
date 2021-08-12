@@ -1,52 +1,94 @@
 package com.ismailamassi.presentation.ui.splash
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.ismailamassi.domain.Constants
 import com.ismailamassi.presentation.MainActivity
+import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentSplashBinding
+import com.ismailamassi.presentation.utils.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListener {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashBinding
+        get() = FragmentSplashBinding::inflate
 
     private val splashViewModel: SplashViewModel by viewModels()
-
-    private var splashBinding: FragmentSplashBinding? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        (requireActivity() as MainActivity).hideStatusBar()
-        splashBinding = FragmentSplashBinding.inflate(inflater, container, false)
-        return splashBinding?.apply {
-            btnDark.setOnClickListener {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            btnLight.setOnClickListener {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }?.root
-    }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
 
     override fun setup() {
+        (requireActivity() as MainActivity).hideStatusBar()
+        (requireActivity() as MainActivity).supportActionBar?.hide()
+
         splashViewModel.onTriggerEvent(SplashEvent.GetRandomTip)
         splashViewModel.onTriggerEvent(SplashEvent.GetSettings)
         splashViewModel.onTriggerEvent(SplashEvent.UpdateDatabase)
+
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+
+        splashViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showError(it) }
+        }
+
+        splashViewModel.loadingLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showLoading(it) }
+        }
+
+        splashViewModel.emptyLiveData.observe(viewLifecycleOwner) {
+            it?.let { Timber.tag(TAG).d("Empty $it") }
+        }
+
+        splashViewModel.messageLiveData.observe(viewLifecycleOwner) {
+            it?.let { Timber.tag(TAG).d("Message $it") }
+        }
+
+
+        splashViewModel.settingsLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : settingsLiveData currentUserId ${it.currentUserId}")
+                Timber.tag(TAG).d("observeLiveData : settingsLiveData GUEST_USER_ID ${Constants.GUEST_USER_ID}")
+                if (it.currentUserId == Constants.GUEST_USER_ID) {
+                    (requireActivity() as MainActivity).loginAsGuest()
+                } else {
+                    (requireActivity() as MainActivity).loginAsUser()
+                }
+                val appTheme = AppTheme.getThemeById(it.theme ?: 0)
+                (requireActivity() as MainActivity).changeAppTheme(appTheme)
+                splashViewModel.settingsLiveData.postValue(null)
+            }
+        }
+
+        splashViewModel.randomTipLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : randomTipLiveData $it")
+                binding.tvTipTitle.text = it.label
+                splashViewModel.randomTipLiveData.postValue(null)
+            }
+        }
+
+        splashViewModel.updateDataBaseLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : updateDataBaseLiveData $it")
+                if (it) findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+                splashViewModel.updateDataBaseLiveData.postValue(null)
+            }
+        }
     }
 
     private fun moveToNextUI() {
-        findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+
         /*lifecycleScope.launch {
             delay(1500)
 
@@ -68,5 +110,14 @@ class SplashFragment : BaseFragment() {
                 }
             }
         }*/
+    }
+
+    override fun onClick(v: View?) {
+
+    }
+
+
+    companion object {
+        private const val TAG = "SplashFragment"
     }
 }

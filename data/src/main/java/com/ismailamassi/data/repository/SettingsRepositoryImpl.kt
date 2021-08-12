@@ -27,9 +27,9 @@ class SettingsRepositoryImpl @Inject constructor(
                     settingsDao.insert(
                         SettingsData(
                             id = 0L,
-                            currentUserId = 0L,
+                            currentUserId = -1,
                             currentUserToken = "",
-                            theme = 0,
+                            theme = -1,
                             language = "",
                             isFirstTime = true,
                             isLogin = false

@@ -14,12 +14,21 @@ abstract class BaseViewModel<T> : ViewModel() {
     @Inject
     lateinit var application: Application
 
-    val loading = MutableLiveData(false)
-    val error = MutableLiveData(Exception())
-    val message = MutableLiveData(String())
+    protected val _errorLiveData = MutableLiveData<Exception>()
+    val errorLiveData: LiveData<Exception> get() = _errorLiveData
+
+    protected val _loadingLiveData = MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
+
+    protected val _emptyLiveData = MutableLiveData<String>()
+    val emptyLiveData: LiveData<String> get() = _emptyLiveData
+
+    protected val _messageLiveData = MutableLiveData<String>()
+    val messageLiveData: LiveData<String> get() = _messageLiveData
 
     protected val _eventStateLiveData = MutableLiveData<EventState>()
     val eventStateLiveData: LiveData<EventState> get() = _eventStateLiveData
+
 
     private var _event: BaseEvent? = null
 
@@ -32,7 +41,4 @@ abstract class BaseViewModel<T> : ViewModel() {
         const val TAG = "BaseViewModel"
     }
 
-    private val connectivityLiveData: ConnectionLiveData by lazy {
-        ConnectionLiveData(application)
-    }
 }

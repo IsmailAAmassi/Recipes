@@ -1,33 +1,53 @@
 package com.ismailamassi.presentation.base
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.ismailamassi.domain.utils.ConnectionLiveData
+import com.ismailamassi.presentation.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@Suppress("UNCHECKED_CAST")
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-abstract class BaseFragment : Fragment() {
-    val connectivity = MutableLiveData(false)
 
-    private val connectivityLiveData: ConnectionLiveData by lazy {
-        ConnectionLiveData(requireActivity().application)
-    }
+    var hostActivity: Activity? = null
+    private var _binding: ViewBinding? = null
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
+
+    protected val binding: VB
+        get() = _binding as VB
 
     abstract fun setup()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = bindingInflater.invoke(inflater, container, false)
+        return requireNotNull(_binding).root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setup()
 
-        connectivityLiveData.observe(viewLifecycleOwner){
-            Timber.tag(TAG).d("setup : connectivityLiveData $it")
-            connectivity.value  = it
-        }
     }
 
     fun doOnUI(func: () -> Unit) {
@@ -36,6 +56,24 @@ abstract class BaseFragment : Fragment() {
 
     fun doOnIO(func: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch { func() }
+    }
+
+    fun makeText(view: View, text: String, listener: View.OnClickListener? = null) {
+        Snackbar
+            .make(view, text, Snackbar.LENGTH_LONG)
+            .setAction("Action", listener)
+            .show()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        hostActivity = if (context is MainActivity) context
+        else context as MainActivity
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        hostActivity = null
     }
 
     companion object {

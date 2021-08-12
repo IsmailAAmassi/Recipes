@@ -1,4 +1,4 @@
-package com.ismailamassi.presentation.ui.sign_in
+package com.ismailamassi.presentation.ui.login
 
 
 import androidx.lifecycle.MutableLiveData
@@ -18,17 +18,17 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val settingsRepository: SettingsRepository,
     private val state: SavedStateHandle,
-) : BaseViewModel<SignInEvent>() {
+) : BaseViewModel<LoginEvent>() {
 
     private val signInStatusLiveData: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    override fun onTriggerEvent(eventType: SignInEvent) {
+    override fun onTriggerEvent(eventType: LoginEvent) {
         when (eventType) {
-            is SignInEvent.SignIn -> onClickSignIn(eventType.email, eventType.password)
+            is LoginEvent.Login -> onClickSignIn(eventType.email, eventType.password)
         }
     }
 
@@ -41,29 +41,13 @@ class SignInViewModel @Inject constructor(
                 settingsRepository.getCurrentSettings().map {
                     settingsRepository.update(it.copy(isLogin = signInStatus))
                         .map { dataState ->
-                            when (dataState) {
-                                is DataState.Empty -> {
-                                    loading.value = false
-                                }
-                                is DataState.Error -> {
-                                    loading.value = false
-                                    error.value = dataState.exception
-                                }
-                                DataState.Loading -> {
-                                    loading.value = true
-                                }
-                                is DataState.Success -> {
-                                    loading.value = false
-                                    signInStatusLiveData.value = dataState.data.isLogin!!
-                                }
-                            }
+
                         }
                         .launchIn(viewModelScope)
                 }.launchIn(viewModelScope)
             }
         } else {
             //Send error message
-            message.value = ""
         }
 
     }

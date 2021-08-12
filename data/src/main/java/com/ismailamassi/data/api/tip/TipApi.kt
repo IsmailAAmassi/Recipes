@@ -1,7 +1,6 @@
 package com.ismailamassi.data.api.tip
 
 import com.ismailamassi.data.api.ApiTablesNames.TIP_TABLE
-import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.model.tip.TipDto
 import retrofit2.http.*
 

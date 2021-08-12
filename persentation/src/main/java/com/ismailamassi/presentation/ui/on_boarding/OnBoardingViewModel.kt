@@ -19,8 +19,6 @@ class OnBoardingViewModel @Inject constructor(
 ) : BaseViewModel<OnBoardingEvent>() {
 
 
-    val skipOnBoardingStatus: MutableLiveData<Boolean> = MutableLiveData(false)
-
     override fun onTriggerEvent(eventType: OnBoardingEvent) {
         viewModelScope.launch {
             when (eventType) {
@@ -37,19 +35,17 @@ class OnBoardingViewModel @Inject constructor(
                     settingsRepository.update(it.copy(isFirstTime = false))
                         .map { dataState ->
                             when (dataState) {
-                                is DataState.Empty -> {
-                                    loading.value = false
+                                DataState.Empty -> {
+
                                 }
                                 is DataState.Error -> {
-                                    loading.value = false
-                                    error.value = dataState.exception
+
                                 }
                                 DataState.Loading -> {
-                                    loading.value = true
+
                                 }
                                 is DataState.Success -> {
-                                    loading.value = false
-                                    skipOnBoardingStatus.value = !dataState.data.isFirstTime!!
+
                                 }
                             }
                         }

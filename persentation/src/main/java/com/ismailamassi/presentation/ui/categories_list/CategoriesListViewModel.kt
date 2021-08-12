@@ -1,4 +1,4 @@
-package com.ismailamassi.presentation.ui.home
+package com.ismailamassi.presentation.ui.categories_list
 
 
 import androidx.lifecycle.MutableLiveData
@@ -14,17 +14,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class CategoriesListViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val state: SavedStateHandle,
-) : BaseViewModel<HomeEvent>() {
+) : BaseViewModel<CategoriesListEvent>() {
 
 
     val logout: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    override fun onTriggerEvent(eventType: HomeEvent) {
+    override fun onTriggerEvent(eventType: CategoriesListEvent) {
         when (eventType) {
-            is HomeEvent.Logout -> onClickLogout()
+            CategoriesListEvent.Logout -> onClickLogout()
+            CategoriesListEvent.GetCategoriesList -> TODO()
         }
     }
 
@@ -35,22 +36,7 @@ class HomeViewModel @Inject constructor(
                 .map {
                     settingsRepository.update(it.copy(isLogin = false))
                         .map { dataState ->
-                            when (dataState) {
-                                is DataState.Empty -> {
-                                    loading.value = false
-                                }
-                                is DataState.Error -> {
-                                    loading.value = false
-                                    error.value = dataState.exception
-                                }
-                                DataState.Loading -> {
-                                    loading.value = true
-                                }
-                                is DataState.Success -> {
-                                    loading.value = false
-                                    logout.value = !dataState.data.isLogin!!
-                                }
-                            }
+
                         }
                         .launchIn(viewModelScope)
                 }
