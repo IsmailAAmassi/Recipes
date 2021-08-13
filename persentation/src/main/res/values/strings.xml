@@ -22,4 +22,13 @@
     <string name="search">Search</string>
     <string name="about">About</string>
     <string name="tips">Tips</string>
+    <string name="lorem_span">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur,Neque porro quisquam est, adipisci velit , Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,quia dolor sit amet, consectetur, adipisci velit ,</string>
+    <string name="explore_by_category">Explore By Category</string>
+    <string name="today_bundle">Today Bundle</string>
+    <string name="today_tip">Today Tip</string>
+    <string name="see_all">See All</string>
+
+
+    <string name="fake_name">Ismail Amassi</string>
+    <string name="fake_email">abo2013hamza@gmail.com</string>
 </resources>

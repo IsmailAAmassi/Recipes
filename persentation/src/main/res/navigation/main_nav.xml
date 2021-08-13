@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/nav_splashFragment">
 
@@ -59,8 +60,9 @@
     </fragment>
     <fragment
         android:id="@+id/nav_homeFragment"
-        android:name="com.ismailamassi.presentation.ui.categories_list.CategoriesListFragment"
-        android:label="Home">
+        android:name="com.ismailamassi.presentation.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_homeFragment_to_nav_recipesListFragment"
             app:destination="@id/nav_recipesListFragment"
@@ -68,6 +70,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_nav_homeFragment_to_nav_recipeInfoFragment"
+            app:destination="@id/nav_recipeInfoFragment" />
+        <action
+            android:id="@+id/action_nav_homeFragment_to_nav_categoriesListFragment"
+            app:destination="@id/nav_categoriesListFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_nav_homeFragment"
@@ -79,7 +87,7 @@
     <fragment
         android:id="@+id/nav_settingsFragment"
         android:name="com.ismailamassi.presentation.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
     <action
         android:id="@+id/action_global_nav_settingsFragment"
         app:destination="@id/nav_settingsFragment"
@@ -90,7 +98,7 @@
     <fragment
         android:id="@+id/nav_addEditCategoryFragment"
         android:name="com.ismailamassi.presentation.ui.add_edit_category.AddEditCategoryFragment"
-        android:label="AddEditCategoryFragment" />
+        android:label="Add Edit Category" />
     <action
         android:id="@+id/action_global_nav_addEditCategoryFragment"
         app:destination="@id/nav_addEditCategoryFragment"
@@ -101,7 +109,7 @@
     <fragment
         android:id="@+id/nav_addEditRecipeFragment"
         android:name="com.ismailamassi.presentation.ui.add_edit_recipe.AddEditRecipeFragment"
-        android:label="AddEditRecipeFragment" />
+        android:label="Add Edit Recipe" />
     <action
         android:id="@+id/action_global_nav_addEditRecipeFragment"
         app:destination="@id/nav_addEditRecipeFragment"
@@ -112,7 +120,7 @@
     <fragment
         android:id="@+id/nav_addEditTipFragment"
         android:name="com.ismailamassi.presentation.ui.add_edit_tip.AddEditTipFragment"
-        android:label="AddEditTipFragment" />
+        android:label="Add Edit Tip" />
     <action
         android:id="@+id/action_global_nav_addEditTipFragment"
         app:destination="@id/nav_addEditTipFragment"
@@ -123,7 +131,7 @@
     <fragment
         android:id="@+id/nav_aboutFragment"
         android:name="com.ismailamassi.presentation.ui.about.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="About App" />
     <action
         android:id="@+id/action_global_nav_aboutFragment"
         app:destination="@id/nav_aboutFragment"
@@ -135,7 +143,7 @@
     <fragment
         android:id="@+id/nav_tipsListFragment"
         android:name="com.ismailamassi.presentation.ui.tips_list.TipsListFragment"
-        android:label="TipsListFragment" />
+        android:label="Tips" />
 
     <action
         android:id="@+id/action_global_nav_tipsListFragment"
@@ -148,7 +156,7 @@
     <fragment
         android:id="@+id/nav_recipesListFragment"
         android:name="com.ismailamassi.presentation.ui.recipes_list.RecipesListFragment"
-        android:label="RecipesListFragment">
+        android:label="Recipes">
         <action
             android:id="@+id/action_nav_recipesListFragment_to_nav_recipeInfoFragment"
             app:destination="@id/nav_recipeInfoFragment"
@@ -156,11 +164,34 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="category_id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/nav_recipeInfoFragment"
         android:name="com.ismailamassi.presentation.ui.recipe_info.RecipeInfoFragment"
         android:label="RecipeInfoFragment" />
+    <fragment
+        android:id="@+id/nav_categoriesListFragment"
+        android:name="com.ismailamassi.presentation.ui.categories_list.CategoriesListFragment"
+        android:label="Categories" >
+        <action
+            android:id="@+id/action_nav_categoriesListFragment_to_nav_recipesListFragment"
+            app:destination="@id/nav_recipesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_searchFragment"
+        android:name="com.ismailamassi.presentation.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
+    <action
+        android:id="@+id/action_global_nav_searchFragment"
+        app:destination="@id/nav_searchFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
 
 </navigation>

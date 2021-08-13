@@ -7,18 +7,18 @@ import com.google.gson.annotations.SerializedName
 data class RecipeDto(
     @SerializedName("id")var id: Long,
     @SerializedName("title")var title: String?,
-    @SerializedName("publisherId")var publisherId: String?,
+    @SerializedName("publisherId")var publisherId: Long,
     @SerializedName("featuredImage")var featuredImage: String?,
     @SerializedName("videoURL")var videoURL: String?,
     @SerializedName("likeCount")var likeCount: Int,
     @SerializedName("categoryId")var categoryId: Long,
-    var ingredients: List<IngredientDto>?,
-    var steps: List<StepDto>?
+    var ingredients: List<IngredientDto>? = listOf(),
+    var steps: List<StepDto>? = listOf()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),
         title = parcel.readString(),
-        publisherId = parcel.readString(),
+        publisherId = parcel.readLong(),
         featuredImage = parcel.readString(),
         videoURL = parcel.readString(),
         likeCount = parcel.readInt(),
@@ -30,7 +30,7 @@ data class RecipeDto(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
         parcel.writeString(title)
-        parcel.writeString(publisherId)
+        parcel.writeLong(publisherId)
         parcel.writeString(featuredImage)
         parcel.writeString(videoURL)
         parcel.writeInt(likeCount)

@@ -120,7 +120,7 @@ class RecipeRepositoryImpl @Inject constructor(
                         emit(it)
                     }
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_UPDATE)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.UPDATE_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -172,7 +172,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 if (result != DatabaseErrorName.GET_ERROR) {
                     emit(DataState.Success(result.toDto()))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -190,7 +190,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 if (result.size == recipesList.size) {
                     emit(DataState.Success(result))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_INSERT)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -208,7 +208,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 if (result == recipesList.size) {
                     emit(DataState.Success(result))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_UPDATE)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_UPDATE_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -226,7 +226,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 if (result == recipesIds.size) {
                     emit(DataState.Success(result))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -284,7 +284,7 @@ class RecipeRepositoryImpl @Inject constructor(
                     if (remaining == 0) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
@@ -337,7 +337,7 @@ class RecipeRepositoryImpl @Inject constructor(
                         )
                     )
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET_MESSAGE)))
                 }
 
             } catch (e: Exception) {

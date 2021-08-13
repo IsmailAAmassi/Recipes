@@ -30,7 +30,7 @@ class StepRepositoryImpl @Inject constructor(
                 if (dbResult != DatabaseErrorName.INSERT_ERROR_CODE) {
                     emit(DataState.Success(apiResult))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.INSERT_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -47,7 +47,7 @@ class StepRepositoryImpl @Inject constructor(
                 if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
                     emit(DataState.Success(apiResult))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_UPDATE)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.UPDATE_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -65,7 +65,7 @@ class StepRepositoryImpl @Inject constructor(
                     if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
                         emit(DataState.Success(apiResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.DELETE_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.ERROR_DELETE)))
@@ -84,7 +84,7 @@ class StepRepositoryImpl @Inject constructor(
                 if (result != DatabaseErrorName.GET_ERROR) {
                     emit(DataState.Success(result.toDto()))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -110,7 +110,7 @@ class StepRepositoryImpl @Inject constructor(
                     if (dbResult.size == stepsList.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_INSERT)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
@@ -140,7 +140,7 @@ class StepRepositoryImpl @Inject constructor(
                     if (dbResult == stepsList.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_INSERT)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
@@ -170,7 +170,7 @@ class StepRepositoryImpl @Inject constructor(
                     if (dbResult == stepsIds.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
@@ -232,7 +232,7 @@ class StepRepositoryImpl @Inject constructor(
                     if (remaining == 0) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
                 }else{
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))

@@ -37,7 +37,7 @@ class UserRepositoryImpl @Inject constructor(
                         settingsRepository.updateCurrentUserId(result.id).collect()
                         emit(DataState.Success(result))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.INSERT_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception("Login Failed")))

@@ -29,11 +29,11 @@ class CategoryRepositoryImpl @Inject constructor(
             try {
                 emit(DataState.Loading)
                 val apiResult = categoryApi.create("", categoryDto)
-                val dbResult = categoryDao.insert(categoryDto.toData())
+                val dbResult = categoryDao.insert(apiResult.toData())
                 if (dbResult != DatabaseErrorName.INSERT_ERROR_CODE) {
                     emit(DataState.Success(apiResult))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_INSERT)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.INSERT_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -46,11 +46,11 @@ class CategoryRepositoryImpl @Inject constructor(
             try {
                 emit(DataState.Loading)
                 val apiResult = categoryApi.update("", categoryDto)
-                val dbResult = categoryDao.update(categoryDto.toData())
+                val dbResult = categoryDao.update(apiResult.toData())
                 if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
                     emit(DataState.Success(apiResult))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_UPDATE)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.UPDATE_ERROR_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -65,10 +65,10 @@ class CategoryRepositoryImpl @Inject constructor(
                 val apiResult = categoryApi.delete("", categoryId)
                 val dbResult = categoryDao.delete(categoryId)
                 if (apiResult != null) {
-                    if (dbResult != DatabaseErrorName.UPDATE_ERROR_CODE) {
+                    if (dbResult != DatabaseErrorName.DELETE_ERROR_CODE) {
                         emit(DataState.Success(apiResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.DELETE_ERROR_MESSAGE)))
                     }
                 } else {
                     emit(DataState.Error(Exception(ApiErrorName.ERROR_DELETE)))
@@ -88,7 +88,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     val recipesCount = recipeDao.countForCategory(id)
                     emit(DataState.Success(category.toDto(recipesCount)))
                 } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET)))
+                    emit(DataState.Error(Exception(DatabaseErrorName.ERROR_GET_MESSAGE)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -114,7 +114,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     if (dbResult.size == categoriesList.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_INSERT)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
                 }else{
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
@@ -143,7 +143,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     if (dbResult == categoriesList.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_UPDATE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_UPDATE_ERROR_MESSAGE)))
                     }
                 }else{
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_UPDATE)))
@@ -172,7 +172,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     if (dbResult == categoriesIds.size) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
                 }else{
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
@@ -237,7 +237,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     if (remaining == 0) {
                         emit(DataState.Success(dbResult))
                     } else {
-                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_ERROR_DELETE)))
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
                 }else{
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))

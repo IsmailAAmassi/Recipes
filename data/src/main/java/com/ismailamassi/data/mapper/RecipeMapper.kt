@@ -8,7 +8,7 @@ import com.ismailamassi.domain.model.recipe.RecipeDto
 fun RecipeDto.toData() = RecipeData(
     id = id,
     title = title ?: "",
-    publisherId = publisherId ?: "",
+    publisherId = publisherId,
     featuredImage = featuredImage ?: "",
     videoURL = videoURL ?: "",
     likeCount = likeCount,

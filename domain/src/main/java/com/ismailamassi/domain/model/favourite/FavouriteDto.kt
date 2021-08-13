@@ -3,8 +3,11 @@ package com.ismailamassi.domain.model.favourite
 import android.os.Parcel
 import android.os.Parcelable
 
-data class FavouriteDto(var recipeId:Long): Parcelable {
-    constructor(parcel: Parcel) : this(recipeId = parcel.readLong())
+data class FavouriteDto(var recipeId: Long, var userId: Long) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        recipeId = parcel.readLong(),
+        userId = parcel.readLong()
+    )
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -29,7 +29,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListen
         (requireActivity() as MainActivity).hideStatusBar()
         (requireActivity() as MainActivity).supportActionBar?.hide()
 
-        splashViewModel.onTriggerEvent(SplashEvent.GetRandomTip)
         splashViewModel.onTriggerEvent(SplashEvent.GetSettings)
         splashViewModel.onTriggerEvent(SplashEvent.UpdateDatabase)
 

@@ -30,7 +30,6 @@ class SplashViewModel @Inject constructor(
 
     override fun onTriggerEvent(eventType: SplashEvent) {
         when (eventType) {
-            SplashEvent.GetRandomTip -> getRandomTip()
             SplashEvent.GetSettings -> getSettings()
             SplashEvent.UpdateDatabase -> updateDatabaseTables()
         }
@@ -71,7 +70,7 @@ class SplashViewModel @Inject constructor(
 
     private fun updateDatabaseTables() {
         viewModelScope.launch {
-            delay(3000)
+            delay(1000)
             updateDataBaseLiveData.postValue(true)
         }
     }

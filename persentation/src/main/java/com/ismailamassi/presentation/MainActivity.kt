@@ -4,11 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import androidx.activity.OnBackPressedDispatcher
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -22,6 +21,7 @@ import com.ismailamassi.domain.utils.ConnectionLiveData
 import com.ismailamassi.presentation.databinding.ActivityMainBinding
 import com.ismailamassi.presentation.utils.AppLanguage
 import com.ismailamassi.presentation.utils.AppTheme
+import com.ismailamassi.presentation.utils.ImageUtil.loadCircleImageFromUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -56,7 +56,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
 
         observeLiveData()
+        configNavHeader()
 
+    }
+
+    private fun configNavHeader() {
+        val navHeader = mainBinding.navView.getHeaderView(0)
+        navHeader.findViewById<ImageView>(R.id.ivNavHeaderImage)
+            .loadCircleImageFromUrl("https://picsum.photos/200/300")
     }
 
     fun configAppBar() {
@@ -111,6 +118,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
+    fun changeAppbarTitle(appbarTitle:String){
+        supportActionBar?.title = appbarTitle
+    }
+
     private fun noConnection() {
         //Show Connection Lose for 3 sec then hide
         lifecycleScope.launch {
@@ -140,13 +151,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     fun isConnected() = isConnected
 
     fun hideStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.decorView.windowInsetsController!!.hide(
-                WindowInsets.Type.statusBars()
-            )
-        } else {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
+        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+             window.decorView.windowInsetsController!!.hide(
+                 WindowInsets.Type.statusBars()
+             )
+         } else {
+             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+         }*/
     }
 
     fun loginAsGuest() {
@@ -197,7 +208,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     companion object {
         private const val TAG = "MainActivity"
     }
-
 
 
     override fun onDestinationChanged(

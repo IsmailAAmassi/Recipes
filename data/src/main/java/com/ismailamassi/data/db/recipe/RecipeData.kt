@@ -10,7 +10,7 @@ data class RecipeData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "publisher_id") val publisherId: String,
+    @ColumnInfo(name = "publisher_id") val publisherId: Long,
     @ColumnInfo(name = "featured_image") val featuredImage: String,
     @ColumnInfo(name = "video_url") val videoURL: String,
     @ColumnInfo(name = "like_count") val likeCount: Int,

@@ -8,7 +8,7 @@ data class CategoryDto(
     @SerializedName("id") var id: Long,
     @SerializedName("title") var title: String?,
     @SerializedName("avatar") var avatar: String?,
-    @SerializedName("recipesCount") var recipesCount: Int?
+    @SerializedName("recipesCount") var recipesCount: Int? = 0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),

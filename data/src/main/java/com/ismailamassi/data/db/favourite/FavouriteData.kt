@@ -9,4 +9,5 @@ import com.ismailamassi.data.db.DatabaseTablesNames
 data class FavouriteData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "recipe_id") val recipeId: Long,
+    @ColumnInfo(name = "user_id") val userId: Long,
 )
