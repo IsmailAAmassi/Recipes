@@ -10,6 +10,6 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeEvent>() {
 
     override fun onTriggerEvent(eventType: HomeEvent) {
-        TODO("Not yet implemented")
+
     }
 }

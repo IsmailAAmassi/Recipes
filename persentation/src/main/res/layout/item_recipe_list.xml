@@ -6,71 +6,62 @@
     <data>
 
         <variable
-            name="categoriesListListener"
-            type="com.ismailamassi.presentation.ui.categories_list.adapter.CategoriesListListener" />
+            name="recipeListListener"
+            type="com.ismailamassi.presentation.ui.recipes_list.adapter.RecipeListListener" />
 
         <variable
-            name="category"
-            type="com.ismailamassi.domain.model.category.CategoryDto" />
-
+            name="recipe"
+            type="com.ismailamassi.domain.model.recipe.RecipeDto" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:onClick="@{()->categoriesListListener.onClickCategory(category.id)}"
         app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+        app:cardElevation="8dp"
+        android:layout_margin="4dp"
+        android:onClick="@{()->recipeListListener.onClickRecipe(recipe.id)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivItemRecipeListImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="4dp"
                 android:contentDescription="@string/app_name"
-                app:layout_constraintDimensionRatio="1"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:roundedImageUrl="@{category.avatar}"
-                app:srcCompat="@drawable/bg_primary_outline_rounder" />
+                app:roundedImageUrl="@{recipe.featuredImage}"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/tvItemCategoryListName"
                 style="@style/TextTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:ellipsize="marquee"
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="@{category.title}"
+                android:text="@{recipe.title}"
                 android:textAlignment="center"
                 android:textIsSelectable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvItemCategoryListRecipesCount"
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/ivItemRecipeListImage"
+                app:layout_constraintStart_toStartOf="@+id/ivItemRecipeListImage"
+                app:layout_constraintTop_toBottomOf="@+id/ivItemRecipeListImage"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/tvItemCategoryListRecipesCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="@{String.valueOf(category.recipesCount)}"
-                app:layout_constraintBaseline_toBaselineOf="@+id/tvItemCategoryListName"
-                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -60,8 +60,9 @@ class SettingsRepositoryImpl @Inject constructor(
         flow {
             emit(DataState.Loading)
             try {
-                getCurrentSettings().collect {settings->
-                    settingsDao.update(settings.apply { this.currentUserId = currentUserId }.toData())
+                getCurrentSettings().collect { settings ->
+                    settingsDao.update(settings.apply { this.currentUserId = currentUserId }
+                        .toData())
                 }
             } catch (e: Exception) {
                 emit(DataState.Error(e))
@@ -72,8 +73,9 @@ class SettingsRepositoryImpl @Inject constructor(
         flow {
             emit(DataState.Loading)
             try {
-                getCurrentSettings().collect {settings->
-                    settingsDao.update(settings.apply { this.currentUserToken = currentUserToken }.toData())
+                getCurrentSettings().collect { settings ->
+                    settingsDao.update(settings.apply { this.currentUserToken = currentUserToken }
+                        .toData())
                 }
             } catch (e: Exception) {
                 emit(DataState.Error(e))

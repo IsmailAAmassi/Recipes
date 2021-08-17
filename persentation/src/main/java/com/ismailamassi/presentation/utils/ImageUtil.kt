@@ -1,8 +1,14 @@
 package com.ismailamassi.presentation.utils
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
+import coil.ImageLoader
 import coil.load
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.ismailamassi.presentation.R
@@ -41,6 +47,20 @@ object ImageUtil {
             this.setImageResource(R.mipmap.ic_launcher)
         }
     }
+
+    suspend fun Context.getDrawableFromUrl(url: String?): Drawable? {
+        return if (!url.isNullOrEmpty() && url.contains("http")) {
+            val loader = ImageLoader(this)
+            val request = ImageRequest.Builder(this)
+                .data(url)
+                .transformations(CircleCropTransformation())
+                .build()
+            (loader.execute(request) as SuccessResult).drawable
+        } else {
+            AppCompatResources.getDrawable(this, R.mipmap.ic_launcher)
+        }
+    }
+
     @JvmStatic
     @BindingAdapter(value = ["app:imageFilePath"])
     fun ImageView.loadImageFromFile(filePath: String?) {

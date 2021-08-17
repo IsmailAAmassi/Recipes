@@ -61,14 +61,16 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     private fun configNavHeader() {
-        val navHeader = mainBinding.navView.getHeaderView(0)
-        navHeader.findViewById<ImageView>(R.id.ivNavHeaderImage)
-            .loadCircleImageFromUrl("https://picsum.photos/200/300")
+//        val navHeader = mainBinding.navView.getHeaderView(0)
+//        navHeader.findViewById<ImageView>(R.id.ivNavHeaderImage)
+//            .loadCircleImageFromUrl("https://picsum.photos/200/300")
     }
 
     fun configAppBar() {
-
+        supportActionBar?.hide()
         setSupportActionBar(mainBinding.appBarMain.toolbar)
+        supportActionBar?.show()
+
 
         val drawerLayout = mainBinding.drawerLayout
         val navView = mainBinding.navView
@@ -79,6 +81,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.nav_homeFragment,
+                R.id.nav_favouriteFragment,
                 R.id.nav_tipsListFragment,
                 R.id.nav_settingsFragment,
                 R.id.nav_addEditCategoryFragment,

@@ -15,7 +15,6 @@ import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentHomeBinding
-import com.ismailamassi.presentation.ui.categories_list.CategoriesListFragmentDirections
 import com.ismailamassi.presentation.ui.home.adapters.HomeCategoriesAdapter
 import com.ismailamassi.presentation.ui.home.listeners.CategoriesHomeListener
 import kotlinx.coroutines.delay
@@ -55,15 +54,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         (requireActivity() as MainActivity).supportActionBar?.show()
         (requireActivity() as MainActivity).configAppBar()
 
-
-
         binding.apply {
             onClickListener = this@HomeFragment
             homeCategoriesAdapter = this@HomeFragment.homeCategoriesAdapter
             todayTip = fakeTips[Random.nextInt(fakeTips.size.minus(1))]
         }
 
-        homeCategoriesAdapter.update(fakeCategories)
+        homeCategoriesAdapter.update(fakeCategories.subList(0, fakeCategories.size.div(2)))
     }
 
     var doubleBackToExitPressedOnce = false

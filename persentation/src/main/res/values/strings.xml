@@ -31,4 +31,6 @@
 
     <string name="fake_name">Ismail Amassi</string>
     <string name="fake_email">abo2013hamza@gmail.com</string>
+    <string name="empty_status_title">Nothing To Show</string>
+    <string name="favourites">Favourites</string>
 </resources>

@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:visibility="gone"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -54,6 +55,7 @@
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/app_name"
                 android:minWidth="48dp"
+                android:visibility="gone"
                 android:minHeight="48dp"
                 android:onClick="@{onClickListener::onClick}"
                 android:rotation="90"
@@ -64,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
+                android:visibility="gone"
                 android:contentDescription="@string/app_name"
                 android:minWidth="48dp"
                 android:minHeight="48dp"

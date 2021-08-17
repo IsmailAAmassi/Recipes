@@ -24,6 +24,7 @@ class CategoriesListAdapter constructor(
         fun bindView(categoryDto: CategoryDto) {
             view.category = categoryDto
             view.categoriesListListener = categoriesListListener
+            view.tvItemCategoryListName.isSelected = true
         }
     }
 

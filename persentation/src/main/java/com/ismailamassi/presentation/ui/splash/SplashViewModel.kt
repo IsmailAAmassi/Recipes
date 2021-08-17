@@ -12,9 +12,11 @@ import com.ismailamassi.presentation.base.BaseViewModel
 import com.ismailamassi.presentation.utils.EmptyMessages
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,10 +39,11 @@ class SplashViewModel @Inject constructor(
 
     private fun getSettings() {
         viewModelScope.launch {
+            Timber.tag(TAG).d("getSettings : ")
             settingsRepository.getCurrentSettings()
-                .map {
-                    settingsLiveData.postValue(it)
-                }.launchIn(viewModelScope)
+                .collect {
+                    Timber.tag(TAG).d("getSettings : $it")
+                }
         }
     }
 

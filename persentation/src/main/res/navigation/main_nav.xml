@@ -171,7 +171,11 @@
     <fragment
         android:id="@+id/nav_recipeInfoFragment"
         android:name="com.ismailamassi.presentation.ui.recipe_info.RecipeInfoFragment"
-        android:label="RecipeInfoFragment" />
+        android:label="RecipeInfoFragment" >
+        <argument
+            android:name="recipe_id"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/nav_categoriesListFragment"
         android:name="com.ismailamassi.presentation.ui.categories_list.CategoriesListFragment"
@@ -188,6 +192,18 @@
     <action
         android:id="@+id/action_global_nav_searchFragment"
         app:destination="@id/nav_searchFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_favouriteFragment"
+        android:name="com.ismailamassi.presentation.ui.favourite.FavouriteFragment"
+        android:label="Favourites"
+        tools:layout="@layout/fragment_favourite" />
+    <action
+        android:id="@+id/action_global_nav_favouriteFragment"
+        app:destination="@id/nav_favouriteFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"

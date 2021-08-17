@@ -9,6 +9,12 @@
             android:id="@+id/nav_homeFragment"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/home" />
+
+        <item
+            android:id="@+id/nav_favouriteFragment"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="@string/favourites" />
+
         <item
             android:id="@+id/nav_tipsListFragment"
             android:icon="@drawable/ic_baseline_home_24"
