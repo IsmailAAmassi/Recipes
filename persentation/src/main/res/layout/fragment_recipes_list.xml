@@ -51,7 +51,7 @@
             android:visibility="visible"
             app:setAdapter="@{recipeListAdapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="1"
+            app:spanCount="2"
             tools:listitem="@layout/item_recipe_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

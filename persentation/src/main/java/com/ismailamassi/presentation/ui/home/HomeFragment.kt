@@ -1,9 +1,7 @@
 package com.ismailamassi.presentation.ui.home
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -50,9 +48,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     }
 
     override fun setup() {
-        (requireActivity() as MainActivity).showStatusBar()
-        (requireActivity() as MainActivity).supportActionBar?.show()
         (requireActivity() as MainActivity).configAppBar()
+        (requireActivity() as MainActivity).showBottomNavigationView()
+
+        setHasOptionsMenu(true)
 
         binding.apply {
             onClickListener = this@HomeFragment
@@ -100,6 +99,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 tvHomeExploreByCategory -> onClickSeeAllCategories()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(com.ismailamassi.presentation.R.menu.home_menu, menu)
     }
 
     private fun onClickSearch() {

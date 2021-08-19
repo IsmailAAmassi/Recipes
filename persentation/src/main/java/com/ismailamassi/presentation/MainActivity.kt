@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -21,7 +20,6 @@ import com.ismailamassi.domain.utils.ConnectionLiveData
 import com.ismailamassi.presentation.databinding.ActivityMainBinding
 import com.ismailamassi.presentation.utils.AppLanguage
 import com.ismailamassi.presentation.utils.AppTheme
-import com.ismailamassi.presentation.utils.ImageUtil.loadCircleImageFromUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,8 +42,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        configAppBar()
-
         val connectionLiveData = ConnectionLiveData(application)
         connectionLiveData.observe(this) { isConnected ->
             this.isConnected = isConnected
@@ -56,24 +52,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
 
         observeLiveData()
-        configNavHeader()
-
-    }
-
-    private fun configNavHeader() {
-//        val navHeader = mainBinding.navView.getHeaderView(0)
-//        navHeader.findViewById<ImageView>(R.id.ivNavHeaderImage)
-//            .loadCircleImageFromUrl("https://picsum.photos/200/300")
     }
 
     fun configAppBar() {
-        supportActionBar?.hide()
-        setSupportActionBar(mainBinding.appBarMain.toolbar)
+        val toolbar = mainBinding.appBarMain.toolbar
+        setSupportActionBar(toolbar)
         supportActionBar?.show()
 
-
-        val drawerLayout = mainBinding.drawerLayout
-        val navView = mainBinding.navView
+        val bottomNav = mainBinding.appBarMain.mainContent.bottomNavigationView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
@@ -82,20 +68,19 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             topLevelDestinationIds = setOf(
                 R.id.nav_homeFragment,
                 R.id.nav_favouriteFragment,
+                R.id.nav_searchFragment,
                 R.id.nav_tipsListFragment,
-                R.id.nav_settingsFragment,
-                R.id.nav_addEditCategoryFragment,
-                R.id.nav_addEditRecipeFragment,
-                R.id.nav_addEditTipFragment,
-                R.id.nav_aboutFragment,
-                R.id.nav_loginFragment,
-                R.id.nav_splashFragment,
-            ),
-            drawerLayout = drawerLayout
+                R.id.nav_moreFragment,
+            )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        bottomNav.setupWithNavController(navController)
     }
+
+    fun showBottomNavigationView(){
+        mainBinding.appBarMain.mainContent.bottomNavigationView.visibility = View.VISIBLE
+    }
+
 
     private fun observeLiveData() {
         mainViewModel.loadingLiveData.observe(this) {

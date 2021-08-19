@@ -10,16 +10,11 @@
             type="com.ismailamassi.domain.model.recipe.IngredientDto" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="4dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <TextView
@@ -70,5 +65,4 @@
                 tools:text="Name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 </layout>

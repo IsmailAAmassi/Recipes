@@ -5,6 +5,13 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/nav_splashFragment">
 
+    <action
+        android:id="@+id/action_global_nav_moreFragment"
+        app:destination="@id/nav_moreFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
     <fragment
         android:id="@+id/nav_splashFragment"
         android:name="com.ismailamassi.presentation.ui.splash.SplashFragment"
@@ -208,6 +215,11 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/nav_moreFragment"
+        android:name="com.ismailamassi.presentation.ui.more.MoreFragment"
+        android:label="fragment_more"
+        tools:layout="@layout/fragment_more" />
 
 
 </navigation>

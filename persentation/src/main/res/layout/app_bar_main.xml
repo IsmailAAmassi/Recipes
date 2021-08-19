@@ -13,10 +13,18 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.ComposeRecipeApp.PopupOverlay" />
+            app:popupTheme="@style/Theme.ComposeRecipeApp.PopupOverlay">
+          <!--  <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:src="@drawable/ic_search_black_24dp"/>-->
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!--include layout have main things to show like navigation host and progressbar,swipe to refresh, empty status, and so on-->

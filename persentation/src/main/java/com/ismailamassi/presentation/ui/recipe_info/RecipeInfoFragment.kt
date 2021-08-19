@@ -1,7 +1,8 @@
 package com.ismailamassi.presentation.ui.recipe_info
 
 import android.view.*
-import com.google.android.material.appbar.AppBarLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.R
@@ -35,23 +36,32 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBinding>(),
 
 //        setHasOptionsMenu(true)
 
-      /*  binding.appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            var isShow = false
-            var scrollRange = -1
-            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                Timber.tag(TAG).d("onOffsetChanged : $verticalOffset")
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout?.totalScrollRange ?: 0
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    isShow = true;
-                    showOption(R.id.mi_shareRecipe)
-                } else if (isShow) {
-                    isShow = false;
-                    hideOption(R.id.mi_shareRecipe)
-                }
-            }
-        })*/
+        /*  binding.appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+              var isShow = false
+              var scrollRange = -1
+              override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                  Timber.tag(TAG).d("onOffsetChanged : $verticalOffset")
+                  if (scrollRange == -1) {
+                      scrollRange = appBarLayout?.totalScrollRange ?: 0
+                  }
+                  if (scrollRange + verticalOffset == 0) {
+                      isShow = true;
+                      showOption(R.id.mi_shareRecipe)
+                  } else if (isShow) {
+                      isShow = false;
+                      hideOption(R.id.mi_shareRecipe)
+                  }
+              }
+          })*/
+
+        binding.fragmentRecipeInfoContent.apply {
+            rvRecipeInfoIngredients.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    RecyclerView.VERTICAL
+                )
+            )
+        }
 
         val recipeId = arguments?.run { RecipeInfoFragmentArgs.fromBundle(this).recipeId } ?: -1
         val recipeDto = fakeRecipes.find { it.id == recipeId }
@@ -86,8 +96,8 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBinding>(),
             this.stepsAdapter = this@RecipeInfoFragment.stepsAdapter
         }
 
-        ingredientsAdapter.update(recipeDto.ingredients?: listOf())
-        stepsAdapter.update(recipeDto.steps?: listOf())
+        ingredientsAdapter.update(recipeDto.ingredients ?: listOf())
+        stepsAdapter.update(recipeDto.steps ?: listOf())
     }
 
 

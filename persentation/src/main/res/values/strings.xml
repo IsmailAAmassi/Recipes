@@ -33,4 +33,10 @@
     <string name="fake_email">abo2013hamza@gmail.com</string>
     <string name="empty_status_title">Nothing To Show</string>
     <string name="favourites">Favourites</string>
+    <string name="more">More</string>
+    <string name="categories">Categories</string>
+    <string name="today_recipes">Today Recipes</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="recipe_images">Recipe Images</string>
 </resources>
