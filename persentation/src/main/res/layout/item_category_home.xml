@@ -7,7 +7,7 @@
 
         <variable
             name="categoriesHomeListener"
-            type="com.ismailamassi.presentation.ui.home.listeners.CategoriesHomeListener" />
+            type="com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener" />
 
         <variable
             name="category"

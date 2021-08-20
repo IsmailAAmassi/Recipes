@@ -18,6 +18,20 @@ object ImageUtil {
 
 
     @JvmStatic
+    @BindingAdapter(value = ["app:normalImageUrl"])
+    fun ImageView.loadNormalImageFromUrl(url: String?) {
+        if (!url.isNullOrEmpty() && url.contains("http")) {
+            this.load(url) {
+                crossfade(true)
+                placeholder(R.mipmap.ic_launcher)
+                error(R.mipmap.ic_launcher)
+            }
+        } else {
+            this.setImageResource(R.mipmap.ic_launcher)
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["app:circleImageUrl"])
     fun ImageView.loadCircleImageFromUrl(url: String?) {
         if (!url.isNullOrEmpty() && url.contains("http")) {

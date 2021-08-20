@@ -99,11 +99,7 @@ class CategoriesListFragment : BaseFragment<FragmentCategoriesListBinding>(), Vi
     }
 
     override fun onClickCategory(categoryId: Long) {
-        findNavController().navigate(
-            CategoriesListFragmentDirections.actionNavCategoriesListFragmentToNavRecipesListFragment(
-                categoryId = categoryId
-            )
-        )
+
     }
 
 }

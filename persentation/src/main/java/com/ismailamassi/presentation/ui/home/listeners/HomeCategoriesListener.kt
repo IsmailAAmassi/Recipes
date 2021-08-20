@@ -1,5 +1,5 @@
 package com.ismailamassi.presentation.ui.home.listeners
 
-interface CategoriesHomeListener {
+interface HomeCategoriesListener {
     fun onClickCategory(categoryId: Long)
 }

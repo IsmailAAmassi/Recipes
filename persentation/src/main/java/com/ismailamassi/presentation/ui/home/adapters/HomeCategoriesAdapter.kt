@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ismailamassi.domain.model.category.CategoryDto
-import com.ismailamassi.presentation.databinding.ItemCategoryHomeBinding
-import com.ismailamassi.presentation.ui.home.listeners.CategoriesHomeListener
+import com.ismailamassi.presentation.databinding.ItemHomeCategoryBinding
+import com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener
 
 class HomeCategoriesAdapter(
-    private val categoriesHomeListener: CategoriesHomeListener
+    private val homeCategoriesListener: HomeCategoriesListener
 ) : RecyclerView.Adapter<HomeCategoriesAdapter.HomeCategoriesViewHolder>() {
 
     private var categoriesList = listOf<CategoryDto>()
@@ -21,17 +21,17 @@ class HomeCategoriesAdapter(
     }
 
 
-    inner class HomeCategoriesViewHolder(val view: ItemCategoryHomeBinding) :
+    inner class HomeCategoriesViewHolder(val view: ItemHomeCategoryBinding) :
         RecyclerView.ViewHolder(view.root) {
         fun bindView(categoryDto: CategoryDto) {
             view.category = categoryDto
-            view.categoriesHomeListener = categoriesHomeListener
+            view.categoriesHomeListener = homeCategoriesListener
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCategoriesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCategoryHomeBinding.inflate(inflater, parent, false)
+        val binding = ItemHomeCategoryBinding.inflate(inflater, parent, false)
         return HomeCategoriesViewHolder(binding)
     }
 

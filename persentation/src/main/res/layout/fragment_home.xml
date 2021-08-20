@@ -14,8 +14,8 @@
             type="com.ismailamassi.presentation.ui.home.adapters.HomeCategoriesAdapter" />
 
         <variable
-            name="todayBundleAdapter"
-            type="String" />
+            name="homeRecipeAdapter"
+            type="com.ismailamassi.presentation.ui.home.adapters.HomeRecipesAdapter" />
 
         <variable
             name="todayTip"
@@ -29,15 +29,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_500sdp"
             tools:context=".ui.home.HomeFragment">
 
             <FrameLayout
-                android:id="@+id/frameLayout"
-                android:visibility="gone"
+                android:id="@+id/homeSearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -66,111 +66,153 @@
 
             </FrameLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvHomeMostLovedRecipes"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/homeCardViewHeight"
+                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                app:cardElevation="@dimen/homeCardViewElevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{onClickListener::onClick}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvHomeExploreByCategory"
-                style="@style/TextTitleStyle"
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/home_card_background_sample" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Most Loved Recipes"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/homeCardViewTitleSize" />
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvHomeBestCollection"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/homeCardViewHeight"
+                android:onClick="@{onClickListener::onClick}"
+                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                app:cardElevation="@dimen/homeCardViewElevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvHomeMostLovedRecipes">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_card_background_sample2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Best Collection"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/homeCardViewTitleSize" />
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{onClickListener::onClick}"
-                android:text="@string/categories"
-                android:fontFamily="@font/montserrat"
-                app:layout_constraintEnd_toStartOf="@+id/tvSeeAllCategories"
+                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                android:minHeight="@dimen/_120sdp"
+                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                app:cardElevation="@dimen/homeCardViewElevation"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                tools:ignore="TouchTargetSizeCheck" />
+                app:layout_constraintTop_toBottomOf="@+id/cvHomeBestCollection">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvHomeTodayBundleLabel"
-                style="@style/TextTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/today_bundle"
-                android:fontFamily="@font/montserrat"
-                app:layout_constraintStart_toStartOf="@+id/tvHomeExploreByCategory"
-                app:layout_constraintTop_toBottomOf="@+id/rvHomeCategories" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvHomeTodayTipLabel"
-                style="@style/TextTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/today_tip"
-                app:layout_constraintStart_toStartOf="@+id/tvHomeTodayBundleLabel"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Recipes Might You Like"
+
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Recipes recommendations for you"
+                        app:layout_constraintStart_toStartOf="@+id/textView3"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                    <TextView
+                        android:id="@+id/tvHomeMostViewedRecipes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{onClickListener::onClick}"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/more"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4"
+                        app:setAdapter="@{homeRecipeAdapter}"
+                        tools:listitem="@layout/item_home_recipe" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvHomeCategories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHomeExploreByCategory"
-                app:setAdapter="@{homeCategoriesAdapter}"
-                tools:listitem="@layout/item_category_home" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_baseline_home_24"
-                app:roundedImageUrl="@{`https://picsum.photos/200/300`}"
-                app:layout_constraintDimensionRatio="3:2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHomeTodayBundleLabel" />
-
-            <TextView
-                android:id="@+id/tvHomeTodayTip"
-                style="@style/TextBodyStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@{todayTip.label}"
-                android:layout_marginBottom="16dp"
-                tools:text="@string/lorem_span"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHomeTodayTipLabel" />
-
-            <TextView
-                android:id="@+id/tvSeeAllCategories"
-                style="@style/TextSmallStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:onClick="@{onClickListener::onClick}"
-                android:text="@string/see_all"
-                android:textColor="@color/blue_500"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
-                app:drawableTint="@color/blue_500"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHomeExploreByCategory"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvHomeExploreByCategory"
-                tools:ignore="TouchTargetSizeCheck" />
-
+                app:layout_constraintTop_toBottomOf="@+id/cardView3"
+                app:setAdapter="@{homeCategoriesAdapter}"
+                tools:listitem="@layout/item_home_category" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

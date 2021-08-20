@@ -32,7 +32,7 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_add_edit_tip.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_categories_list.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_favourite.xml" value="0.2348684210526316" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home.xml" value="0.20145631067961164" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home_1.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home_content.xml" value="0.145151453547469" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_more.xml" value="0.2348684210526316" />
@@ -53,7 +53,8 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_category_list.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_catrgory_list.xml" value="0.16381578947368422" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_catrgory_list_grid.xml" value="0.16381578947368422" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_home_category.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_home_category.xml" value="0.264" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_home_recipe.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_ingredient.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_step.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_steps.xml" value="0.2348684210526316" />

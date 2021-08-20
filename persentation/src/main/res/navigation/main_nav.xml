@@ -172,8 +172,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="category_id"
-            app:argType="long" />
+            android:name="recipes_type"
+            app:argType="com.ismailamassi.presentation.ui.home.RecipeListType" />
     </fragment>
     <fragment
         android:id="@+id/nav_recipeInfoFragment"

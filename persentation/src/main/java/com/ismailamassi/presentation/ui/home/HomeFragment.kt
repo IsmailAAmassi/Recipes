@@ -14,14 +14,15 @@ import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentHomeBinding
 import com.ismailamassi.presentation.ui.home.adapters.HomeCategoriesAdapter
-import com.ismailamassi.presentation.ui.home.listeners.CategoriesHomeListener
+import com.ismailamassi.presentation.ui.home.adapters.HomeRecipesAdapter
+import com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener
+import com.ismailamassi.presentation.ui.home.listeners.HomeRecipesListener
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import kotlin.random.Random
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(),
-    View.OnClickListener, CategoriesHomeListener {
+    View.OnClickListener, HomeCategoriesListener, HomeRecipesListener {
 
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
@@ -32,6 +33,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
     private val homeCategoriesAdapter: HomeCategoriesAdapter by lazy {
         HomeCategoriesAdapter(this)
+    }
+
+    private val homeRecipeAdapter: HomeRecipesAdapter by lazy {
+        HomeRecipesAdapter(this)
     }
 
     override fun onAttach(context: Context) {
@@ -56,10 +61,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         binding.apply {
             onClickListener = this@HomeFragment
             homeCategoriesAdapter = this@HomeFragment.homeCategoriesAdapter
-            todayTip = fakeTips[Random.nextInt(fakeTips.size.minus(1))]
+            homeRecipeAdapter = this@HomeFragment.homeRecipeAdapter
         }
 
-        homeCategoriesAdapter.update(fakeCategories.subList(0, fakeCategories.size.div(2)))
+        homeCategoriesAdapter.update(fakeCategories)
+        homeRecipeAdapter.update(fakeRecipes)
     }
 
     var doubleBackToExitPressedOnce = false
@@ -95,10 +101,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         binding.run {
             when (v) {
                 tvHomeSearch -> onClickSearch()
-                tvSeeAllCategories,
-                tvHomeExploreByCategory -> onClickSeeAllCategories()
+                cvHomeBestCollection -> onBestCollection()
+                cvHomeMostLovedRecipes -> onClickMostLoved()
+                tvHomeMostViewedRecipes -> onClickMostViewed()
             }
         }
+    }
+
+    private fun onClickMostViewed() {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavHomeFragmentToNavRecipesListFragment(
+                recipesType = RecipeListType.MostViewedRecipes
+            )
+        )
+    }
+
+    private fun onClickMostLoved() {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavHomeFragmentToNavRecipesListFragment(
+                recipesType = RecipeListType.MostLovedRecipes
+            )
+        )
+    }
+
+    private fun onBestCollection() {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavHomeFragmentToNavRecipesListFragment(
+                recipesType = RecipeListType.BestCollectionRecipes
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -110,15 +141,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         findNavController().navigate(HomeFragmentDirections.actionGlobalNavSearchFragment())
     }
 
-    private fun onClickSeeAllCategories() {
-        findNavController().navigate(HomeFragmentDirections.actionNavHomeFragmentToNavCategoriesListFragment())
-
-    }
 
     override fun onClickCategory(categoryId: Long) {
         findNavController().navigate(
             HomeFragmentDirections.actionNavHomeFragmentToNavRecipesListFragment(
-                categoryId = categoryId
+                recipesType = RecipeListType.CategoryRecipes(categoryId)
+            )
+        )
+    }
+
+    override fun onClickRecipe(recipeId: Long) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionNavHomeFragmentToNavRecipeInfoFragment(
+                recipeId = recipeId
             )
         )
     }

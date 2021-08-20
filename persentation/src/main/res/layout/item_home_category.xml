@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.ismailamassi.domain.model.category.CategoryDto" />
+
+        <variable
+            name="categoriesHomeListener"
+            type="com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+        android:onClick="@{()->categoriesHomeListener.onClickCategory(category.id)}"
+        app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+        app:cardElevation="@dimen/homeCardViewElevation">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_category_sample" />
+
+        <TextView
+            android:id="@+id/tvHomeCategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:fontFamily="@font/montserrat"
+            android:text="@{category.title}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/homeCardViewTitleSize"
+            tools:text="Category Name" />
+
+    </androidx.cardview.widget.CardView>
+</layout>

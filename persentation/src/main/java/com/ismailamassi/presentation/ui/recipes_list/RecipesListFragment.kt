@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentRecipesListBinding
+import com.ismailamassi.presentation.ui.home.RecipeListType
 import com.ismailamassi.presentation.ui.recipes_list.adapter.RecipeListListener
 import com.ismailamassi.presentation.ui.recipes_list.adapter.RecipesListAdapter
 import timber.log.Timber
@@ -25,12 +27,39 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
         //init Default App Bar
         (requireActivity() as MainActivity).configAppBar()
 
-        val categoryId = arguments?.run { RecipesListFragmentArgs.fromBundle(this).categoryId } ?: -1
-        val category = fakeCategories.find { it.id == categoryId }
-        val recipesList = fakeRecipes.filter { it.categoryId == category?.id }
-        (requireActivity() as MainActivity).changeAppbarTitle(category?.title ?: "Category")
+        val recipesType =
+            arguments?.run { RecipesListFragmentArgs.fromBundle(this).recipesType }
+        var category: CategoryDto? = null
+        val recipesList = when (recipesType) {
+            RecipeListType.BestCollectionRecipes -> {
+                // TODO: 8/20/2021 Get result from API
+                (requireActivity() as MainActivity).changeAppbarTitle("Best Collection")
+                fakeRecipes
+            }
+            is RecipeListType.CategoryRecipes -> {
+                // TODO: 8/20/2021 Get result from DB
+                category = fakeCategories.find { it.id == recipesType.categoryId }
+                (requireActivity() as MainActivity).changeAppbarTitle(category?.title?:"Category")
+                fakeRecipes.filter { it.categoryId == recipesType.categoryId }
+            }
+            RecipeListType.MostLovedRecipes -> {
+                (requireActivity() as MainActivity).changeAppbarTitle("Most Loved Recipes")
+                // TODO: 8/20/2021 Get result from API
+                fakeRecipes
+            }
+            RecipeListType.MostViewedRecipes -> {
+                (requireActivity() as MainActivity).changeAppbarTitle("Most Viewed Recipes")
+                // TODO: 8/20/2021 Get result from API
+                fakeRecipes
+            }
+            null -> {
+                // TODO: 8/20/2021 Return Empty Result with error message
+                listOf()
+            }
+        }
 
-        if (categoryId == -1L || category == null || recipesList.isEmpty()) {
+
+        if (recipesList.isEmpty()) {
             // TODO: 8/14/2021 Show Empty Status
             changeEmptyStatusVisibility(true)
         } else {
