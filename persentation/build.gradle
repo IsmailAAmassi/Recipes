@@ -74,6 +74,8 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
 /*    implementation presentationDependencies.uiTooling
     implementation presentationDependencies.composeUi
     implementation presentationDependencies.composeFoundation
@@ -110,6 +112,9 @@ dependencies {
 
     implementation presentationDependencies.hiltDagger
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation("com.google.android.play:core-ktx:1.8.1")
+    implementation 'androidx.preference:preference:1.1.1'
     kapt presentationDependencies.hiltDaggerCompiler
     kapt presentationDependencies.hiltCompiler
     kapt presentationDependencies.kotlinxMetadata

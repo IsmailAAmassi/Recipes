@@ -26,6 +26,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListen
 
 
     override fun setup() {
+//        (requireActivity() as MainActivity).hideToolbarAndBottomNavigation()
+
+
         splashViewModel.onTriggerEvent(SplashEvent.GetSettings)
         splashViewModel.onTriggerEvent(SplashEvent.UpdateDatabase)
 

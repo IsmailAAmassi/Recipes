@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
+import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentSearchBinding
@@ -22,5 +22,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.search_menu, menu)
+
+        (requireActivity() as MainActivity).hideToolbar()
     }
 }

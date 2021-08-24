@@ -91,10 +91,6 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
-    <fragment
-        android:id="@+id/nav_settingsFragment"
-        android:name="com.ismailamassi.presentation.ui.settings.SettingsFragment"
-        android:label="Settings" />
     <action
         android:id="@+id/action_global_nav_settingsFragment"
         app:destination="@id/nav_settingsFragment"
@@ -218,7 +214,7 @@
     <fragment
         android:id="@+id/nav_moreFragment"
         android:name="com.ismailamassi.presentation.ui.more.MoreFragment"
-        android:label="fragment_more"
+        android:label="@string/more"
         tools:layout="@layout/fragment_more" />
 
 

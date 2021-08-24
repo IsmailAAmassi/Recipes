@@ -1,5 +1,6 @@
 package com.ismailamassi.presentation
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.ismailamassi.domain.utils.ConnectionLiveData
 import com.ismailamassi.presentation.databinding.ActivityMainBinding
 import com.ismailamassi.presentation.utils.AppLanguage
@@ -24,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 @AndroidEntryPoint
@@ -41,7 +44,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-
+        initTheme()
         val connectionLiveData = ConnectionLiveData(application)
         connectionLiveData.observe(this) { isConnected ->
             this.isConnected = isConnected
@@ -52,6 +55,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
 
         observeLiveData()
+    }
+
+    private fun initTheme() {
+        val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val currentThemeLabel = prefs.getString("key_app_theme", "system")
+        val currentTheme = AppTheme.getThemeByLabel(currentThemeLabel ?: "system")
+
+        changeAppTheme(currentTheme)
     }
 
     fun configAppBar() {
@@ -77,10 +88,24 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         bottomNav.setupWithNavController(navController)
     }
 
-    fun showBottomNavigationView(){
+    fun showBottomNavigationView() {
         mainBinding.appBarMain.mainContent.bottomNavigationView.visibility = View.VISIBLE
     }
 
+    fun hideToolbarAndBottomNavigation() {
+        hideToolbar()
+        hideBottomNavigation()
+    }
+
+    fun hideToolbar(){
+        mainBinding.appBarMain.toolbar.visibility = View.GONE
+
+    }
+
+    private fun hideBottomNavigation(){
+        mainBinding.appBarMain.mainContent.bottomNavigationView.visibility = View.GONE
+
+    }
 
     private fun observeLiveData() {
         mainViewModel.loadingLiveData.observe(this) {
@@ -106,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
-    fun changeAppbarTitle(appbarTitle:String){
+    fun changeAppbarTitle(appbarTitle: String) {
         supportActionBar?.title = appbarTitle
     }
 
@@ -124,7 +149,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
-    fun changeAppTheme(appTheme: AppTheme) {
+    fun changeAppTheme(appTheme: AppTheme, configAppBar: Boolean = false) {
         when (appTheme) {
             AppTheme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             AppTheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

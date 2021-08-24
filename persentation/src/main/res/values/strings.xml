@@ -39,4 +39,28 @@
     <string name="steps">Steps</string>
     <string name="ingredients">Ingredients</string>
     <string name="recipe_images">Recipe Images</string>
+    <string name="preparation_time">Preparation Time</string>
+    <string name="serving">Serving</string>
+    <string name="cooking_time">Cooking Time</string>
+    <string name="_14_min">14 min</string>
+    <string name="_2_persons">2 Persons</string>
+    <string name="recipes_ingredients">Recipes/Ingredients</string>
+
+    <array name="appThemes">
+        <item>Follow System</item>
+        <item>Light Mood</item>
+        <item>Night Mood</item>
+    </array>
+
+    <array name="appThemesValue">
+        <item>system</item>
+        <item>light</item>
+        <item>night</item>
+    </array>
+
+
+    <array name="appLanguages">
+        <item>Arabic</item>
+        <item>English</item>
+    </array>
 </resources>

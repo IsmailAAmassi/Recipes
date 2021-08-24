@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentAddEditRecipeBinding
@@ -18,7 +19,8 @@ class TipsListFragment : BaseFragment<FragmentTipsListBinding>(),
         get() = FragmentTipsListBinding::inflate
 
     override fun setup() {
-
+        (requireActivity() as MainActivity).configAppBar()
+        (requireActivity() as MainActivity).showBottomNavigationView()
     }
 
     override fun onClick(v: View?) {

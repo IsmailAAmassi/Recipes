@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.ismailamassi.domain.model.category.CategoryDto
+import com.ismailamassi.domain.model.favourite.FavouriteDto
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.domain.model.recipe.StepDto
@@ -58,7 +59,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     val fakeRecipes = listOf(
         RecipeDto(
             1,
-            "Hamburger",
+            "Burger",
             1,
             "https://image.flaticon.com/icons/png/512/3075/3075929.png",
             "",
@@ -245,14 +246,62 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     )
 
     val fakeIngredients = listOf(
-        IngredientDto(1, "Ingredient 1_1 Ingredient 1_1 Ingredient 1_1", "1 1/2", "Cup", fakeRecipes[0].id),
-        IngredientDto(2, "Ingredient 1_2 Ingredient 1_2 Ingredient 1_2", "3", "oz", fakeRecipes[0].id),
-        IngredientDto(3, "Ingredient 1_3 Ingredient 1_3 Ingredient 1_3", "50", "g", fakeRecipes[0].id),
-        IngredientDto(4, "Ingredient 1_4 Ingredient 1_4 Ingredient 1_4", "5", "Cup", fakeRecipes[0].id),
-        IngredientDto(5, "Ingredient 1_5 Ingredient 1_5 Ingredient 1_5", "6", "Piece", fakeRecipes[0].id),
-        IngredientDto(5, "Ingredient 1_6 Ingredient 1_6 Ingredient 1_6", "3", "Piece", fakeRecipes[0].id),
-        IngredientDto(5, "Ingredient 1_7 Ingredient 1_7 Ingredient 1_7", "1/2", "Cup", fakeRecipes[0].id),
-        IngredientDto(5, "Ingredient 1_8 Ingredient 1_8 Ingredient 1_8", "200", "g", fakeRecipes[0].id),
+        IngredientDto(
+            1,
+            "Ingredient 1_1 Ingredient 1_1 Ingredient 1_1",
+            "1 1/2",
+            "Cup",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            2,
+            "Ingredient 1_2 Ingredient 1_2 Ingredient 1_2",
+            "3",
+            "oz",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            3,
+            "Ingredient 1_3 Ingredient 1_3 Ingredient 1_3",
+            "50",
+            "g",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            4,
+            "Ingredient 1_4 Ingredient 1_4 Ingredient 1_4",
+            "5",
+            "Cup",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            5,
+            "Ingredient 1_5 Ingredient 1_5 Ingredient 1_5",
+            "6",
+            "Piece",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            5,
+            "Ingredient 1_6 Ingredient 1_6 Ingredient 1_6",
+            "3",
+            "Piece",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            5,
+            "Ingredient 1_7 Ingredient 1_7 Ingredient 1_7",
+            "1/2",
+            "Cup",
+            fakeRecipes[0].id
+        ),
+        IngredientDto(
+            5,
+            "Ingredient 1_8 Ingredient 1_8 Ingredient 1_8",
+            "200",
+            "g",
+            fakeRecipes[0].id
+        ),
 
         IngredientDto(6, "Ingredient 2_1", "1/2", "Cup", fakeRecipes[1].id),
         IngredientDto(7, "Ingredient 2_2", "1/2", "Cup", fakeRecipes[1].id),
@@ -272,10 +321,30 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     )
 
     val fakeSteps = listOf(
-        StepDto(1, 1, "Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1", fakeRecipes[0].id),
-        StepDto(2, 2, "Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2", fakeRecipes[0].id),
-        StepDto(3, 3, "Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3", fakeRecipes[0].id),
-        StepDto(4, 4, "Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4", fakeRecipes[0].id),
+        StepDto(
+            1,
+            1,
+            "Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1 Step 1_1",
+            fakeRecipes[0].id
+        ),
+        StepDto(
+            2,
+            2,
+            "Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2 Step 1_2",
+            fakeRecipes[0].id
+        ),
+        StepDto(
+            3,
+            3,
+            "Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3 Step 1_3",
+            fakeRecipes[0].id
+        ),
+        StepDto(
+            4,
+            4,
+            "Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4 Step 1_4",
+            fakeRecipes[0].id
+        ),
 
         StepDto(5, 1, "Step 2_1", fakeRecipes[1].id),
         StepDto(6, 2, "Step 2_2", fakeRecipes[1].id),
@@ -325,6 +394,13 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             10,
             " اسلقي المكرونة لمدة أقل بدقيقة عما ينصح به على العبوة، ثم حضري الصلصة الخاصة بها"
         ),
+    )
+
+    val fakeFavourites = mutableListOf(
+        FavouriteDto(recipeId = 1L, 1L),
+        FavouriteDto(recipeId = 4L, 1L),
+        FavouriteDto(recipeId = 10L, 1L),
+        FavouriteDto(recipeId = 15L, 1L),
     )
 
 

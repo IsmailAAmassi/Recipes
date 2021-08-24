@@ -7,15 +7,23 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable-v24/bg_primary_outline_rounder.xml" value="0.17401315789473684" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable-v24/bg_secondary_outline_rounder.xml" value="0.17401315789473684" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2962962962962963" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/bg_recipe_ingredient.xml" value="0.2450657894736842" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/bg_recipe_step.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/bg_secondary_outline_rounder.xml" value="0.17401315789473684" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/bg_white_filled_rounder.xml" value="0.2450657894736842" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/bg_white_outline_rounder.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_app_logo_foreground.xml" value="0.2962962962962963" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_baseline_language_24.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_baseline_vertical_24.xml" value="0.17401315789473684" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_font_size.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_grid.xml" value="0.24539473684210528" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_launcher_background.xml" value="0.2962962962962963" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_search_black_24dp.xml" value="0.2450657894736842" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_sun_and_moon.xml" value="0.2450657894736842" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_theme.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_vertical_bar.xml" value="0.17401315789473684" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_visualization.xml" value="0.24539473684210528" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/test.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/vertical_divider.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/montserrat.xml" value="0.25394736842105264" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/poppins.xml" value="0.18289473684210528" />
@@ -24,6 +32,7 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/roboto_medium.xml" value="0.18289473684210528" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/roboto_thin.xml" value="0.18289473684210528" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/shamel.xml" value="0.18289473684210528" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout-v23/fragment_recipe_info_content.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/app_bar_main.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_about.xml" value="0.371875" />
@@ -32,19 +41,19 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_add_edit_tip.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_categories_list.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_favourite.xml" value="0.2348684210526316" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home.xml" value="0.20145631067961164" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home_1.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_home_content.xml" value="0.145151453547469" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_more.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_on_boarding.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_details.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_info.xml" value="0.2" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_info_content.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_info_content.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_ingredients.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_medias.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipe_steps.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_recipes_list.xml" value="0.2" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_search.xml" value="0.371875" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_settings.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_sign_in.xml" value="0.371875" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/fragment_splash.xml" value="0.22" />
@@ -56,10 +65,11 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_home_category.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_home_recipe.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_ingredient.xml" value="0.25" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_step.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_step.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_steps.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_list.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/main_content.xml" value="0.16" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/more_preferance.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/nav_header.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/activity_main_menu.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/categories_list_menu.xml" value="0.16381578947368422" />
@@ -69,6 +79,8 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/search_menu.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2962962962962963" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2962962962962963" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/xml/prefer.xml" value="0.2348684210526316" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/xml/preferences.xml" value="0.22" />
       </map>
     </option>
   </component>

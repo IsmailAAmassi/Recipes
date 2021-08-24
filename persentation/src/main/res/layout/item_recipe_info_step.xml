@@ -10,40 +10,35 @@
             type="com.ismailamassi.domain.model.recipe.StepDto" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="2dp"
-        android:layout_margin="2dp"
-        app:cardElevation="4dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_stepOrder"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:lines="1"
-                android:maxLines="1"
+                android:background="@drawable/bg_recipe_step"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:text="@{String.valueOf(step.order)}"
-                android:textAlignment="center"
-                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_stepDescription"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Order" />
+                app:layout_constraintTop_toTopOf="@+id/tv_stepDescription"
+                tools:text="11" />
 
             <TextView
                 android:id="@+id/tv_stepDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_marginBottom="8dp"
                 android:text="@{step.description}"
                 android:textSize="16sp"
@@ -55,5 +50,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 </layout>
