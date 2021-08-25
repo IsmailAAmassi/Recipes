@@ -214,6 +214,24 @@ class TipRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
+    override suspend fun getAllFromAPI(): Flow<DataState<List<TipDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = tipApi.getAll("")
+                if (result.isNotEmpty()) {
+                    tipDao.insert(result.toListData())
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+
     override suspend fun deleteAll(
         isUserDoAction: Boolean
     ): Flow<DataState<Int>> =
@@ -234,7 +252,7 @@ class TipRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {
@@ -259,7 +277,7 @@ class TipRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val result = tipDao.search(query)
+                val result = tipDao.search("%$query%")
                 if (result.isNotEmpty()) {
                     emit(DataState.Success(result.toListDto()))
                 } else {

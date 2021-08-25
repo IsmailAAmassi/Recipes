@@ -10,8 +10,6 @@ import com.ismailamassi.data.db.ingredient.IngredientDao
 import com.ismailamassi.data.db.ingredient.IngredientData
 import com.ismailamassi.data.db.recipe.RecipeDao
 import com.ismailamassi.data.db.recipe.RecipeData
-import com.ismailamassi.data.db.settings.SettingsDao
-import com.ismailamassi.data.db.settings.SettingsData
 import com.ismailamassi.data.db.step.StepDao
 import com.ismailamassi.data.db.step.StepData
 import com.ismailamassi.data.db.tip.TipDao
@@ -25,7 +23,6 @@ import com.ismailamassi.data.db.user.UserData
         FavouriteData::class,
         IngredientData::class,
         RecipeData::class,
-        SettingsData::class,
         StepData::class,
         TipData::class,
         UserData::class
@@ -36,7 +33,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getFavouriteDao(): FavouriteDao
     abstract fun getIngredientDao(): IngredientDao
     abstract fun getRecipeDao(): RecipeDao
-    abstract fun getSettingsDao(): SettingsDao
     abstract fun getStepDao(): StepDao
     abstract fun getTipDao(): TipDao
     abstract fun getUserDao(): UserDao

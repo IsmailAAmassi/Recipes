@@ -63,11 +63,11 @@ class AppModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.NONE
+        logging.level = HttpLoggingInterceptor.Level.BASIC
         okHttpClient.newBuilder()
             .addInterceptor(logging)
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL.plus("api/"))
+            .baseUrl(Constants.BASE_URL.plus(Constants.API_VERSION))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient.newBuilder().addInterceptor(logging).build())

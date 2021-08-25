@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TipDto(
     @SerializedName("id") var id: Long,
-    @SerializedName("label") var label: String?
+    @SerializedName("title") var label: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),

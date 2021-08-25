@@ -22,7 +22,6 @@ class LoginFragment : BaseFragment<FragmentSignInBinding>(),View.OnClickListener
     private var signInBinding: FragmentSignInBinding? = null
 
     override fun setup() {
-        (requireActivity() as MainActivity).showStatusBar()
         (requireActivity() as MainActivity).supportActionBar?.hide()
     }
 

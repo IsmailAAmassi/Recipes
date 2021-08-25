@@ -42,7 +42,7 @@ interface CategoryDao {
      * functions for table
      */
 
-    @Query("SELECT * FROM ${DatabaseTablesNames.CATEGORY_TABLE}")
+    @Query("SELECT * FROM ${DatabaseTablesNames.CATEGORY_TABLE} LIMIT 50")
     suspend fun get(): List<CategoryData>
 
     @Query("DELETE FROM ${DatabaseTablesNames.CATEGORY_TABLE}")

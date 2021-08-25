@@ -13,10 +13,14 @@ import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentSplashBinding
 import com.ismailamassi.presentation.utils.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListener {
+class SplashFragment : BaseFragment<FragmentSplashBinding>(){
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashBinding
         get() = FragmentSplashBinding::inflate
@@ -26,13 +30,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListen
 
 
     override fun setup() {
-//        (requireActivity() as MainActivity).hideToolbarAndBottomNavigation()
-
-
-        splashViewModel.onTriggerEvent(SplashEvent.GetSettings)
         splashViewModel.onTriggerEvent(SplashEvent.UpdateDatabase)
 
         observeLiveData()
+        moveToNextUI()
     }
 
     private fun observeLiveData() {
@@ -52,69 +53,14 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(), View.OnClickListen
         splashViewModel.messageLiveData.observe(viewLifecycleOwner) {
             it?.let { Timber.tag(TAG).d("Message $it") }
         }
-
-
-        splashViewModel.settingsLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                Timber.tag(TAG).d("observeLiveData : settingsLiveData currentUserId ${it.currentUserId}")
-                Timber.tag(TAG).d("observeLiveData : settingsLiveData GUEST_USER_ID ${Constants.GUEST_USER_ID}")
-                if (it.currentUserId == Constants.GUEST_USER_ID) {
-                    (requireActivity() as MainActivity).loginAsGuest()
-                } else {
-                    (requireActivity() as MainActivity).loginAsUser()
-                }
-                val appTheme = AppTheme.getThemeById(it.theme ?: 0)
-                (requireActivity() as MainActivity).changeAppTheme(appTheme)
-                splashViewModel.settingsLiveData.postValue(null)
-            }
-        }
-
-        splashViewModel.randomTipLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                Timber.tag(TAG).d("observeLiveData : randomTipLiveData $it")
-                binding.tvTipTitle.text = it.label
-                splashViewModel.randomTipLiveData.postValue(null)
-            }
-        }
-
-        splashViewModel.updateDataBaseLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                Timber.tag(TAG).d("observeLiveData : updateDataBaseLiveData $it")
-                if (it) findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
-                splashViewModel.updateDataBaseLiveData.postValue(null)
-            }
-        }
     }
 
     private fun moveToNextUI() {
-
-        /*lifecycleScope.launch {
-            delay(1500)
-
-            val isLogin = splashViewModel.isLogin.value!!
-            val isFirstTime = splashViewModel.isFirstTime.value!!
-
-            when {
-                isLogin -> {
-                    //Go To Home
-
-                }
-                isFirstTime -> {
-                    //Go To OnBoarding then to Sign Up
-                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment())
-                }
-                else -> {
-                    //Go To Sign In
-                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToSignInFragment())
-                }
-            }
-        }*/
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000)
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+        }
     }
-
-    override fun onClick(v: View?) {
-
-    }
-
 
     companion object {
         private const val TAG = "SplashFragment"

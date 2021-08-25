@@ -21,6 +21,7 @@ interface RecipeRepository {
 
     suspend fun createList(
         recipesList: List<RecipeDto>,
+        isUserDoAction: Boolean = false
     ): Flow<DataState<List<Long>>>
 
     suspend fun updateList(
@@ -35,6 +36,11 @@ interface RecipeRepository {
 
 
     suspend fun getAll(): Flow<DataState<List<RecipeDto>>>
+
+    suspend fun getAllFromAPI(): Flow<DataState<List<RecipeDto>>>
+
+    suspend fun getCategoryRecipes(categoryId: Long): Flow<DataState<List<RecipeDto>>>
+
 
     suspend fun deleteAll(
         isUserDoAction: Boolean = false

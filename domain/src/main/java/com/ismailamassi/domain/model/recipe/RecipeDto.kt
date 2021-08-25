@@ -11,7 +11,7 @@ data class RecipeDto(
     @SerializedName("featuredImage")var featuredImage: String?,
     @SerializedName("videoURL")var videoURL: String?,
     @SerializedName("likeCount")var likeCount: Int,
-    @SerializedName("categoryId")var categoryId: Long,
+    @SerializedName("category_id")var categoryId: Long,
     var ingredients: List<IngredientDto>? = listOf(),
     var steps: List<StepDto>? = listOf()
 ) : Parcelable {

@@ -14,7 +14,7 @@ interface UserDao {
     @Query("DELETE FROM user_table WHERE id =:id")
     suspend fun delete(id: String)
 
-    @Query("SELECT U.* FROM user_table U INNER JOIN settings_table S ON U.id = S.current_user_id LIMIT 1")
+    @Query("SELECT * FROM ${DatabaseTablesNames.USER_TABLE} WHERE id = 1 LIMIT 1")
     suspend fun getCurrentUser(): UserData?
 
 //    @Query("SELECT U.token FROM user_table U INNER JOIN settings_table S ON U.id = S.current_user_id LIMIT 1")

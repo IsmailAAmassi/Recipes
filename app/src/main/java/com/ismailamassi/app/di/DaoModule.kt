@@ -5,7 +5,6 @@ import com.ismailamassi.data.db.category.CategoryDao
 import com.ismailamassi.data.db.favourite.FavouriteDao
 import com.ismailamassi.data.db.ingredient.IngredientDao
 import com.ismailamassi.data.db.recipe.RecipeDao
-import com.ismailamassi.data.db.settings.SettingsDao
 import com.ismailamassi.data.db.step.StepDao
 import com.ismailamassi.data.db.tip.TipDao
 import com.ismailamassi.data.db.user.UserDao
@@ -29,8 +28,6 @@ class DaoModule {
     @Provides
     fun provideRecipeDao(appDatabase: AppDatabase): RecipeDao = appDatabase.getRecipeDao()
 
-    @Provides
-    fun provideSettingsDao(appDatabase: AppDatabase): SettingsDao = appDatabase.getSettingsDao()
 
     @Provides
     fun provideStepDao(appDatabase: AppDatabase): StepDao = appDatabase.getStepDao()

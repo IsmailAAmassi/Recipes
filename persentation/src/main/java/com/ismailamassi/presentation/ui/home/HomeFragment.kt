@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentHomeBinding
@@ -17,10 +16,12 @@ import com.ismailamassi.presentation.ui.home.adapters.HomeCategoriesAdapter
 import com.ismailamassi.presentation.ui.home.adapters.HomeRecipesAdapter
 import com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener
 import com.ismailamassi.presentation.ui.home.listeners.HomeRecipesListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     View.OnClickListener, HomeCategoriesListener, HomeRecipesListener {
 
@@ -31,12 +32,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: HomeViewModel by viewModels()
 
-    private val homeCategoriesAdapter: HomeCategoriesAdapter by lazy {
-        HomeCategoriesAdapter(this)
-    }
-
     private val homeRecipeAdapter: HomeRecipesAdapter by lazy {
         HomeRecipesAdapter(this)
+    }
+
+    private val homeCategoriesAdapter: HomeCategoriesAdapter by lazy {
+        HomeCategoriesAdapter(this)
     }
 
     override fun onAttach(context: Context) {
@@ -44,28 +45,48 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Timber.tag(TAG).d("setup : handleOnBackPressed")
-//                showAreYouSureDialog()
                 handleDoubleClick()
             }
-
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun setup() {
-        (requireActivity() as MainActivity).configAppBar()
-        (requireActivity() as MainActivity).showBottomNavigationView()
-
-        setHasOptionsMenu(true)
-
         binding.apply {
             onClickListener = this@HomeFragment
-            homeCategoriesAdapter = this@HomeFragment.homeCategoriesAdapter
             homeRecipeAdapter = this@HomeFragment.homeRecipeAdapter
+            homeCategoriesAdapter = this@HomeFragment.homeCategoriesAdapter
         }
 
-        homeCategoriesAdapter.update(fakeCategories)
-        homeRecipeAdapter.update(fakeRecipes)
+        viewModel.onTriggerEvent(HomeEvent.GetHomeRecipes)
+        viewModel.onTriggerEvent(HomeEvent.GetCategories)
+
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showError(it) }
+        }
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showLoading(it) }
+        }
+
+        viewModel.categoriesLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                homeCategoriesAdapter.update(it)
+                viewModel.categoriesLiveData.postValue(null)
+            }
+        }
+
+        viewModel.recipesLiveData.observe(viewLifecycleOwner){
+            it?.let {
+                homeRecipeAdapter.update(it)
+                viewModel.recipesLiveData.postValue(null)
+            }
+        }
     }
 
     var doubleBackToExitPressedOnce = false

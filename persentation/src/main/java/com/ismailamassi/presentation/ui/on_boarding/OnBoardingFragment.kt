@@ -21,7 +21,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(),View.OnClic
     private var boardingBinding: FragmentOnBoardingBinding? = null
 
     override fun setup() {
-        (requireActivity() as MainActivity).hideStatusBar()
         (requireActivity() as MainActivity).supportActionBar?.hide()
     }
 

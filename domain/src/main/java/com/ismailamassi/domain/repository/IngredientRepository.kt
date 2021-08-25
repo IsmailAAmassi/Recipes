@@ -34,6 +34,8 @@ interface IngredientRepository {
 
     suspend fun getAll(): Flow<DataState<List<IngredientDto>>>
 
+    suspend fun getAllFromAPI(): Flow<DataState<List<IngredientDto>>>
+
     suspend fun deleteAll(
         isUserDoAction: Boolean = false
     ): Flow<DataState<Int>>

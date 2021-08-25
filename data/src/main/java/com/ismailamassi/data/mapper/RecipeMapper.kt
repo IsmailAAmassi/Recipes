@@ -30,7 +30,7 @@ fun RecipeData.toDto(
     steps = steps.toListDto(),
 )
 
-fun List<RecipeDto>.toListDate() = this.map { it.toData() }
+fun List<RecipeDto>.toListData() = this.map { it.toData() }
 fun List<RecipeData>.toListDto() = this.map { it.toDto() }
 
 

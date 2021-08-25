@@ -116,7 +116,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
                 }
             } catch (e: Exception) {
@@ -145,7 +145,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_UPDATE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_UPDATE)))
                 }
             } catch (e: Exception) {
@@ -174,7 +174,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {
@@ -221,6 +221,23 @@ class CategoryRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
+
+    override suspend fun getAllFromAPI(): Flow<DataState<List<CategoryDto>>> = flow {
+        try {
+            emit(DataState.Loading)
+            val categories = categoryApi.getAll("")
+            if (categories.isNotEmpty()) {
+                categoryDao.insert(categories.toListData())
+                emit(DataState.Success(categories))
+            } else {
+                emit(DataState.Empty)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(DataState.Error(e))
+        }
+    }.flowOn(Dispatchers.IO)
+
     override suspend fun deleteAll(isUserDoAction: Boolean): Flow<DataState<Int>> =
         flow {
             try {
@@ -239,7 +256,7 @@ class CategoryRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {
@@ -264,7 +281,7 @@ class CategoryRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val categories = categoryDao.get()
+                val categories = categoryDao.search("%$query%")
                 if (categories.isNotEmpty()) {
                     val recipesCounts = categories.map {
                         recipeDao.countForCategory(it.id)

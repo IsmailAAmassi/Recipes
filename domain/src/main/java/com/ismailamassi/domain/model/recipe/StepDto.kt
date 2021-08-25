@@ -8,7 +8,7 @@ data class StepDto(
     @SerializedName("id") var id: Long,
     @SerializedName("order") var order: Int,
     @SerializedName("description") var description: String?,
-    @SerializedName("recipeId") var recipeId: Long
+    @SerializedName("recipe_id") var recipeId: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),

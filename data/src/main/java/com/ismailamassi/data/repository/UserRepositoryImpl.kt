@@ -8,13 +8,11 @@ import com.ismailamassi.data.mapper.toData
 import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.domain.model.user.AuthenticateRequestDto
 import com.ismailamassi.domain.model.user.UserDto
-import com.ismailamassi.domain.repository.SettingsRepository
 import com.ismailamassi.domain.repository.UserRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -22,7 +20,6 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userDao: UserDao,
     private val userApi: UserApi,
-    private val settingsRepository: SettingsRepository
 ) : UserRepository {
 
     override suspend fun login(authenticateRequestDto: AuthenticateRequestDto): Flow<DataState<UserDto>> =
@@ -34,7 +31,6 @@ class UserRepositoryImpl @Inject constructor(
                     val dbResult = userDao.insert(result.toData())
                     if (dbResult != DatabaseErrorName.INSERT_ERROR_CODE) {
                         //Update Settings
-                        settingsRepository.updateCurrentUserId(result.id).collect()
                         emit(DataState.Success(result))
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.INSERT_ERROR_MESSAGE)))

@@ -214,6 +214,23 @@ class StepRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
+    override suspend fun getAllFromAPI(): Flow<DataState<List<StepDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = stepApi.getAll("")
+                if (result.isNotEmpty()) {
+                    stepDao.insert(result.toListData())
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
     override suspend fun deleteAll(
         isUserDoAction: Boolean
     ): Flow<DataState<Int>> =
@@ -259,7 +276,7 @@ class StepRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val result = stepDao.search(query)
+                val result = stepDao.search("%$query%")
                 if (result.isNotEmpty()) {
                     emit(DataState.Success(result.toListDto()))
                 } else {

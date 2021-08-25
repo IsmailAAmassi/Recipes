@@ -14,6 +14,7 @@ import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.repository.RecipeRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -181,16 +182,28 @@ class RecipeRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
 
     override suspend fun createList(
-        recipesList: List<RecipeDto>
+        recipesList: List<RecipeDto>,
+        isUserDoAction: Boolean
     ): Flow<DataState<List<Long>>> =
         flow {
             try {
                 emit(DataState.Loading)
-                val result = recipeDao.insert(recipesList.toListDate())
-                if (result.size == recipesList.size) {
-                    emit(DataState.Success(result))
-                } else {
-                    emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
+
+                // IF USER DO ACTION SEND TO SERVER
+                val apiStatus = if (isUserDoAction) {
+                    val apiResult = recipeApi.createList("", recipesList)
+                    recipesList.size == apiResult.size
+                } else true
+
+                if (apiStatus) {
+                    val dbResult = recipeDao.insert(recipesList.toListData())
+                    if (dbResult.size == recipesList.size) {
+                        emit(DataState.Success(dbResult))
+                    } else {
+                        emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
+                    }
+                }else{
+                    emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -204,7 +217,7 @@ class RecipeRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val result = recipeDao.update(recipesList.toListDate())
+                val result = recipeDao.update(recipesList.toListData())
                 if (result == recipesList.size) {
                     emit(DataState.Success(result))
                 } else {
@@ -266,6 +279,41 @@ class RecipeRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
+    override suspend fun getAllFromAPI(): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = recipeApi.getAll("")
+                if (result.isNotEmpty()) {
+                    recipeDao.insert(result.toListData())
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getCategoryRecipes(categoryId: Long): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                println("getCategoryRecipes")
+                val result = recipeDao.getCategoryRecipes(categoryId)
+                println("getCategoryRecipes result $result")
+                if (result.isNotEmpty()) {
+                    emit(DataState.Success(result.toListDto()))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
     override suspend fun deleteAll(
         isUserDoAction: Boolean
     ): Flow<DataState<Int>> =
@@ -311,7 +359,8 @@ class RecipeRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val result = recipeDao.search(query)
+                delay(1500)
+                val result = recipeDao.search("%$query%")
                 if (result.isNotEmpty()) {
                     emit(DataState.Success(result.toListDto()))
                 } else {

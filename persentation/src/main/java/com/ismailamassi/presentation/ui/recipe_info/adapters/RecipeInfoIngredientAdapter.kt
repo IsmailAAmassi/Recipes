@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.presentation.databinding.ItemRecipeInfoIngredientBinding
+import timber.log.Timber
 
 class RecipeInfoIngredientAdapter :
     RecyclerView.Adapter<RecipeInfoIngredientAdapter.RecipeInfoIngredientViewHolder>() {
@@ -12,6 +13,7 @@ class RecipeInfoIngredientAdapter :
     private var ingredientsList = listOf<IngredientDto>()
 
     fun update(data: List<IngredientDto>) {
+        Timber.tag("RecipeInfoIngredientAda").d("update : $data")
         ingredientsList = data
         notifyDataSetChanged()
     }

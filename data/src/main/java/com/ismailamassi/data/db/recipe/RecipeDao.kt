@@ -42,7 +42,7 @@ interface RecipeDao {
      * functions for table
      */
 
-    @Query("SELECT * FROM ${DatabaseTablesNames.RECIPE_TABLE}")
+    @Query("SELECT * FROM ${DatabaseTablesNames.RECIPE_TABLE} LIMIT 50")
     suspend fun get(): List<RecipeData>
 
     @Query("DELETE FROM ${DatabaseTablesNames.RECIPE_TABLE}")
@@ -65,6 +65,7 @@ interface RecipeDao {
     @Query("SELECT COUNT(*) FROM ${DatabaseTablesNames.RECIPE_TABLE} WHERE category_id =:categoryId")
     suspend fun countForCategory(categoryId: Long): Int
 
-
+    @Query("SELECT * FROM ${DatabaseTablesNames.RECIPE_TABLE} WHERE category_id =:categoryId")
+    suspend fun getCategoryRecipes(categoryId: Long): List<RecipeData>
 //    suspend fun getFullRecipe(id: Long)
 }

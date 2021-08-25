@@ -35,6 +35,8 @@ interface CategoryRepository {
 
     suspend fun getAll(): Flow<DataState<List<CategoryDto>>>
 
+    suspend fun getAllFromAPI(): Flow<DataState<List<CategoryDto>>>
+
     suspend fun deleteAll(
         isUserDoAction: Boolean = false
     ): Flow<DataState<Int>>

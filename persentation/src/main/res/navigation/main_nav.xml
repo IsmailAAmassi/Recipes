@@ -191,7 +191,11 @@
         android:id="@+id/nav_searchFragment"
         android:name="com.ismailamassi.presentation.ui.search.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_searchFragment_to_nav_recipeInfoFragment"
+            app:destination="@id/nav_recipeInfoFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_nav_searchFragment"
         app:destination="@id/nav_searchFragment"

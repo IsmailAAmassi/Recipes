@@ -32,10 +32,6 @@ class MoreFragment : PreferenceFragmentCompat(),
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         activateReviewFlow()
-
-        (requireActivity() as MainActivity).configAppBar()
-        (requireActivity() as MainActivity).showBottomNavigationView()
-
         setPreferencesFromResource(R.xml.preferences, rootKey)
         val packageName = requireActivity().packageName
         val keyAboutAppPreference = preferenceScreen.findPreference("key_about_app") as Preference?
@@ -74,7 +70,7 @@ class MoreFragment : PreferenceFragmentCompat(),
                 val themeValue = sharedPreferences?.getString(key, "") ?: ""
                 Timber.tag(TAG).d("onSharedPreferenceChanged : themeValue $themeValue")
                 val theme = AppTheme.getThemeByLabel(themeValue)
-                (requireActivity() as MainActivity).changeAppTheme(theme, true)
+                (requireActivity() as MainActivity).changeAppTheme(theme,true)
 
             }
         }

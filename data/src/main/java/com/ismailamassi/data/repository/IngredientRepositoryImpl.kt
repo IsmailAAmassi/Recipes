@@ -114,7 +114,7 @@ class IngredientRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
                 }
             } catch (e: Exception) {
@@ -143,7 +143,7 @@ class IngredientRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_UPDATE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_UPDATE)))
                 }
             } catch (e: Exception) {
@@ -172,7 +172,7 @@ class IngredientRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {
@@ -213,6 +213,23 @@ class IngredientRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
+    override suspend fun getAllFromAPI(): Flow<DataState<List<IngredientDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = ingredientApi.getAll("")
+                if (result.isNotEmpty()) {
+                    ingredientDao.insert(result.toListData())
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
     override suspend fun deleteAll(
         isUserDoAction: Boolean
     ): Flow<DataState<Int>> =
@@ -233,7 +250,7 @@ class IngredientRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {
@@ -258,7 +275,7 @@ class IngredientRepositoryImpl @Inject constructor(
         flow {
             try {
                 emit(DataState.Loading)
-                val result = ingredientDao.search(query)
+                val result = ingredientDao.search("%$query%")
                 if (result.isNotEmpty()) {
                     emit(DataState.Success(result.toListDto()))
                 } else {

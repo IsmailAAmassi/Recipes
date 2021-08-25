@@ -34,6 +34,7 @@ interface StepRepository {
 
 
     suspend fun getAll(): Flow<DataState<List<StepDto>>>
+    suspend fun getAllFromAPI(): Flow<DataState<List<StepDto>>>
 
     suspend fun deleteAll(
         isUserDoAction: Boolean = false

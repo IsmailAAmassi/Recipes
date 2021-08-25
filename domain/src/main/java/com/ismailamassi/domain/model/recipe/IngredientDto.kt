@@ -9,7 +9,7 @@ data class IngredientDto(
     @SerializedName("name") var name: String?,
     @SerializedName("qty") var qty: String?,
     @SerializedName("unit") var unit: String?,
-    @SerializedName("recipeId") var recipeId: Long
+    @SerializedName("recipe_id") var recipeId: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),

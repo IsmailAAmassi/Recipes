@@ -7,6 +7,7 @@ import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.presentation.databinding.ItemRecipeInfoIngredientBinding
 import com.ismailamassi.presentation.databinding.ItemRecipeInfoStepBinding
+import timber.log.Timber
 
 class RecipeInfoStepAdapter :
     RecyclerView.Adapter<RecipeInfoStepAdapter.RecipeInfoStepAdapterViewHolder>() {
@@ -14,6 +15,7 @@ class RecipeInfoStepAdapter :
     private var ingredientsList = listOf<StepDto>()
 
     fun update(data: List<StepDto>) {
+        Timber.tag("RecipeInfoStepAdapter").d("update : data $data")
         ingredientsList = data
         notifyDataSetChanged()
     }

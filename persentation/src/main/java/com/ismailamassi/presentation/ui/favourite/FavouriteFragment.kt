@@ -12,8 +12,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         get() = FragmentFavouriteBinding::inflate
 
     override fun setup() {
-        (requireActivity() as MainActivity).configAppBar()
-        (requireActivity() as MainActivity).showBottomNavigationView()
+
     }
 
 }

@@ -22,7 +22,6 @@ object ImageUtil {
     fun ImageView.loadNormalImageFromUrl(url: String?) {
         if (!url.isNullOrEmpty() && url.contains("http")) {
             this.load(url) {
-                crossfade(true)
                 placeholder(R.mipmap.ic_launcher)
                 error(R.mipmap.ic_launcher)
             }
