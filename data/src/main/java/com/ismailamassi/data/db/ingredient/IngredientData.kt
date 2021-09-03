@@ -12,6 +12,7 @@ data class IngredientData(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "qty") val qty: String,
     @ColumnInfo(name = "unit") val unit: String,
+    @ColumnInfo(name = "last_update") var lastUpdate: Long,
 
-    @ColumnInfo(name = "recipe_id") val recipeId: Long
+    @ColumnInfo(name = "recipe_id") val recipeId: Long,
 )

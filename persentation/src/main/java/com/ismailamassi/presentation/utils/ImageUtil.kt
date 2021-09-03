@@ -33,12 +33,13 @@ object ImageUtil {
     @JvmStatic
     @BindingAdapter(value = ["app:circleImageUrl"])
     fun ImageView.loadCircleImageFromUrl(url: String?) {
+        println("loadCircleImageFromUrl $url")
         if (!url.isNullOrEmpty() && url.contains("http")) {
             this.load(url) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
                 placeholder(R.mipmap.ic_launcher)
-                error(R.mipmap.ic_launcher)
+                error(android.R.drawable.stat_notify_error)
             }
         } else {
             this.setImageResource(R.mipmap.ic_launcher)
@@ -49,12 +50,13 @@ object ImageUtil {
     @JvmStatic
     @BindingAdapter(value = ["app:roundedImageUrl"])
     fun ImageView.loadRoundedImageFromUrl(url: String?) {
+        println("loadRoundedImageFromUrl $url")
         if (!url.isNullOrEmpty() && url.contains("http")) {
             this.load(url) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(4f))
                 placeholder(R.mipmap.ic_launcher)
-                error(R.mipmap.ic_launcher)
+                error(android.R.drawable.stat_notify_error)
             }
         } else {
             this.setImageResource(R.mipmap.ic_launcher)

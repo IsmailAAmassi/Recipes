@@ -1,5 +1,6 @@
 package com.ismailamassi.domain.repository
 
+import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.model.recipe.StepDto
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,8 @@ interface StepRepository {
 
 
     suspend fun getAll(): Flow<DataState<List<StepDto>>>
-    suspend fun getAllFromAPI(): Flow<DataState<List<StepDto>>>
+
+    suspend fun syncTable(): Flow<Boolean>
 
     suspend fun deleteAll(
         isUserDoAction: Boolean = false

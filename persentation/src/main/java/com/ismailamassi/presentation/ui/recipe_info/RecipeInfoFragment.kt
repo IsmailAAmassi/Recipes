@@ -1,8 +1,10 @@
 package com.ismailamassi.presentation.ui.recipe_info
 
 import android.view.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.ismailamassi.domain.model.recipe.RecipeDto
@@ -25,8 +27,8 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBackupBinding>(),
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRecipeInfoBackupBinding
         get() = FragmentRecipeInfoBackupBinding::inflate
 
+    var recipeId: Long = -1
 
-    private var menu: Menu? = null
 
     private val ingredientsAdapter: RecipeInfoIngredientAdapter by lazy {
         RecipeInfoIngredientAdapter()
@@ -38,7 +40,14 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBackupBinding>(),
 
     override fun setup() {
 
-        val recipeId = arguments?.run { RecipeInfoFragmentArgs.fromBundle(this).recipeId } ?: -1
+        binding.apply {
+            onClickListener = this@RecipeInfoFragment
+            //Start animation then disable it
+            mlRecipeInfo.transitionToEnd()
+            mlRecipeInfo.getTransition(R.id.transitionHome).isEnabled = false
+        }
+
+        recipeId = arguments?.run { RecipeInfoFragmentArgs.fromBundle(this).recipeId } ?: -1
 
         viewModel.onTriggerEvent(RecipeInfoEvent.GetRecipeInfo(recipeId = recipeId))
 
@@ -65,10 +74,39 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBackupBinding>(),
             }
         }
 
+        viewModel.favoriteStatusLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it) {
+                    //Set Icon Filled
+                    binding.ibFavouriteRecipe.setImageDrawable(
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.fav_enable,
+                            context?.theme
+                        )
+                    )
+                } else {
+                    //Set Icon Outline
+                    binding.ibFavouriteRecipe.setImageDrawable(
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.fav_disable,
+                            context?.theme
+                        )
+                    )
+                }
+            }
+        }
+
         viewModel.emptyLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 Timber.tag(TAG).d("observeLiveData : $it")
+            }
+        }
 
+        viewModel.messageLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                showSnackBar(it)
             }
         }
 
@@ -85,14 +123,8 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBackupBinding>(),
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        this.menu = menu
-        inflater.inflate(R.menu.recipet_info_menu, menu)
-    }
-
     private fun initData(recipeDto: RecipeDto) {
-        Timber.tag(TAG).d("initData : RecipeInfoFragment recipeDto $recipeDto")
+
         binding.apply {
             this.recipe = recipeDto
             this.ingredientsAdapter = this@RecipeInfoFragment.ingredientsAdapter
@@ -105,6 +137,33 @@ class RecipeInfoFragment : BaseFragment<FragmentRecipeInfoBackupBinding>(),
 
 
     override fun onClick(v: View?) {
+        binding.apply {
+            when (v) {
+                ibToolbarBack -> findNavController().popBackStack()
+                ibFavouriteRecipe -> changeFavoriteStatus()
+            }
+        }
+    }
+
+    private fun changeFavoriteStatus() {
+        val currentStatus = viewModel.favoriteStatusLiveData.value!!
+        if (currentStatus) {
+            //Delete from favourite table
+            viewModel.onTriggerEvent(
+                RecipeInfoEvent.ChangeFavouriteStatus(
+                    recipeId = recipeId,
+                    isFavourite = false
+                )
+            )
+        } else {
+            //Create in favourite table
+            viewModel.onTriggerEvent(
+                RecipeInfoEvent.ChangeFavouriteStatus(
+                    recipeId = recipeId,
+                    isFavourite = true
+                )
+            )
+        }
     }
 
 }

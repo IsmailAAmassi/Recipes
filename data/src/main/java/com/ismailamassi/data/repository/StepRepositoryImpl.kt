@@ -9,6 +9,7 @@ import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.recipe.StepDto
+import com.ismailamassi.domain.repository.ConfigRepository
 import com.ismailamassi.domain.repository.StepRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 class StepRepositoryImpl @Inject constructor(
     private val stepDao: StepDao,
-    private val stepApi: StepApi
+    private val stepApi: StepApi,
+    private val configRepository: ConfigRepository
 ) : StepRepository {
     override suspend fun create(stepDto: StepDto): Flow<DataState<StepDto>> =
         flow {
@@ -214,22 +216,26 @@ class StepRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAllFromAPI(): Flow<DataState<List<StepDto>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                val result = stepApi.getAll("")
-                if (result.isNotEmpty()) {
-                    stepDao.insert(result.toListData())
-                    emit(DataState.Success(result))
-                } else {
-                    emit(DataState.Empty)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(DataState.Error(e))
-            }
-        }.flowOn(Dispatchers.IO)
+    override suspend fun syncTable(): Flow<Boolean> = flow  {
+        try {
+            val lastUpdate = configRepository.getLastUpdateStepTable()
+            val addedUpdatedSteps = stepApi.getAddedUpdated("", lastUpdate)
+            val deletedSteps = stepApi.getDeleted("")
+
+            //Update Variable in SP
+            configRepository.setLastUpdateStepTable(System.currentTimeMillis())
+
+            //Add addedUpdatedSteps to DB
+            stepDao.insert(addedUpdatedSteps.toListData())
+
+            //Delete deletedSteps from DB
+            stepDao.delete(deletedSteps.map { it.id })
+            emit(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(false)
+        }
+    }
 
     override suspend fun deleteAll(
         isUserDoAction: Boolean
@@ -251,7 +257,7 @@ class StepRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_DELETE_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_DELETE)))
                 }
             } catch (e: Exception) {

@@ -47,6 +47,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private var isFirstTime = true
     private var isConnected = false
 
+    override fun onStart() {
+        super.onStart()
+
+        setTheme(R.style.TextTitleStyle)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -213,11 +220,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             AppTheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             AppTheme.NIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
-        if (restartUI) {
-            Timber.tag(TAG).d("changeAppTheme : restartUI $restartUI")
-            finish()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+
+//        if (restartUI) {
+//            Timber.tag(TAG).d("changeAppTheme : restartUI $restartUI")
+//            finish()
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
     }
 
     fun changeAppLanguage(appLanguage: AppLanguage) {

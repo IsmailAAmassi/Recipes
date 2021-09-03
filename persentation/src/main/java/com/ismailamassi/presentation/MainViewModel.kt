@@ -4,18 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ismailamassi.domain.model.category.CategoryDto
-import com.ismailamassi.domain.model.recipe.IngredientDto
-import com.ismailamassi.domain.model.recipe.RecipeDto
-import com.ismailamassi.domain.model.recipe.StepDto
-import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.repository.*
-import com.ismailamassi.domain.utils.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,13 +32,29 @@ class MainViewModel @Inject constructor(
 
     fun updateDatabase() {
         viewModelScope.launch {
-            categoryRepository.getAllFromAPI().collect()
-            recipeRepository.getAllFromAPI().collect()
-            ingredientRepository.getAllFromAPI().collect()
-            stepRepository.getAllFromAPI().collect()
-            tipRepository.getAllFromAPI().collect()
+            Timber.tag(TAG).d("updateDatabase : Start Sync")
+            categoryRepository.syncTable().collect {
+                Timber.tag(TAG).d("updateDatabase : Sync Category table status $it")
+            }
+            recipeRepository.syncTable().collect {
+                Timber.tag(TAG).d("updateDatabase : Sync Recipe table status $it")
+            }
+            ingredientRepository.syncTable().collect {
+                Timber.tag(TAG).d("updateDatabase : Sync Ingredient table status $it")
+            }
+            stepRepository.syncTable().collect {
+                Timber.tag(TAG).d("updateDatabase : Sync Steps table status $it")
+            }
+            tipRepository.syncTable().collect {
+                Timber.tag(TAG).d("updateDatabase : Sync Tips table status $it")
+            }
+            Timber.tag(TAG).d("updateDatabase : End Sync")
+
         }
     }
 
+    companion object{
+        private const val TAG = "MainViewModel"
+    }
 
 }

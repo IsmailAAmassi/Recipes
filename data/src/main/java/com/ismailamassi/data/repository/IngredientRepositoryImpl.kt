@@ -9,6 +9,7 @@ import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.recipe.IngredientDto
+import com.ismailamassi.domain.repository.ConfigRepository
 import com.ismailamassi.domain.repository.IngredientRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 class IngredientRepositoryImpl @Inject constructor(
     private val ingredientDao: IngredientDao,
-    private val ingredientApi: IngredientApi
+    private val ingredientApi: IngredientApi,
+    private val configRepository: ConfigRepository
 ) : IngredientRepository {
 
     override suspend fun create(ingredientDto: IngredientDto): Flow<DataState<IngredientDto>> =
@@ -213,22 +215,26 @@ class IngredientRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAllFromAPI(): Flow<DataState<List<IngredientDto>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                val result = ingredientApi.getAll("")
-                if (result.isNotEmpty()) {
-                    ingredientDao.insert(result.toListData())
-                    emit(DataState.Success(result))
-                } else {
-                    emit(DataState.Empty)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(DataState.Error(e))
-            }
-        }.flowOn(Dispatchers.IO)
+    override suspend fun syncTable(): Flow<Boolean> = flow  {
+        try {
+            val lastUpdate = configRepository.getLastUpdateIngredientTable()
+            val addedUpdatedIngredients = ingredientApi.getAddedUpdated("", lastUpdate)
+            val deletedIngredients = ingredientApi.getDeleted("")
+
+            //Update Variable in SP
+            configRepository.setLastUpdateIngredientTable(System.currentTimeMillis())
+
+            //Add addedUpdatedIngredients to DB
+            ingredientDao.insert(addedUpdatedIngredients.toListData())
+
+            //Delete deletedIngredients from DB
+            ingredientDao.delete(deletedIngredients.map { it.id })
+            emit(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(false)
+        }
+    }
 
     override suspend fun deleteAll(
         isUserDoAction: Boolean

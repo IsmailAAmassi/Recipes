@@ -33,11 +33,10 @@ interface TipRepository {
 
 
     suspend fun getAll(): Flow<DataState<List<TipDto>>>
-    suspend fun getAllFromAPI(): Flow<DataState<List<TipDto>>>
 
-    suspend fun deleteAll(
-        isUserDoAction: Boolean = false
-    ): Flow<DataState<Int>>
+    suspend fun syncTable(): Flow<Boolean>
+
+    suspend fun deleteAll(isUserDoAction: Boolean = false): Flow<DataState<Int>>
 
     suspend fun getCount(): Flow<DataState<Int>>
 

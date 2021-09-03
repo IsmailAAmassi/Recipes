@@ -53,6 +53,17 @@ interface CategoryApi {
         @Header("Authorization") token: String,
     ): List<CategoryDto>
 
+    @GET("$CATEGORY_TABLE/after/{lastUpdated}")
+    suspend fun getAddedUpdated(
+        @Header("Authorization") token: String,
+        @Path("lastUpdated") lastUpdated: Long,
+    ): List<CategoryDto>
+
+    @GET("$CATEGORY_TABLE/before/0")
+    suspend fun getDeleted(
+        @Header("Authorization") token: String
+    ): List<CategoryDto>
+
     @DELETE(CATEGORY_TABLE)
     suspend fun deleteAll(
         @Header("Authorization") token: String,

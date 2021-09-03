@@ -10,4 +10,5 @@ data class TipData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "label") val label: String,
+    @ColumnInfo(name = "last_update") var lastUpdate: Long,
 )

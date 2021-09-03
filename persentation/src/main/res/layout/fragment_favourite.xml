@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="favouritesAdapter"
+            type="com.ismailamassi.presentation.ui.favourite.FavouritesAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,28 +15,61 @@
         android:layout_height="match_parent"
         tools:context=".ui.favourite.FavouriteFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar" />
 
-            android:theme="@style/Theme.ComposeRecipeApp.AppBarOverlay"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_favouritesList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:listitem="@layout/item_favourite"
+            android:layoutAnimation="@anim/layout_animation"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:setAdapter="@{favouritesAdapter}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                app:logoDescription="@string/favourites"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/Theme.ComposeRecipeApp.PopupOverlay"
-                app:title="@string/favourites">
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:contentDescription="@string/app_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4"
+                app:srcCompat="@drawable/fav_enable"
+                app:tint="?attr/colorPrimary" />
 
-            </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/no_favourites_yet"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

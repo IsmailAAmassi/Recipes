@@ -53,6 +53,17 @@ interface StepApi {
         @Header("Authorization") token: String,
     ): List<StepDto>
 
+    @GET("${STEP_TABLE}/after/{lastUpdated}")
+    suspend fun getAddedUpdated(
+        @Header("Authorization") token: String,
+        @Path("lastUpdated") lastUpdated: Long,
+    ): List<StepDto>
+
+    @GET("${STEP_TABLE}/before/0")
+    suspend fun getDeleted(
+        @Header("Authorization") token: String
+    ): List<StepDto>
+
     @DELETE(STEP_TABLE)
     suspend fun deleteAll(
         @Header("Authorization") token: String,

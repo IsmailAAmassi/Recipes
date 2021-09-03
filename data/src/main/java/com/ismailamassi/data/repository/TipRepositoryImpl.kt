@@ -9,6 +9,7 @@ import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.tip.TipDto
+import com.ismailamassi.domain.repository.ConfigRepository
 import com.ismailamassi.domain.repository.TipRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 class TipRepositoryImpl @Inject constructor(
     private val tipDao: TipDao,
-    private val tipApi: TipApi
+    private val tipApi: TipApi,
+    private val configRepository: ConfigRepository
 ) : TipRepository {
 
     override suspend fun create(tipDto: TipDto): Flow<DataState<TipDto>> =
@@ -214,22 +216,26 @@ class TipRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAllFromAPI(): Flow<DataState<List<TipDto>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                val result = tipApi.getAll("")
-                if (result.isNotEmpty()) {
-                    tipDao.insert(result.toListData())
-                    emit(DataState.Success(result))
-                } else {
-                    emit(DataState.Empty)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(DataState.Error(e))
-            }
-        }.flowOn(Dispatchers.IO)
+    override suspend fun syncTable() : Flow<Boolean> = flow {
+        try {
+            val lastUpdate = configRepository.getLastUpdateTipTable()
+            val addedUpdatedTips = tipApi.getAddedUpdated("", lastUpdate)
+            val deletedTips = tipApi.getDeleted("")
+
+            //Update Variable in SP
+            configRepository.setLastUpdateTipTable(System.currentTimeMillis())
+
+            //Add addedUpdatedTips to DB
+            tipDao.insert(addedUpdatedTips.toListData())
+
+            //Delete deletedTips from DB
+            tipDao.delete(deletedTips.map { it.id })
+            emit(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(false)
+        }
+    }
 
 
     override suspend fun deleteAll(

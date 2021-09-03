@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ismailamassi.domain.model.recipe.RecipeDto
+import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentRecipesListBinding
@@ -31,39 +32,47 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
 
     override fun setup() {
 
-        val recipesType = arguments?.run { RecipesListFragmentArgs.fromBundle(this).recipesType }
-        viewModel.onTriggerEvent(RecipesListEvent.GetCategoryRecipes((recipesType as RecipeListType.CategoryRecipes).categoryId))
-//        var category: CategoryDto? = null
-        /*val recipesList = when (recipesType) {
+        val title = when(val recipesType = arguments?.run { RecipesListFragmentArgs.fromBundle(this).recipesType }){
             RecipeListType.BestCollectionRecipes -> {
-                fakeRecipes
+                viewModel.onTriggerEvent(RecipesListEvent.GetBestCollection)
+                "Best Collection"
             }
             is RecipeListType.CategoryRecipes -> {
-                category = fakeCategories.find { it.id == recipesType.categoryId }
-
+                viewModel.onTriggerEvent(RecipesListEvent.GetCategoryRecipes(categoryId = recipesType.categoryId))
+                ""
             }
             RecipeListType.MostLovedRecipes -> {
-                fakeRecipes
+                viewModel.onTriggerEvent(RecipesListEvent.GetMostLoved)
+                "Most Loved"
             }
             RecipeListType.MostViewedRecipes -> {
-                // TODO: 8/20/2021 Get result from API
-                fakeRecipes
+                viewModel.onTriggerEvent(RecipesListEvent.GetMostViewed)
+                "Most Viewed"
             }
             null -> {
-                // TODO: 8/20/2021 Return Empty Result with error message
-                listOf()
+                ""
             }
-        }*/
+        }
+        Timber.tag(TAG).d("setup : title $title")
+        binding.toolbar.title = title
 
-        binding.ibToolbarBack.setOnClickListener {
+
+        binding.toolbar.ibToolbarBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
         observeLiveData()
     }
 
     private fun observeLiveData() {
 
-        viewModel.categoryRecipes.observe(viewLifecycleOwner) {
+        viewModel.category.observe(viewLifecycleOwner){
+            it?.let {
+                binding.toolbar.title = it.title
+            }
+        }
+
+        viewModel.recipes.observe(viewLifecycleOwner) {
             it?.let { recipesList ->
                 if (recipesList.isEmpty()) {
                     changeEmptyStatusVisibility(true)
@@ -73,16 +82,25 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
                 }
             }
         }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showError(it) }
+        }
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) {
+            it?.let { mainViewModel.showLoading(it) }
+        }
     }
+
 
     private fun changeEmptyStatusVisibility(visibility: Boolean) {
         Timber.tag(TAG).d("changeEmptyStatusVisibility : visibility $visibility")
         binding.apply {
             if (visibility) {
-                clRecipesListEmptyStatus.visibility = View.VISIBLE
+                clEmptyStatus.visibility = View.VISIBLE
                 rvRecipesList.visibility = View.GONE
             } else {
-                clRecipesListEmptyStatus.visibility = View.GONE
+                clEmptyStatus.visibility = View.GONE
                 rvRecipesList.visibility = View.VISIBLE
             }
         }
@@ -95,6 +113,7 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
     }
 
     override fun onClick(v: View?) {
+
     }
 
     override fun onClickRecipe(recipeId: Long) {

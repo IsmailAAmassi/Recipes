@@ -169,17 +169,18 @@
                         app:layout_constraintStart_toStartOf="@+id/textView3"
                         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvHomeMostViewedRecipes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{onClickListener::onClick}"
                         android:padding="@dimen/_4sdp"
+                        android:visibility="visible"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/montserrat"
                         android:text="@string/more"
                         android:textAllCaps="true"
-                        android:textColor="@color/primaryColor"
+                        android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"

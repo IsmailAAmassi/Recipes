@@ -9,6 +9,7 @@ data class IngredientDto(
     @SerializedName("name") var name: String?,
     @SerializedName("qty") var qty: String?,
     @SerializedName("unit") var unit: String?,
+    @SerializedName("last_update") var lastUpdate: Long,
     @SerializedName("recipe_id") var recipeId: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -16,6 +17,7 @@ data class IngredientDto(
         name = parcel.readString(),
         qty = parcel.readString(),
         unit = parcel.readString(),
+        lastUpdate = parcel.readLong(),
         recipeId = parcel.readLong()
     )
 
@@ -24,6 +26,7 @@ data class IngredientDto(
         parcel.writeString(name)
         parcel.writeString(qty)
         parcel.writeString(unit)
+        parcel.writeLong(lastUpdate)
         parcel.writeLong(recipeId)
     }
 

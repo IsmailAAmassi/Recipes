@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.ismailamassi.domain.Constants"/>
 
         <variable
             name="category"
@@ -27,18 +28,20 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.8"
+            app:normalImageUrl="@{Constants.CATEGORY_IMAGE_PREFIX_URL + category.avatar}"
             android:scaleType="fitXY"
+            android:alpha="0.9"
             android:src="@drawable/home_category_sample" />
 
         <TextView
             android:id="@+id/tvHomeCategoryTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:background="#80000000"
             android:fontFamily="@font/montserrat"
-            android:text="@{category.title}"
+            android:text="@{category.title.toUpperCase()}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/homeCardViewTitleSize"

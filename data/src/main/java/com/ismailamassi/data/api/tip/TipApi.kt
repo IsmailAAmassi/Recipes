@@ -53,6 +53,17 @@ interface TipApi {
         @Header("Authorization") token: String,
     ): List<TipDto>
 
+    @GET("${TIP_TABLE}/after/{lastUpdated}")
+    suspend fun getAddedUpdated(
+        @Header("Authorization") token: String,
+        @Path("lastUpdated") lastUpdated: Long,
+    ): List<TipDto>
+
+    @GET("${TIP_TABLE}/before/0")
+    suspend fun getDeleted(
+        @Header("Authorization") token: String,
+    ): List<TipDto>
+
     @DELETE(TIP_TABLE)
     suspend fun deleteAll(
         @Header("Authorization") token: String,

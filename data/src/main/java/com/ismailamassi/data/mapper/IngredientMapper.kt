@@ -5,9 +5,10 @@ import com.ismailamassi.domain.model.recipe.IngredientDto
 
 fun IngredientDto.toData() = IngredientData(
     id = id,
-    name = name?:"",
-    qty = qty?:"",
-    unit = unit?:"",
+    name = name ?: "",
+    qty = qty ?: "",
+    unit = unit ?: "",
+    lastUpdate = lastUpdate,
     recipeId = recipeId,
 )
 
@@ -16,8 +17,9 @@ fun IngredientData.toDto() = IngredientDto(
     name = name,
     qty = qty,
     unit = unit,
+    lastUpdate = lastUpdate,
     recipeId = recipeId,
 )
 
-fun List<IngredientDto>.toListData() = this.map { it.toData()}
+fun List<IngredientDto>.toListData() = this.map { it.toData() }
 fun List<IngredientData>.toListDto() = this.map { it.toDto() }

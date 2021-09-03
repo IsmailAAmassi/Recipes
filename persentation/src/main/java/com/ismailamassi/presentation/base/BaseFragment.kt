@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
-    val fakeCategories = listOf(
+/*    val fakeCategories = listOf(
         CategoryDto(1L, "Fast Food", "https://image.flaticon.com/icons/png/512/3447/3447891.png"),
         CategoryDto(5L, "Cake", "https://image.flaticon.com/icons/png/128/448/448003.png"),
         CategoryDto(2L, "Sweets", "https://image.flaticon.com/icons/png/128/3135/3135296.png"),
@@ -401,7 +401,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         FavouriteDto(recipeId = 4L, 1L),
         FavouriteDto(recipeId = 10L, 1L),
         FavouriteDto(recipeId = 15L, 1L),
-    )
+    )*/
 
 
     var hostActivity: Activity? = null

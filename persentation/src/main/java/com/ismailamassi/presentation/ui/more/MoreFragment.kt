@@ -45,7 +45,7 @@ class MoreFragment : PreferenceFragmentCompat(),
         keyRateAppPreference?.setOnPreferenceClickListener {
             val task = reviewManger.launchReviewFlow(requireActivity(), reviewInfo)
             task.addOnCompleteListener {
-                Timber.tag(TAG).d("onCreatePreferences : ${it.result}")
+                Timber.tag(TAG).d("onCreatePreferences : Text Size ${it.result}")
             }
             true
         }
@@ -71,6 +71,9 @@ class MoreFragment : PreferenceFragmentCompat(),
                 Timber.tag(TAG).d("onSharedPreferenceChanged : themeValue $themeValue")
                 val theme = AppTheme.getThemeByLabel(themeValue)
                 (requireActivity() as MainActivity).changeAppTheme(theme,true)
+
+            }
+            "key_font_size" ->{
 
             }
         }

@@ -11,6 +11,7 @@ data class StepData(
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "order") val order: Int,
     @ColumnInfo(name = "description") val description: String,
+    @ColumnInfo(name = "last_update") var lastUpdate: Long,
 
     @ColumnInfo(name = "recipe_id") val recipeId: Long,
 )

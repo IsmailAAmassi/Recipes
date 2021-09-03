@@ -33,6 +33,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(){
         splashViewModel.onTriggerEvent(SplashEvent.UpdateDatabase)
 
         observeLiveData()
+
         moveToNextUI()
     }
 
@@ -58,7 +59,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(){
     private fun moveToNextUI() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(2000)
-            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+            try{
+                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+            }catch (e:Exception){
+            }
         }
     }
 

@@ -10,7 +10,9 @@ import com.ismailamassi.data.mapper.toDto
 import com.ismailamassi.data.mapper.toListData
 import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.category.CategoryDto
+import com.ismailamassi.domain.model.tip.TipDto
 import com.ismailamassi.domain.repository.CategoryRepository
+import com.ismailamassi.domain.repository.ConfigRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +23,8 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao,
     private val categoryApi: CategoryApi,
-    private val recipeDao: RecipeDao
+    private val recipeDao: RecipeDao,
+    private val configRepository: ConfigRepository
 ) : CategoryRepository {
 
     override suspend fun create(categoryDto: CategoryDto): Flow<DataState<CategoryDto>> =
@@ -222,21 +225,27 @@ class CategoryRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
 
 
-    override suspend fun getAllFromAPI(): Flow<DataState<List<CategoryDto>>> = flow {
+    override suspend fun syncTable(): Flow<Boolean> = flow {
         try {
-            emit(DataState.Loading)
-            val categories = categoryApi.getAll("")
-            if (categories.isNotEmpty()) {
-                categoryDao.insert(categories.toListData())
-                emit(DataState.Success(categories))
-            } else {
-                emit(DataState.Empty)
-            }
+            val lastUpdate = configRepository.getLastUpdateCategoryTable()
+            val addedUpdatedCategories = categoryApi.getAddedUpdated("", lastUpdate)
+            val deletedCategories = categoryApi.getDeleted("")
+
+            //Update Variable in SP
+            configRepository.setLastUpdateCategoryTable(System.currentTimeMillis())
+
+            //Add addedUpdatedCategories to DB
+            categoryDao.insert(addedUpdatedCategories.toListData())
+
+            //Delete deletedCategories from DB
+            categoryDao.delete(deletedCategories.map { it.id })
+            emit(true)
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(DataState.Error(e))
+            emit(false)
         }
-    }.flowOn(Dispatchers.IO)
+    }
+
 
     override suspend fun deleteAll(isUserDoAction: Boolean): Flow<DataState<Int>> =
         flow {

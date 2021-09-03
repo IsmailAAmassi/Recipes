@@ -6,16 +6,19 @@ import com.google.gson.annotations.SerializedName
 
 data class TipDto(
     @SerializedName("id") var id: Long,
-    @SerializedName("title") var label: String?
+    @SerializedName("title") var label: String?,
+    @SerializedName("last_update") var lastUpdate: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),
-        label = parcel.readString()
+        label = parcel.readString(),
+        lastUpdate = parcel.readLong()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
         parcel.writeString(label)
+        parcel.writeLong(lastUpdate)
     }
 
     override fun describeContents(): Int {

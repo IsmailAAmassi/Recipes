@@ -1,5 +1,6 @@
 package com.ismailamassi.domain.repository
 
+import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,7 @@ interface IngredientRepository {
 
     suspend fun getAll(): Flow<DataState<List<IngredientDto>>>
 
-    suspend fun getAllFromAPI(): Flow<DataState<List<IngredientDto>>>
+    suspend fun syncTable(): Flow<Boolean>
 
     suspend fun deleteAll(
         isUserDoAction: Boolean = false

@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getHomeRecipes() {
         viewModelScope.launch {
-            recipeRepository.getAll().map {
+            recipeRepository.getMostViewedRecipes().map {
                 when (it) {
                     DataState.Empty -> {
                         _loadingLiveData.postValue(false)

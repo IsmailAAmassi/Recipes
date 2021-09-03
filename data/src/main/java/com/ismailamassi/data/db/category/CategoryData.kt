@@ -11,4 +11,6 @@ data class CategoryData(
     @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "avatar") val avatar: String,
+    @ColumnInfo(name = "last_update") var lastUpdate: Long,
+    @ColumnInfo(name = "position") var position: Int,
 )

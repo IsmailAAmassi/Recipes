@@ -44,7 +44,11 @@
     <string name="cooking_time">Cooking Time</string>
     <string name="_14_min">14 min</string>
     <string name="_2_persons">2 Persons</string>
-    <string name="recipes_ingredients">Recipes/Ingredients</string>
+    <string name="recipes_ingredients">Recipes / Ingredients</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="no_favourites_yet">No favourites yet</string>
+    <string name="no_tips_yet_come_back_later">No Tips yet, Come back later</string>
+    <string name="this_category_haven_t_recipes_yet">This category haven\'t recipes yet</string>
 
     <array name="appThemes">
         <item>Follow System</item>

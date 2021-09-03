@@ -1,6 +1,8 @@
 package com.ismailamassi.data.api.recipe
 
+import com.ismailamassi.data.api.ApiTablesNames
 import com.ismailamassi.data.api.ApiTablesNames.RECIPE_TABLE
+import com.ismailamassi.domain.model.recipe.IngredientDto
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import retrofit2.http.*
 
@@ -53,8 +55,34 @@ interface RecipeApi {
         @Header("Authorization") token: String,
     ): List<RecipeDto>
 
+    @GET("${RECIPE_TABLE}/after/{lastUpdated}")
+    suspend fun getAddedUpdated(
+        @Header("Authorization") token: String,
+        @Path("lastUpdated") lastUpdated: Long,
+    ): List<RecipeDto>
+
+    @GET("${RECIPE_TABLE}/before/0")
+    suspend fun getDeleted(
+        @Header("Authorization") token: String
+    ): List<RecipeDto>
+
     @DELETE(RECIPE_TABLE)
     suspend fun deleteAll(
         @Header("Authorization") token: String,
     ): List<RecipeDto>
+
+    @GET("${RECIPE_TABLE}/mostLoved")
+    suspend fun getMostLoved(
+        @Header("Authorization") token: String,
+    ) :List<RecipeDto>
+
+    @GET("${RECIPE_TABLE}/bestCollection")
+    suspend fun getBestCollection(
+        @Header("Authorization") token: String,
+    ) :List<RecipeDto>
+
+    @GET("${RECIPE_TABLE}/mostViewed")
+    suspend fun getMostViewed(
+        @Header("Authorization") token: String,
+    ) :List<RecipeDto>
 }

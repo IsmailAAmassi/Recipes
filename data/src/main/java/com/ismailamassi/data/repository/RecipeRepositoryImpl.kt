@@ -5,12 +5,17 @@ import com.ismailamassi.data.api.ingredient.IngredientApi
 import com.ismailamassi.data.api.recipe.RecipeApi
 import com.ismailamassi.data.api.step.StepApi
 import com.ismailamassi.data.db.DatabaseErrorName
+import com.ismailamassi.data.db.favourite.FavouriteDao
 import com.ismailamassi.data.db.ingredient.IngredientDao
 import com.ismailamassi.data.db.recipe.RecipeDao
 import com.ismailamassi.data.db.step.StepDao
-import com.ismailamassi.data.mapper.*
+import com.ismailamassi.data.mapper.toData
+import com.ismailamassi.data.mapper.toDto
+import com.ismailamassi.data.mapper.toListData
+import com.ismailamassi.data.mapper.toListDto
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.domain.model.recipe.StepDto
+import com.ismailamassi.domain.repository.ConfigRepository
 import com.ismailamassi.domain.repository.RecipeRepository
 import com.ismailamassi.domain.utils.DataState
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +32,9 @@ class RecipeRepositoryImpl @Inject constructor(
     private val stepDao: StepDao,
     private val recipeApi: RecipeApi,
     private val ingredientApi: IngredientApi,
-    private val stepApi: StepApi
+    private val stepApi: StepApi,
+    private val favouriteDao: FavouriteDao,
+    private val configRepository: ConfigRepository
 ) : RecipeRepository {
     override suspend fun create(recipeDto: RecipeDto): Flow<DataState<RecipeDto>> =
         flow {
@@ -202,7 +209,7 @@ class RecipeRepositoryImpl @Inject constructor(
                     } else {
                         emit(DataState.Error(Exception(DatabaseErrorName.MULTIPLE_INSERT_ERROR_MESSAGE)))
                     }
-                }else{
+                } else {
                     emit(DataState.Error(Exception(ApiErrorName.MULTIPLE_ERROR_INSERT)))
                 }
             } catch (e: Exception) {
@@ -279,22 +286,6 @@ class RecipeRepositoryImpl @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAllFromAPI(): Flow<DataState<List<RecipeDto>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                val result = recipeApi.getAll("")
-                if (result.isNotEmpty()) {
-                    recipeDao.insert(result.toListData())
-                    emit(DataState.Success(result))
-                } else {
-                    emit(DataState.Empty)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(DataState.Error(e))
-            }
-        }.flowOn(Dispatchers.IO)
 
     override suspend fun getCategoryRecipes(categoryId: Long): Flow<DataState<List<RecipeDto>>> =
         flow {
@@ -394,4 +385,96 @@ class RecipeRepositoryImpl @Inject constructor(
                 emit(DataState.Error(e))
             }
         }.flowOn(Dispatchers.IO)
+
+    override suspend fun syncTable(): Flow<Boolean> = flow {
+        try {
+            val lastUpdate = configRepository.getLastUpdateRecipeTable()
+            val addedUpdatedRecipes = recipeApi.getAddedUpdated("", lastUpdate)
+            val deletedRecipes = recipeApi.getDeleted("")
+
+            //Update Variable in SP
+            configRepository.setLastUpdateRecipeTable(System.currentTimeMillis())
+
+            //Add addedUpdatedRecipes to DB
+            recipeDao.insert(addedUpdatedRecipes.toListData())
+
+            //Delete deletedRecipes from DB
+            recipeDao.delete(deletedRecipes.map { it.id })
+            emit(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(false)
+        }
+    }
+
+    override suspend fun getMostLovedRecipes(): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = recipeApi.getMostLoved("")
+                if (result.isNotEmpty()) {
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getBestCollectionRecipes(): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = recipeApi.getBestCollection("")
+                if (result.isNotEmpty()) {
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getMostViewedRecipes(): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val result = recipeApi.getMostViewed("")
+                if (result.isNotEmpty()) {
+                    emit(DataState.Success(result))
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getFavouritesRecipes(): Flow<DataState<List<RecipeDto>>> =
+        flow {
+            try {
+                emit(DataState.Loading)
+                val favouritesResult = favouriteDao.get()
+                if (favouritesResult.isNotEmpty()) {
+                    val recipesResult = recipeDao.get(favouritesResult.map { it.recipeId })
+                    if (recipesResult.isNotEmpty()) {
+                        emit(DataState.Success(recipesResult.toListDto()))
+                    } else {
+                        emit(DataState.Empty)
+                    }
+                } else {
+                    emit(DataState.Empty)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(DataState.Error(e))
+            }
+        }.flowOn(Dispatchers.IO)
+
+
 }

@@ -8,20 +8,27 @@ data class CategoryDto(
     @SerializedName("id") var id: Long,
     @SerializedName("title") var title: String?,
     @SerializedName("avatar") var avatar: String?,
+    @SerializedName("last_update") var lastUpdate: Long,
+    @SerializedName("position") var position: Int,
     @SerializedName("recipesCount") var recipesCount: Int? = 0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        id = parcel.readLong(),
-        title = parcel.readString(),
-        avatar = parcel.readString(),
-        recipesCount = parcel.readInt()
-    )
+        parcel.readLong(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readLong(),
+        parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as? Int
+    ) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
         parcel.writeString(title)
         parcel.writeString(avatar)
-        parcel.writeInt(recipesCount ?: 0)
+        parcel.writeLong(lastUpdate)
+        parcel.writeInt(position)
+        parcel.writeValue(recipesCount)
     }
 
     override fun describeContents(): Int {
@@ -37,4 +44,5 @@ data class CategoryDto(
             return arrayOfNulls(size)
         }
     }
+
 }

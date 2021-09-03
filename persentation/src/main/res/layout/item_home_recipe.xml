@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.ismailamassi.domain.Constants"/>
 
         <variable
             name="recipe"
@@ -42,10 +43,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_1sdp"
                 android:scaleType="fitCenter"
+                app:roundedImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}"
                 android:src="@drawable/logo_32"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:roundedImageUrl="@{recipe.featuredImage}" />
+             />
 
 
         </com.google.android.material.card.MaterialCardView>

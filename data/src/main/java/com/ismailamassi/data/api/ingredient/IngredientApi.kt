@@ -1,6 +1,8 @@
 package com.ismailamassi.data.api.ingredient
 
+import com.ismailamassi.data.api.ApiTablesNames
 import com.ismailamassi.data.api.ApiTablesNames.INGREDIENT_TABLE
+import com.ismailamassi.domain.model.category.CategoryDto
 import com.ismailamassi.domain.model.recipe.IngredientDto
 import retrofit2.http.*
 
@@ -51,6 +53,17 @@ interface IngredientApi {
     @GET(INGREDIENT_TABLE)
     suspend fun getAll(
         @Header("Authorization") token: String,
+    ): List<IngredientDto>
+
+    @GET("${INGREDIENT_TABLE}/after/{lastUpdated}")
+    suspend fun getAddedUpdated(
+        @Header("Authorization") token: String,
+        @Path("lastUpdated") lastUpdated: Long,
+    ): List<IngredientDto>
+
+    @GET("${INGREDIENT_TABLE}/before/0")
+    suspend fun getDeleted(
+        @Header("Authorization") token: String
     ): List<IngredientDto>
 
     @DELETE(INGREDIENT_TABLE)

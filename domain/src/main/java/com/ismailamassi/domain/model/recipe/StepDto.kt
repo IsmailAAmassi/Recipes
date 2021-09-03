@@ -8,12 +8,14 @@ data class StepDto(
     @SerializedName("id") var id: Long,
     @SerializedName("order") var order: Int,
     @SerializedName("description") var description: String?,
+    @SerializedName("last_update") var lastUpdate: Long,
     @SerializedName("recipe_id") var recipeId: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),
         order = parcel.readInt(),
         description = parcel.readString(),
+        lastUpdate = parcel.readLong(),
         recipeId = parcel.readLong()
     )
 
@@ -21,6 +23,7 @@ data class StepDto(
         parcel.writeLong(id)
         parcel.writeInt(order)
         parcel.writeString(description)
+        parcel.writeLong(lastUpdate)
         parcel.writeLong(recipeId)
     }
 

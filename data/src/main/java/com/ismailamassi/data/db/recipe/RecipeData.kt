@@ -13,7 +13,14 @@ data class RecipeData(
     @ColumnInfo(name = "publisher_id") val publisherId: Long,
     @ColumnInfo(name = "featured_image") val featuredImage: String,
     @ColumnInfo(name = "video_url") val videoURL: String,
+
+    @ColumnInfo(name = "preparation_time") var preparationTime: String?,
+    @ColumnInfo(name = "cooking_time") var cookingTime: String?,
+    @ColumnInfo(name = "serving") var serving: String?,
+
+    @ColumnInfo(name = "position") val position: Int,
     @ColumnInfo(name = "like_count") val likeCount: Int,
+    @ColumnInfo(name = "last_update") var lastUpdate: Long,
 
     @ColumnInfo(name = "category_id") val categoryId: Long,
 )

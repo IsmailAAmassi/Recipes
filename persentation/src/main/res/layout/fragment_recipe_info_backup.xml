@@ -6,6 +6,11 @@
 
     <data>
 
+        <import type="com.ismailamassi.domain.Constants"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
         <variable
             name="recipe"
             type="com.ismailamassi.domain.model.recipe.RecipeDto" />
@@ -20,6 +25,7 @@
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/ml_recipeInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_recipe_info_backup_scene">
@@ -28,7 +34,7 @@
             android:id="@+id/cl_recipeInfoHeader"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/ll_recipeInfoContent"
+            app:layout_constraintBottom_toTopOf="@+id/ll_recipeInfoContent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,16 +43,17 @@
                 android:id="@+id/imageView6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription="@string/recipe_image"
                 android:minHeight="@dimen/_100sdp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/recipe_image"
+                app:normalImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/tvRecipeInfoName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvRecipeInfoName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -54,16 +61,17 @@
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:fontFamily="@font/montserrat"
-                android:paddingHorizontal="@dimen/_4sdp"
-                tools:text="@string/app_name"
                 android:marqueeRepeatLimit="marquee_forever"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_4sdp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="@{recipe.title}"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                app:layout_constraintStart_toStartOf="@+id/imageView6" />
+                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                tools:text="@string/app_name" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayout"
@@ -84,7 +92,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvPreparationTimeLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,7 +108,7 @@
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvPreparationTimeValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,7 +133,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvCookingTimeLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -141,7 +149,7 @@
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvCookingTimeValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -165,7 +173,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvServingLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -181,7 +189,7 @@
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvServingValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -191,6 +199,44 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ibToolbarBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:background="@color/transparent"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                    app:tint="?attr/colorPrimary"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ibFavouriteRecipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:background="@color/transparent"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    app:srcCompat="@drawable/fav_disable"
+                    app:tint="?attr/colorPrimary"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </FrameLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -206,7 +252,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -247,7 +294,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView7"
                         app:setAdapter="@{ingredientsAdapter}"
-                        tools:listitem="@layout/item_recipe_info_ingredient" />
+                        tools:listitem="@layout/item_recipe_info_ingredient"
+                        tools:visibility="gone" />
 
                     <TextView
                         android:id="@+id/textView11"
@@ -285,7 +333,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView9"
                         app:setAdapter="@{stepsAdapter}"
-                        tools:listitem="@layout/item_recipe_info_step" />
+                        tools:listitem="@layout/item_recipe_info_step"
+                        tools:visibility="gone" />
                 </LinearLayout>
             </ScrollView>
 

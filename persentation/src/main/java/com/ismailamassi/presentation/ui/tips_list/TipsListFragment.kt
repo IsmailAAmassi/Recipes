@@ -1,9 +1,11 @@
 package com.ismailamassi.presentation.ui.tips_list
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentTipsListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,11 @@ class TipsListFragment : BaseFragment<FragmentTipsListBinding>(),
     override fun setup() {
         binding.apply {
             tipListAdapter = this@TipsListFragment.tipListAdapter
+
+            toolbar.title = getString(R.string.tips)
+
+            toolbar.ibToolbarBack.visibility = View.GONE
+            toolbar.ibPlaceHolder.visibility = View.GONE
         }
 
         viewModel.onTriggerEvent(TipEvent.GetTips)

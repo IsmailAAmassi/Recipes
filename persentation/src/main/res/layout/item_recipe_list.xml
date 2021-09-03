@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="com.ismailamassi.domain.Constants"/>
         <variable
             name="recipeListListener"
             type="com.ismailamassi.presentation.ui.recipes_list.adapter.RecipeListListener" />
@@ -39,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:roundedImageUrl="@{recipe.featuredImage}"
+                app:roundedImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView

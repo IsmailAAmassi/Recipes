@@ -8,6 +8,10 @@ interface FavouriteRepository {
 
     suspend fun create(favouriteDto: FavouriteDto): Flow<DataState<Long>>
 
-    suspend fun delete(favouriteDto: FavouriteDto): Flow<DataState<Int>>
+    suspend fun delete(id: Long): Flow<DataState<Int>>
+
+    suspend fun getAll(): Flow<DataState<List<FavouriteDto>>>
+
+    suspend fun isRecipeFavourite(recipeId:Long): Flow<DataState<Boolean>>
 
 }

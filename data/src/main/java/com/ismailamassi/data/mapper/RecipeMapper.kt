@@ -11,7 +11,15 @@ fun RecipeDto.toData() = RecipeData(
     publisherId = publisherId,
     featuredImage = featuredImage ?: "",
     videoURL = videoURL ?: "",
+
+    preparationTime = preparationTime,
+    cookingTime = cookingTime,
+    serving = serving,
+
+    position = position,
     likeCount = likeCount,
+    lastUpdate = lastUpdate,
+
     categoryId = categoryId,
 )
 
@@ -23,9 +31,18 @@ fun RecipeData.toDto(
     title = title,
     publisherId = publisherId,
     featuredImage = featuredImage,
-    videoURL = videoURL,
+    videoURL = videoURL ,
+
+    preparationTime = preparationTime,
+    cookingTime = cookingTime,
+    serving = serving,
+
+    position = position,
     likeCount = likeCount,
+    lastUpdate = lastUpdate,
+
     categoryId = categoryId,
+
     ingredients = ingredients.toListDto(),
     steps = steps.toListDto(),
 )

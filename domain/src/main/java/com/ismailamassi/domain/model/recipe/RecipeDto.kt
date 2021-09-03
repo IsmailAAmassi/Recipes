@@ -7,25 +7,40 @@ import com.google.gson.annotations.SerializedName
 data class RecipeDto(
     @SerializedName("id")var id: Long,
     @SerializedName("title")var title: String?,
-    @SerializedName("publisherId")var publisherId: Long,
-    @SerializedName("featuredImage")var featuredImage: String?,
-    @SerializedName("videoURL")var videoURL: String?,
-    @SerializedName("likeCount")var likeCount: Int,
+    @SerializedName("publisher_id")var publisherId: Long,
+    @SerializedName("featured_image")var featuredImage: String?,
+    @SerializedName("video_url")var videoURL: String?,
+
+    @SerializedName("preparation_time")var preparationTime: String?,
+    @SerializedName("cooking_time")var cookingTime: String?,
+    @SerializedName("difficulty")var serving: String?,
+
+    @SerializedName("position")var position: Int,
+    @SerializedName("likes_count")var likeCount: Int,
+    @SerializedName("last_update")var lastUpdate: Long,
     @SerializedName("category_id")var categoryId: Long,
-    var ingredients: List<IngredientDto>? = listOf(),
-    var steps: List<StepDto>? = listOf()
+
+    @SerializedName("ingredients") var ingredients: List<IngredientDto>? = listOf(),
+    @SerializedName("steps") var steps: List<StepDto>? = listOf()
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        id = parcel.readLong(),
-        title = parcel.readString(),
-        publisherId = parcel.readLong(),
-        featuredImage = parcel.readString(),
-        videoURL = parcel.readString(),
-        likeCount = parcel.readInt(),
-        categoryId = parcel.readLong(),
-        ingredients = parcel.createTypedArrayList(IngredientDto)?.toList() ?: listOf(),
-        steps = parcel.createTypedArrayList(StepDto)?.toList() ?: listOf()
-    )
+        parcel.readLong(),
+        parcel.readString(),
+        parcel.readLong(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readLong(),
+        parcel.readLong(),
+        parcel.createTypedArrayList(IngredientDto),
+        parcel.createTypedArrayList(StepDto)
+    ) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
@@ -33,7 +48,12 @@ data class RecipeDto(
         parcel.writeLong(publisherId)
         parcel.writeString(featuredImage)
         parcel.writeString(videoURL)
+        parcel.writeString(preparationTime)
+        parcel.writeString(cookingTime)
+        parcel.writeString(serving)
+        parcel.writeInt(position)
         parcel.writeInt(likeCount)
+        parcel.writeLong(lastUpdate)
         parcel.writeLong(categoryId)
         parcel.writeTypedList(ingredients)
         parcel.writeTypedList(steps)
