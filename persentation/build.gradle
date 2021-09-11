@@ -1,0 +1,128 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    compileSdk rootProject.ext.androidCompileSdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+//        compose true
+    }
+    composeOptions {
+//        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion '1.5.10'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+}
+
+dependencies {
+    implementation presentationDependencies.kotlinxCoroutinesCore
+    implementation presentationDependencies.androidCoreKtx
+    implementation presentationDependencies.appcompat
+    implementation presentationDependencies.material
+    implementation presentationDependencies.constraintlayout
+    implementation presentationDependencies.livedataKtx
+    implementation presentationDependencies.viewmodelKtx
+    implementation presentationDependencies.navigationFragmentKtx
+    implementation presentationDependencies.navigationUIKtx
+    implementation presentationDependencies.cardview
+    implementation presentationDependencies.preferenceKtx
+    implementation presentationDependencies.recyclerview
+    implementation presentationDependencies.activityKtx
+    implementation presentationDependencies.fragmentKtx
+
+    implementation presentationDependencies.timber
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+/*    implementation presentationDependencies.uiTooling
+    implementation presentationDependencies.composeUi
+    implementation presentationDependencies.composeFoundation
+    implementation presentationDependencies.composeRuntimeLivedata
+    implementation presentationDependencies.composeRuntimeRxjava
+    implementation presentationDependencies.composeMaterial
+    implementation presentationDependencies.composeMaterialIconsCore
+    implementation presentationDependencies.composeMaterialIconsExtended
+
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02'
+    implementation 'androidx.activity:activity-compose:1.3.0'*/
+
+    implementation presentationDependencies.lifecycleExtensions
+    implementation presentationDependencies.reactivestreams
+    implementation presentationDependencies.lifecycleViewmodel
+
+    implementation presentationDependencies.rxjava2
+    implementation presentationDependencies.rxAndroid
+
+    implementation presentationDependencies.gson
+
+    implementation presentationDependencies.coil
+//    implementation presentationDependencies.coilCompose
+
+
+    implementation 'com.google.android.gms:play-services-ads:20.2.0'
+
+    def lottieVersion = "4.1.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    implementation presentationDependencies.firebaseStorage
+    implementation presentationDependencies.firebaseFirestore
+    implementation presentationDependencies.firebaseMessaging
+    implementation presentationDependencies.firebaseAuth
+
+
+    implementation presentationDependencies.hiltDagger
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation("com.google.android.play:core-ktx:1.8.1")
+    implementation 'androidx.preference:preference:1.1.1'
+    kapt presentationDependencies.hiltDaggerCompiler
+    kapt presentationDependencies.hiltCompiler
+    kapt presentationDependencies.kotlinxMetadata
+
+    // -Test
+    testImplementation presentationTestDependencies.junit
+    androidTestImplementation presentationTestDependencies.supportJunit
+    androidTestImplementation presentationTestDependencies.espresso
+
+    implementation project(':domain')
+}

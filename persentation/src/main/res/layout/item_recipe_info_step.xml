@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="step"
+            type="com.ismailamassi.domain.model.recipe.StepDto" />
+    </data>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_stepOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_recipe_step"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:text="@{String.valueOf(step.order)}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_stepDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_stepDescription"
+                tools:text="11" />
+
+            <TextView
+                android:id="@+id/tv_stepDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginBottom="8dp"
+                android:text="@{step.description}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_stepOrder"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Unit Unit Unit Unit Unit Unit Uninit Unit Unit Unit Unit Unit Unit Unit Unit Unit Unit Unit Unit Unit " />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

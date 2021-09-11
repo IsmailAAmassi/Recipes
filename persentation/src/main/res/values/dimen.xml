@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="homeCardViewHeight">@dimen/_120sdp</dimen>
+    <dimen name="homeCardViewCornerRadius">@dimen/_4sdp</dimen>
+    <dimen name="homeCardViewElevation">@dimen/_4sdp</dimen>
+    <dimen name="homeCardViewMarginHorizontal">@dimen/_4sdp</dimen>
+    <dimen name="homeCardViewMarginVertical">@dimen/_6sdp</dimen>
+
+    <dimen name="homeCardViewTitleSize">@dimen/_18ssp</dimen>
+</resources>

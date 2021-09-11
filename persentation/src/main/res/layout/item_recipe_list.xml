@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.ismailamassi.domain.Constants"/>
+        <variable
+            name="recipeListListener"
+            type="com.ismailamassi.presentation.ui.recipes_list.adapter.RecipeListListener" />
+
+        <variable
+            name="recipe"
+            type="com.ismailamassi.domain.model.recipe.RecipeDto" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorPrimary"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        android:layout_margin="4dp"
+        android:onClick="@{()->recipeListListener.onClickRecipe(recipe.id)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivItemRecipeListImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundedImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}"
+                tools:ignore="ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/tvItemCategoryListName"
+                style="@style/TextTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/montserrat"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@{recipe.title}"
+                android:textAlignment="center"
+                android:textIsSelectable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ivItemRecipeListImage"
+                app:layout_constraintStart_toStartOf="@+id/ivItemRecipeListImage"
+                app:layout_constraintTop_toBottomOf="@+id/ivItemRecipeListImage"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

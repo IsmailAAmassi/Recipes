@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ingredient"
+            type="com.ismailamassi.domain.model.recipe.IngredientDto" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tv_ingredientQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_recipe_ingredient"
+            android:lines="1"
+            android:maxLines="1"
+            android:minWidth="@dimen/_60sdp"
+            android:padding="@dimen/_4sdp"
+            android:paddingStart="@dimen/_2sdp"
+            android:text="@{ingredient.qty + ` ` +ingredient.unit}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="125 G" />
+
+        <TextView
+            android:id="@+id/tv_ingredientUnit"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_2sdp"
+            android:text="@{ingredient.unit}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_ingredientQty"
+            app:layout_constraintStart_toEndOf="@+id/tv_ingredientQty"
+            tools:text="Unit" />
+
+        <TextView
+            android:id="@+id/tv_ingredientName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_4sdp"
+            android:text="@{ingredient.name}"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_ingredientUnit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_ingredientUnit"
+            tools:text="Name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

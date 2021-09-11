@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.ismailamassi.domain.Constants"/>
+
+        <variable
+            name="category"
+            type="com.ismailamassi.domain.model.category.CategoryDto" />
+
+        <variable
+            name="categoriesHomeListener"
+            type="com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+        android:layout_marginHorizontal="@dimen/_2sdp"
+        android:onClick="@{()->categoriesHomeListener.onClickCategory(category.id)}"
+        app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+        app:cardElevation="@dimen/homeCardViewElevation">
+
+        <!--app:normalImageUrl="@{category.avatar}"-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:normalImageUrl="@{Constants.CATEGORY_IMAGE_PREFIX_URL + category.avatar}"
+            android:scaleType="fitXY"
+            android:alpha="0.9"
+            android:src="@drawable/home_category_sample" />
+
+        <TextView
+            android:id="@+id/tvHomeCategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="@dimen/_8sdp"
+            android:background="#80000000"
+            android:fontFamily="@font/montserrat"
+            android:text="@{category.title.toUpperCase()}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/homeCardViewTitleSize"
+            tools:text="Category Name" />
+
+    </androidx.cardview.widget.CardView>
+</layout>
