@@ -7,6 +7,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'androidx.navigation.safeargs'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdk rootProject.ext.androidCompileSdkVersion
@@ -109,4 +110,7 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
     implementation project(':persentation')
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

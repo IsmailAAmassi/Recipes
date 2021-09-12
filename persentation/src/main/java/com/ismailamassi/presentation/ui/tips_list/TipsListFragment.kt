@@ -42,8 +42,27 @@ class TipsListFragment : BaseFragment<FragmentTipsListBinding>(),
     private fun observeLiveData() {
         viewModel.tipLiveData.observe(viewLifecycleOwner) {
             it?.let {
+                changeEmptyStatusVisibility(false)
                 tipListAdapter.update(it)
                 viewModel.tipLiveData.postValue(null)
+            }
+        }
+        viewModel.emptyLiveData.observe(viewLifecycleOwner){
+            it?.let {
+                changeEmptyStatusVisibility(true)
+            }
+        }
+    }
+
+
+    private fun changeEmptyStatusVisibility(visibility: Boolean) {
+        binding.apply {
+            if (visibility) {
+                clEmptyStatus.visibility = View.VISIBLE
+                rvTips.visibility = View.GONE
+            } else {
+                clEmptyStatus.visibility = View.GONE
+                rvTips.visibility = View.VISIBLE
             }
         }
     }

@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs.kotlin"
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdk rootProject.ext.androidCompileSdkVersion
@@ -125,4 +126,7 @@ dependencies {
     androidTestImplementation presentationTestDependencies.espresso
 
     implementation project(':domain')
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -83,6 +83,12 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
             }
         }
 
+        viewModel.emptyLiveData.observe(viewLifecycleOwner){
+            it?.let {
+                changeEmptyStatusVisibility(true)
+            }
+        }
+
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             it?.let { mainViewModel.showError(it) }
         }
