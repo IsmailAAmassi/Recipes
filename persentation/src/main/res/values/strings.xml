@@ -1,16 +1,17 @@
 <resources>
-    <string name="app_name">Recipes</string>
+    <string name="app_name">My Recipes</string>
 
 
-    <string name="AD_MOB_TEST_UNIT_ID">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="AD_MOB_TEST_UNIT_ID" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
-    <string name="AD_MOB_APP">ca-app-pub-1437217445375821~8581058090</string>
-    <string name="AD_MOB_UNIT_ID">ca-app-pub-1437217445375821/6116059747</string>
+    <string name="AD_MOB_APP" translatable="false">ca-app-pub-1437217445375821~8581058090</string>
+    <string name="AD_MOB_UNIT_ID" translatable="false">ca-app-pub-1437217445375821/6116059747</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="back_online">Back Online</string>
     <string name="no_connection">No Connection</string>
     <string name="home">Home</string>
+    <string name="recipe">الوصفة</string>
     <string name="settings">Settings</string>
     <string name="add_new_category">Add New Category</string>
     <string name="add_new_recipe">Add New Recipe</string>
@@ -22,15 +23,15 @@
     <string name="search">Search</string>
     <string name="about">About</string>
     <string name="tips">Tips</string>
-    <string name="lorem_span">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur,Neque porro quisquam est, adipisci velit , Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,quia dolor sit amet, consectetur, adipisci velit ,</string>
+    <string name="lorem_span" translatable="false">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur,Neque porro quisquam est, adipisci velit , Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,quia dolor sit amet, consectetur, adipisci velit ,</string>
     <string name="explore_by_category">Explore By Category</string>
     <string name="today_bundle">Today Bundle</string>
     <string name="today_tip">Today Tip</string>
     <string name="see_all">See All</string>
 
 
-    <string name="fake_name">Ismail Amassi</string>
-    <string name="fake_email">abo2013hamza@gmail.com</string>
+    <string name="fake_name" translatable="false">Ismail Amassi</string>
+    <string name="fake_email" translatable="false">abo2013hamza@gmail.com</string>
     <string name="empty_status_title">Nothing To Show</string>
     <string name="favourites">Favourites</string>
     <string name="more">More</string>
@@ -41,14 +42,36 @@
     <string name="recipe_images">Recipe Images</string>
     <string name="preparation_time">Preparation Time</string>
     <string name="serving">Serving</string>
+    <string name="mins">Mins</string>
+
+    <string name="difficulty">Difficulty</string>
+    <string name="difficulty1">Easy</string>
+    <string name="difficulty2">Middle</string>
+    <string name="difficulty3">Hard</string>
+
     <string name="cooking_time">Cooking Time</string>
-    <string name="_14_min">14 min</string>
-    <string name="_2_persons">2 Persons</string>
+    <string name="_14_min" translatable="false">14 min</string>
+    <string name="_2_persons" translatable="false">2 Persons</string>
     <string name="recipes_ingredients">Recipes / Ingredients</string>
     <string name="recipe_image">Recipe Image</string>
     <string name="no_favourites_yet">No favourites yet</string>
     <string name="no_tips_yet_come_back_later">No Tips yet, Come back later</string>
     <string name="this_category_haven_t_recipes_yet">This category haven\'t recipes yet</string>
+    <string name="most_loved_recipes">Most Loved Recipes</string>
+    <string name="best_collection">Best Collection</string>
+    <string name="recipes_might_you_like">Recipes Might You Like</string>
+    <string name="recipes_recommendations_for_you">Recipes recommendations for you</string>
+    <string name="no_results_found_try_to_search_another_word">No Results Found try to search another word</string>
+    <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="rate_app">Rate App</string>
+    <string name="app_version">App Version</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="font_size">Font Size</string>
+    <string name="notifications">Notifications</string>
+    <string name="add_successfully_to_fav">Recipe Added To Favourites</string>
+    <string name="removed_successfully_from_fav">Recipe Removed From Favourites</string>
 
     <array name="appThemes">
         <item>Follow System</item>
@@ -66,5 +89,9 @@
     <array name="appLanguages">
         <item>Arabic</item>
         <item>English</item>
+    </array>
+    <array name="appLanguagesValues">
+        <item>ar</item>
+        <item>en</item>
     </array>
 </resources>

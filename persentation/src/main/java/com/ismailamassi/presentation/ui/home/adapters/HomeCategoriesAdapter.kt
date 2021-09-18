@@ -12,8 +12,7 @@ import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.databinding.ItemHomeCategoryBinding
 import com.ismailamassi.presentation.ui.home.listeners.HomeCategoriesListener
 import android.view.animation.Animation
-
-
+import timber.log.Timber
 
 
 class HomeCategoriesAdapter(

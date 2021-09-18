@@ -58,12 +58,17 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(){
 
     private fun moveToNextUI() {
         CoroutineScope(Dispatchers.Main).launch {
-            delay(2000)
+            delay(1000)
             try{
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
             }catch (e:Exception){
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        moveToNextUI()
     }
 
     companion object {

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.MainViewModel
+import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentRecipesListBinding
 import com.ismailamassi.presentation.ui.home.RecipeListType
@@ -32,10 +33,11 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
 
     override fun setup() {
 
-        val title = when(val recipesType = arguments?.run { RecipesListFragmentArgs.fromBundle(this).recipesType }){
+        val title = when (val recipesType =
+            arguments?.run { RecipesListFragmentArgs.fromBundle(this).recipesType }) {
             RecipeListType.BestCollectionRecipes -> {
                 viewModel.onTriggerEvent(RecipesListEvent.GetBestCollection)
-                "Best Collection"
+                getString(R.string.best_collection)
             }
             is RecipeListType.CategoryRecipes -> {
                 viewModel.onTriggerEvent(RecipesListEvent.GetCategoryRecipes(categoryId = recipesType.categoryId))
@@ -43,11 +45,11 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
             }
             RecipeListType.MostLovedRecipes -> {
                 viewModel.onTriggerEvent(RecipesListEvent.GetMostLoved)
-                "Most Loved"
+                getString(R.string.most_loved_recipes)
             }
             RecipeListType.MostViewedRecipes -> {
                 viewModel.onTriggerEvent(RecipesListEvent.GetMostViewed)
-                "Most Viewed"
+                getString(R.string.recipes_might_you_like)
             }
             null -> {
                 ""
@@ -66,7 +68,7 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
 
     private fun observeLiveData() {
 
-        viewModel.category.observe(viewLifecycleOwner){
+        viewModel.category.observe(viewLifecycleOwner) {
             it?.let {
                 binding.toolbar.title = it.title
             }
@@ -117,7 +119,6 @@ class RecipesListFragment : BaseFragment<FragmentRecipesListBinding>(),
     }
 
     override fun onClickRecipe(recipeId: Long) {
-        showToast("Go To Recipe Details for $recipeId")
         findNavController().navigate(
             RecipesListFragmentDirections.actionNavRecipesListFragmentToNavRecipeInfoFragment(
                 recipeId = recipeId

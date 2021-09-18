@@ -5,7 +5,7 @@
 
     <PreferenceCategory
         android:orderingFromXml="true"
-        android:title="Settings"
+        android:title="@string/settings"
         app:allowDividerAbove="true"
         app:allowDividerBelow="true">
 
@@ -13,35 +13,35 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="key_notification"
-            android:title="Notifications"
+            android:title="@string/notifications"
             app:icon="@drawable/ic_baseline_notifications_24" />
 
-        <SeekBarPreference
+<!--        <SeekBarPreference
             android:defaultValue="14"
             android:key="key_font_size"
             android:max="20"
-            android:title="Font Size"
+            android:title="@string/font_size"
             app:adjustable="true"
             app:icon="@drawable/ic_font_size"
             app:min="10"
             app:seekBarIncrement="2"
-            app:showSeekBarValue="true" />
+            app:showSeekBarValue="true" />-->
 
         <ListPreference
             android:defaultValue="system"
             android:entries="@array/appThemes"
             android:entryValues="@array/appThemesValue"
             android:key="key_app_theme"
-            android:title="Theme"
+            android:title="@string/theme"
             app:icon="@drawable/ic_sun_and_moon"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            android:defaultValue="0"
+            android:defaultValue="ar"
             android:entries="@array/appLanguages"
-            android:entryValues="@array/appLanguages"
+            android:entryValues="@array/appLanguagesValues"
             android:key="key_app_language"
-            android:title="Language"
+            android:title="@string/language"
             app:icon="@drawable/ic_baseline_language_24"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
@@ -49,7 +49,7 @@
 
     <PreferenceCategory
         android:orderingFromXml="true"
-        android:title="Other"
+        android:title="@string/more"
         app:allowDividerAbove="true"
         app:allowDividerBelow="true">
 
@@ -61,12 +61,12 @@
         <PreferenceScreen
             android:key="key_rate_app"
             app:icon="@drawable/ic_baseline_star_half_24"
-            app:title="Rate" />
+            app:title="@string/rate_app" />
 
         <PreferenceScreen
             android:key="key_rate_app"
             app:summary="v 1.0.0"
-            app:title="App Version" />
+            app:title="@string/app_version" />
 
     </PreferenceCategory>
 

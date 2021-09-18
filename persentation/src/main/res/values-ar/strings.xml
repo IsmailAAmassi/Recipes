@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">وصفاتي</string>
+    <string name="back_online">متصل</string>
+    <string name="no_connection">غير متصل</string>
+    <string name="home">الرئيسية</string>
+    <string name="settings">الإعدادات</string>
+    <string name="add_new_category">إضافة تصنيف جديد</string>
+    <string name="add_new_recipe">إضافة وصفة جديدة</string>
+    <string name="add_new_tip">إضافة نصيحة جديدة</string>
+    <string name="app_info">حول التطبيق</string>
+    <string name="share_app">مشاركة التطبيق</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="logout">نسجيل الخروج</string>
+    <string name="search">بحث</string>
+    <string name="about">حول</string>
+    <string name="tips">النصائح</string>
+    <string name="explore_by_category">تصفح التصنيفات</string>
+    <string name="today_bundle">حزمة اليوم</string>
+    <string name="today_tip">نصيحة اليوم</string>
+    <string name="see_all">الكل</string>
+    <string name="empty_status_title">لا توجد بيانات لعرضها</string>
+    <string name="favourites">المفضلة</string>
+    <string name="more">المزيد</string>
+    <string name="categories">التصنيفات</string>
+    <string name="today_recipes">وصفات اليوم</string>
+    <string name="steps">الخطوات</string>
+    <string name="ingredients">المكونات</string>
+    <string name="recipe_images">صور الوصفة</string>
+    <string name="preparation_time">وقت الإعداد</string>
+    <string name="serving">الأشخاص</string>
+    <string name="mins">دقيقة</string>
+
+    <string name="difficulty">الصعوبة</string>
+    <string name="difficulty1">سهل</string>
+    <string name="difficulty2">متوسط</string>
+    <string name="difficulty3">صعب</string>
+
+    <string name="cooking_time">وقت الطبخ</string>
+    <string name="recipes_ingredients">وصفات / مكونات</string>
+    <string name="recipe_image">صورة الوصفة</string>
+    <string name="no_favourites_yet">لا يوجد وصفات في مفضلة</string>
+    <string name="no_tips_yet_come_back_later">لا يوجد نصائح بعد، عد لاحقا</string>
+    <string name="this_category_haven_t_recipes_yet">هذا التصنيف فارع</string>
+
+    <string name="most_loved_recipes">الأكثر تفضيلا</string>
+    <string name="best_collection">أفضل مجموعة</string>
+    <string name="recipes_might_you_like">وصفات قد تحبها</string>
+    <string name="recipes_recommendations_for_you">وصفات توصيات لك</string>
+    <string name="no_results_found_try_to_search_another_word">لم يتم العثور على نتائج حاول البحث عن كلمة أخرى</string>
+    <string name="share">مشاركة</string>
+    <string name="edit">تعديل</string>
+
+    <string name="rate_app">تقييم التطبيق</string>
+    <string name="app_version">إصدار التطبيق</string>
+    <string name="theme">السمة</string>
+    <string name="language">اللغة</string>
+    <string name="font_size">حجم الخط</string>
+    <string name="notifications">الإشعارات</string>
+
+    <string name="add_successfully_to_fav">تم إضافة الوصفة للمفضلة</string>
+    <string name="removed_successfully_from_fav">تم إزالة الوصفة من المفضلة</string>
+
+    <array name="appThemes">
+        <item>حسب النظام</item>
+        <item>الوضع المضيئ</item>
+        <item>الوضع الداكن</item>
+    </array>
+
+    <array name="appLanguages">
+        <item>العربية</item>
+        <item>الإنجليزية</item>
+    </array>
+</resources>

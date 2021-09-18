@@ -351,9 +351,14 @@ class RecipeRepositoryImpl @Inject constructor(
             try {
                 emit(DataState.Loading)
                 delay(1500)
-                val result = recipeDao.search("%$query%")
-                if (result.isNotEmpty()) {
-                    emit(DataState.Success(result.toListDto()))
+                val recipesResult = recipeDao.search("%$query%")
+                if (recipesResult.isNotEmpty()) {
+                    val finalResults = recipesResult.map {
+                        val ingredients = ingredientDao.getForRecipe(it.id)
+                        val steps = stepDao.getForRecipe(it.id)
+                        it.toDto(ingredients, steps)
+                    }
+                    emit(DataState.Success(finalResults))
                 } else {
                     emit(DataState.Empty)
                 }
@@ -461,9 +466,15 @@ class RecipeRepositoryImpl @Inject constructor(
                 emit(DataState.Loading)
                 val favouritesResult = favouriteDao.get()
                 if (favouritesResult.isNotEmpty()) {
+
                     val recipesResult = recipeDao.get(favouritesResult.map { it.recipeId })
                     if (recipesResult.isNotEmpty()) {
-                        emit(DataState.Success(recipesResult.toListDto()))
+                        val finalResults = recipesResult.map {
+                            val ingredients = ingredientDao.getForRecipe(it.id)
+                            val steps = stepDao.getForRecipe(it.id)
+                            it.toDto(ingredients, steps)
+                        }
+                        emit(DataState.Success(finalResults))
                     } else {
                         emit(DataState.Empty)
                     }

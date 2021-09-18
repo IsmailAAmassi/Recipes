@@ -30,6 +30,7 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/ic_visualization.xml" value="0.24539473684210528" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/test.xml" value="0.2450657894736842" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/drawable/vertical_divider.xml" value="0.2450657894736842" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/cairo.xml" value="0.25394736842105264" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/montserrat.xml" value="0.25394736842105264" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/poppins.xml" value="0.18289473684210528" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/font/roboto.xml" value="0.18289473684210528" />
@@ -82,11 +83,13 @@
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_info_steps.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_recipe_list.xml" value="0.176" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_search.xml" value="0.25" />
-        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_search_result.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_search_result.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/item_tip_list.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/main_content.xml" value="0.16" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/more_preferance.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/nav_header.xml" value="0.176" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/recycler_view_item.xml" value="0.2348684210526316" />
+        <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/layout/switch_item.xml" value="0.2348684210526316" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/activity_main_menu.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/categories_list_menu.xml" value="0.16381578947368422" />
         <entry key="..\:/AndroidProjects/Recipes/persentation/src/main/res/menu/home_menu.xml" value="0.2348684210526316" />
@@ -100,7 +103,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

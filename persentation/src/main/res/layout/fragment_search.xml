@@ -83,7 +83,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Results Found try to search another word "
+                android:text="@string/no_results_found_try_to_search_another_word"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
                 app:layout_constraintStart_toStartOf="@+id/appCompatImageView"

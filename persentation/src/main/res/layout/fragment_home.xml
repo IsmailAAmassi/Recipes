@@ -23,201 +23,214 @@
     </data>
 
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/homeSwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_500sdp"
-            tools:context=".ui.home.HomeFragment">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/homeSearchBar"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHomeContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="@dimen/_500sdp"
+                tools:context=".ui.home.HomeFragment">
 
-                <TextView
-                    android:id="@+id/tvHomeSearch"
+                <FrameLayout
+                    android:id="@+id/homeSearchBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/bg_white_filled_rounder"
-                    android:clickable="true"
-                    android:drawablePadding="8dp"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:hint="@string/search"
-                    android:minHeight="48dp"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:paddingVertical="8dp"
-                    android:paddingStart="8dp"
-                    android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_search_black_24dp"
-                    app:drawableTint="@color/black"
+                    android:background="?attr/colorPrimary"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </FrameLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvHomeMostLovedRecipes"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/homeCardViewHeight"
-                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
-                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
-                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
-                app:cardElevation="@dimen/homeCardViewElevation"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{onClickListener::onClick}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/home_card_background_sample" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Most Loved Recipes"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/homeCardViewTitleSize" />
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvHomeBestCollection"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/homeCardViewHeight"
-                android:onClick="@{onClickListener::onClick}"
-                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
-                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
-                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
-                app:cardElevation="@dimen/homeCardViewElevation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvHomeMostLovedRecipes">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/home_card_background_sample2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Best Collection"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/homeCardViewTitleSize" />
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
-                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
-                android:minHeight="@dimen/_120sdp"
-                app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
-                app:cardElevation="@dimen/homeCardViewElevation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvHomeBestCollection">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvHomeSearch"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Recipes Might You Like"
-
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/bg_white_filled_rounder"
+                        android:clickable="true"
+                        android:drawablePadding="8dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/search"
+                        android:minHeight="48dp"
+                        android:onClick="@{onClickListener::onClick}"
+                        android:paddingVertical="8dp"
+                        android:paddingStart="8dp"
+                        android:textSize="16sp"
+                        app:drawableStartCompat="@drawable/ic_search_black_24dp"
+                        app:drawableTint="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                </FrameLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvHomeMostLovedRecipes"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/homeCardViewHeight"
+                    android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                    android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                    app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                    app:cardElevation="@dimen/homeCardViewElevation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{onClickListener::onClick}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:rotation="180"
+                        android:src="@drawable/home_card_background_sample" />
+
                     <TextView
-                        android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="@dimen/_8sdp"
                         android:fontFamily="@font/montserrat"
-                        android:text="Recipes recommendations for you"
-                        app:layout_constraintStart_toStartOf="@+id/textView3"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                        android:text="@string/most_loved_recipes"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/homeCardViewTitleSize" />
+                </androidx.cardview.widget.CardView>
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvHomeMostViewedRecipes"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvHomeBestCollection"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/homeCardViewHeight"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                    android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                    app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                    app:cardElevation="@dimen/homeCardViewElevation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvHomeMostLovedRecipes">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:rotation="180"
+                        android:src="@drawable/home_card_background_sample2" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{onClickListener::onClick}"
-                        android:padding="@dimen/_4sdp"
-                        android:visibility="visible"
-                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
                         android:fontFamily="@font/montserrat"
-                        android:text="@string/more"
-                        android:textAllCaps="true"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+                        android:text="@string/best_collection"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/homeCardViewTitleSize" />
+                </androidx.cardview.widget.CardView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal"
-                        android:layoutAnimation="@anim/layout_animation"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4"
-                        app:setAdapter="@{homeRecipeAdapter}"
-                        tools:listitem="@layout/item_home_recipe" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
-                android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layoutAnimation="@anim/layout_animation"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3"
-                app:setAdapter="@{homeCategoriesAdapter}"
-                tools:listitem="@layout/item_home_category" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                    android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                    android:minHeight="@dimen/_120sdp"
+                    app:cardCornerRadius="@dimen/homeCardViewCornerRadius"
+                    app:cardElevation="@dimen/homeCardViewElevation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvHomeBestCollection">
 
-    </androidx.core.widget.NestedScrollView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/recipes_might_you_like"
+
+                            android:textSize="@dimen/_14ssp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/recipes_recommendations_for_you"
+                            app:layout_constraintStart_toStartOf="@+id/textView3"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvHomeMostViewedRecipes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{onClickListener::onClick}"
+                            android:padding="@dimen/_4sdp"
+                            android:visibility="visible"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/more"
+                            android:textAllCaps="true"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal"
+                            android:layoutAnimation="@anim/layout_animation"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4"
+                            app:setAdapter="@{homeRecipeAdapter}"
+                            tools:listitem="@layout/item_home_recipe" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/homeCardViewMarginHorizontal"
+                    android:layout_marginVertical="@dimen/homeCardViewMarginVertical"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layoutAnimation="@anim/layout_animation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView3"
+                    app:setAdapter="@{homeCategoriesAdapter}"
+                    tools:listitem="@layout/item_home_category" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

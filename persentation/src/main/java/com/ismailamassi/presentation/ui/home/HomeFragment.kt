@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ismailamassi.presentation.MainViewModel
 import com.ismailamassi.presentation.base.BaseFragment
 import com.ismailamassi.presentation.databinding.FragmentHomeBinding
@@ -23,7 +24,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(),
-    View.OnClickListener, HomeCategoriesListener, HomeRecipesListener {
+    View.OnClickListener, HomeCategoriesListener, HomeRecipesListener,
+    SwipeRefreshLayout.OnRefreshListener {
 
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
@@ -56,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
             onClickListener = this@HomeFragment
             homeRecipeAdapter = this@HomeFragment.homeRecipeAdapter
             homeCategoriesAdapter = this@HomeFragment.homeCategoriesAdapter
+            homeSwipeRefreshLayout.setOnRefreshListener(this@HomeFragment)
         }
 
         viewModel.onTriggerEvent(HomeEvent.GetHomeRecipes)
@@ -81,10 +84,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
             }
         }
 
-        viewModel.recipesLiveData.observe(viewLifecycleOwner){
+        viewModel.recipesLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 homeRecipeAdapter.update(it)
                 viewModel.recipesLiveData.postValue(null)
+            }
+        }
+
+        mainViewModel.updateDatabaseLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                mainViewModel.showLoading(false)
+                changeHomeComponents(true)
             }
         }
     }
@@ -177,5 +187,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 recipeId = recipeId
             )
         )
+    }
+
+    override fun onRefresh() {
+
+        binding.apply {
+            //Stop Refresh
+            homeSwipeRefreshLayout.isRefreshing = false
+
+            //Hide Home Components
+            changeHomeComponents(false)
+
+            //Show Our loading label
+            mainViewModel.showLoading(true)
+        }
+
+        //Request From ViewModel
+        mainViewModel.updateDatabase()
+    }
+
+    private fun changeHomeComponents(isVisible: Boolean) {
+        binding.apply {
+            clHomeContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
     }
 }

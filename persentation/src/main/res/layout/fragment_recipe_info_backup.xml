@@ -6,11 +6,12 @@
 
     <data>
 
-        <import type="com.ismailamassi.domain.Constants"/>
+        <import type="com.ismailamassi.domain.Constants" />
 
         <variable
             name="onClickListener"
             type="android.view.View.OnClickListener" />
+
         <variable
             name="recipe"
             type="com.ismailamassi.domain.model.recipe.RecipeDto" />
@@ -46,12 +47,12 @@
                 android:contentDescription="@string/recipe_image"
                 android:minHeight="@dimen/_100sdp"
                 android:scaleType="centerCrop"
-                app:normalImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/tvRecipeInfoName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:normalImageUrl="@{Constants.RECIPE_IMAGE_PREFIX_URL + recipe.featuredImage}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvRecipeInfoName"
@@ -113,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
-                        android:text="@string/_14_min"
+                        android:text="@{recipe.preparationTime + ` `+ @string/mins}"
                         android:textSize="@dimen/_12ssp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -154,7 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
-                        android:text="@string/_14_min"
+                        android:text="@{recipe.cookingTime  + ` `+  @string/mins}"
                         android:textSize="@dimen/_12ssp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -184,7 +185,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/serving"
+                        android:text="@string/difficulty"
                         android:textAlignment="viewStart"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold" />
@@ -194,7 +195,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
-                        android:text="@string/_2_persons"
+                        android:text="@{recipe.serving == `1`? @string/difficulty1: recipe.serving == `2`? @string/difficulty2 : @string/difficulty3}"
                         android:textSize="@dimen/_12ssp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -212,12 +213,12 @@
                     android:id="@+id/ibToolbarBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="start|center"
                     android:layout_marginHorizontal="@dimen/_4sdp"
-                    android:onClick="@{onClickListener::onClick}"
                     android:background="@color/transparent"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
+                    android:onClick="@{onClickListener::onClick}"
                     android:padding="@dimen/_8sdp"
                     app:srcCompat="@drawable/ic_baseline_arrow_back_24"
                     app:tint="?attr/colorPrimary"
@@ -229,10 +230,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:layout_marginHorizontal="@dimen/_4sdp"
-                    android:onClick="@{onClickListener::onClick}"
                     android:background="@color/transparent"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
+                    android:onClick="@{onClickListener::onClick}"
                     app:srcCompat="@drawable/fav_disable"
                     app:tint="?attr/colorPrimary"
                     tools:ignore="SpeakableTextPresentCheck" />

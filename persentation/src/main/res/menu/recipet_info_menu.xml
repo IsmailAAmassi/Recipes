@@ -6,14 +6,14 @@
         android:id="@+id/mi_shareRecipe"
         android:icon="@drawable/ic_baseline_share_24"
         android:orderInCategory="200"
-        android:title="Share"
+        android:title="@string/share"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/mi_editRecipe"
         android:icon="@drawable/ic_vertical_bar"
         android:orderInCategory="100"
-        android:title="Edit"
+        android:title="@string/edit"
         app:showAsAction="always" />
 
 </menu>

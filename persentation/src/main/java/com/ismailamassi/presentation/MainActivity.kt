@@ -2,6 +2,8 @@ package com.ismailamassi.presentation
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -23,10 +25,12 @@ import com.ismailamassi.presentation.databinding.ActivityMainBinding
 import com.ismailamassi.presentation.utils.AppLanguage
 import com.ismailamassi.presentation.utils.AppTheme
 import com.ismailamassi.presentation.utils.KeyboardUtils.hideKeyboard
+import com.ismailamassi.presentation.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -49,8 +53,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onStart() {
         super.onStart()
-
-        setTheme(R.style.TextTitleStyle)
     }
 
 
@@ -77,20 +79,24 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private fun initCurrentTheme() {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
         val currentThemeLabel = prefs.getString("key_app_theme", "system")
         val currentTheme = AppTheme.getThemeByLabel(currentThemeLabel ?: "system")
 
         changeAppTheme(currentTheme, false)
+
+
+//        prefs.edit().putString("key_app_language", Locale.getDefault().displayLanguage).apply()
     }
 
     private fun initConnectionListener() {
         val connectionLiveData = ConnectionLiveData(application)
         connectionLiveData.observe(this) { isConnected ->
-            this.isConnected = isConnected
-            if (!isFirstTime) {
-                if (isConnected) backOnlineLabel() else noConnection()
-            }
-            isFirstTime = false
+//            this.isConnected = isConnected
+//            if (!isFirstTime) {
+//                if (isConnected) backOnlineLabel() else noConnection()
+//            }
+//            isFirstTime = false
         }
     }
 
@@ -109,28 +115,54 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             val currentIndex =
                 topLevelFragments.indexOf(mainBinding.bottomNavigationView.selectedItemId)
             val clickIndex = topLevelFragments.indexOf(it.itemId)
-
-            val navOptionAnimations = if (currentIndex < clickIndex) {
-                //Slide ==>
-                navOptions {
-                    anim {
-                        enter = R.anim.slide_in_right
-                        exit = R.anim.slide_out_left
-                        popEnter = R.anim.slide_in_left
-                        popExit = R.anim.slide_out_right
+            val local = "ar"
+            val navOptionAnimations = if (local == "ar") {
+                if (currentIndex < clickIndex) {
+                    //Slide ==>
+                    navOptions {
+                        anim {
+                            enter = R.anim.slide_in_left
+                            exit = R.anim.slide_out_right
+                            popEnter = R.anim.slide_in_right
+                            popExit = R.anim.slide_out_left
+                        }
                     }
+                } else {
+                    //Slide <==
+                    navOptions {
+                        anim {
+                            enter = R.anim.slide_in_right
+                            exit = R.anim.slide_out_left
+                            popEnter = R.anim.slide_in_left
+                            popExit = R.anim.slide_out_right
+                        }
+                    }
+
                 }
             } else {
-                //Slide <==
-                navOptions {
-                    anim {
-                        enter = R.anim.slide_in_left
-                        exit = R.anim.slide_out_right
-                        popEnter = R.anim.slide_in_right
-                        popExit = R.anim.slide_out_left
+                if (currentIndex < clickIndex) {
+                    //Slide ==>
+                    navOptions {
+                        anim {
+                            enter = R.anim.slide_in_right
+                            exit = R.anim.slide_out_left
+                            popEnter = R.anim.slide_in_left
+                            popExit = R.anim.slide_out_right
+                        }
+                    }
+                } else {
+                    //Slide <==
+                    navOptions {
+                        anim {
+                            enter = R.anim.slide_in_left
+                            exit = R.anim.slide_out_right
+                            popEnter = R.anim.slide_in_right
+                            popExit = R.anim.slide_out_left
+                        }
                     }
                 }
             }
+
 
             when (it.itemId) {
                 R.id.nav_homeFragment -> {
@@ -213,23 +245,16 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     fun changeAppTheme(appTheme: AppTheme, restartUI: Boolean) {
-        Timber.tag(TAG).d("changeAppTheme : restartUI $restartUI")
 
         when (appTheme) {
             AppTheme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             AppTheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             AppTheme.NIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
-
-//        if (restartUI) {
-//            Timber.tag(TAG).d("changeAppTheme : restartUI $restartUI")
-//            finish()
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }
     }
 
     fun changeAppLanguage(appLanguage: AppLanguage) {
-
+        LocaleHelper.setLocale(context = applicationContext,appLanguage.id)
     }
 
     private fun changeBottomNavigationVisibility(show: Boolean) {

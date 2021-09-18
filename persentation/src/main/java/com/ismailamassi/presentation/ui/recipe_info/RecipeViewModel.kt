@@ -1,5 +1,6 @@
 package com.ismailamassi.presentation.ui.recipe_info
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ismailamassi.domain.model.favourite.FavouriteDto
@@ -7,8 +8,10 @@ import com.ismailamassi.domain.model.recipe.RecipeDto
 import com.ismailamassi.domain.repository.FavouriteRepository
 import com.ismailamassi.domain.repository.RecipeRepository
 import com.ismailamassi.domain.utils.DataState
+import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -16,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val recipeRepository: RecipeRepository,
     private val favouriteRepository: FavouriteRepository
 ) : BaseViewModel<RecipeInfoEvent>() {
@@ -54,8 +58,10 @@ class RecipeViewModel @Inject constructor(
                     is DataState.Success -> {
                         _loadingLiveData.postValue(false)
                         val message =
-                            if (favouriteStatus) "Added Successfully" else "Removed Successfully"
-                        _messageLiveData.postValue("The Recipe $message")
+                            if (favouriteStatus) context.getString(R.string.add_successfully_to_fav) else context.getString(
+                                R.string.removed_successfully_from_fav
+                            )
+                        _messageLiveData.postValue(message)
                         favoriteStatusLiveData.postValue(eventType.isFavourite)
                     }
                 }

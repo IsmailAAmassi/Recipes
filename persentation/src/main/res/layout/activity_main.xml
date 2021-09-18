@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
+
         <TextView
             android:id="@+id/tv_connectionStatus"
             android:layout_width="0dp"

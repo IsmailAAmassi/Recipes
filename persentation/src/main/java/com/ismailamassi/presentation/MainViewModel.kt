@@ -26,6 +26,9 @@ class MainViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData(Exception())
     val errorLiveData: LiveData<Exception> get() = _errorLiveData
 
+    private val _updateDatabaseLiveData = MutableLiveData(false)
+    val updateDatabaseLiveData: LiveData<Boolean> get() = _updateDatabaseLiveData
+
     fun showLoading(isLoading: Boolean) = _loadingLiveData.postValue(isLoading)
 
     fun showError(error: Exception) = _errorLiveData.postValue(error)
@@ -49,7 +52,7 @@ class MainViewModel @Inject constructor(
                 Timber.tag(TAG).d("updateDatabase : Sync Tips table status $it")
             }
             Timber.tag(TAG).d("updateDatabase : End Sync")
-
+            _updateDatabaseLiveData.value = true
         }
     }
 

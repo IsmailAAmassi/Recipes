@@ -13,6 +13,12 @@ import com.ismailamassi.presentation.MainActivity
 import com.ismailamassi.presentation.R
 import com.ismailamassi.presentation.utils.AppTheme
 import timber.log.Timber
+import android.app.Activity
+import android.content.res.Configuration
+import android.content.res.Resources
+import com.ismailamassi.presentation.utils.AppLanguage
+import java.util.*
+
 
 class MoreFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -51,6 +57,7 @@ class MoreFragment : PreferenceFragmentCompat(),
         }
     }
 
+
     private fun activateReviewFlow() {
         reviewManger = ReviewManagerFactory.create(requireContext())
         val reviewInfoTask = reviewManger.requestReviewFlow()
@@ -68,13 +75,15 @@ class MoreFragment : PreferenceFragmentCompat(),
         when (key) {
             "key_app_theme" -> {
                 val themeValue = sharedPreferences?.getString(key, "") ?: ""
-                Timber.tag(TAG).d("onSharedPreferenceChanged : themeValue $themeValue")
                 val theme = AppTheme.getThemeByLabel(themeValue)
-                (requireActivity() as MainActivity).changeAppTheme(theme,true)
+                (requireActivity() as MainActivity).changeAppTheme(theme, true)
 
             }
-            "key_font_size" ->{
-
+            "key_app_language" -> {
+                val languageValue = sharedPreferences?.getString(key, "ar") ?: "ar"
+                val language = AppLanguage.getLanguageById(languageValue)
+                Timber.tag(TAG).d("onSharedPreferenceChanged key_app_language $language")
+                (requireActivity() as MainActivity).changeAppLanguage(language)
             }
         }
     }
